@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./app/_shared/assets/variable.scss";
+
+body {
+    margin: 0%;
+    padding: 0%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;    
+    background-color: $bcg-body-color;
+    width: 100%;
+    height: auto;
+}

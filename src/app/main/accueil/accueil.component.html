@@ -1,1 +1,25 @@
-<p>accueil works!</p>
+<div class="centerDivAcceuil">
+    <div class="divAccueil">
+        <div class="infoAcc">
+            <p>Bienvenue sur "notre site".</p>
+        </div>
+        <div class="infoAcc">
+            <p>Nous vous proposons un service de recherche d'informations sur la qualité de l'air de votre région ainsi que ces informations météorologiques.</p>
+        </div>
+        <div class="infoAcc">
+            <p>En tant que visiteur vous avez la possibilité de notre forum de discussion.</p>
+        </div>
+        <button class="button" [routerLink]="['/home/forum']">
+            <p>Forum</p>
+        </button>
+        <div class="infoAcc">
+            <p>Si vous souhaitez avoir des informations comme la qualité de l'air ou la météo de votre commune.</p>
+        </div>
+        <button class="button" [routerLink]="['/signup']">
+            <p>Créer un compte</p>
+        </button>
+        <button class="button" [routerLink]="['/login']">
+            <p>Se connecter</p>
+        </button>
+    </div>
+</div>
