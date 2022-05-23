@@ -1,0 +1,139 @@
+<div class="forum" >
+    <div class="forumHeader">
+        <h2 class="forumHeaderText">Rubrique</h2>
+        <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
+    </div>
+    <div class="forumFilAriane">
+        <p class="forumFilArianeText">Accueil > Forum > rubrique 1</p>
+    </div>
+    <div class="forumBody" >
+        <div class="forumBodyItem">
+            <div class="forumItemText">
+                <h3>topic 1</h3>
+                <p>Started by: User Name</p>
+            </div>
+            <div>
+                <span>Replies : 10</span>
+            </div>
+            <div class="forumItemInfoText">
+                <div>
+                    <p>Last Replay by : user name</p>
+                    <p>Last Reply : date of replay</p>
+                </div>
+                <div class="forumItemIcon">
+                    <i class="fa-solid fa-ellipsis-vertical ellipse"></i>
+                </div>
+            </div>
+            
+        </div>
+        <div id="nav">
+            <nav class="nav-rubrique d-none">
+                <ul>
+                    <li><a href="">Modifier Topic</a></li>
+                    <li><a href="">Supprimer Topic</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+
+
+        <div  class="forumBodyItem">
+            <div class="forumItemText">
+                <h3>topic 2</h3>
+                <p>Started by: User Name</p>
+            </div>
+            <div>
+                <span>Replies : 10</span>
+            </div>
+            <div class="forumItemInfoText">
+                <div>
+                    <p>Last Replay by : user name</p>
+                <p>Last Reply : date of replay</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-ellipsis-vertical ellipse"></i>
+                </div>
+            </div>
+            
+        </div>
+        <div id="nav">
+            <nav class="nav-rubrique d-none">
+                <ul>
+                    <li><a href="">Deplacer Topic</a></li>
+                    <li><a href="">Suppremer Topic</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div  class="forumBodyItem">
+            <div class="forumItemText">
+                <h3>topic 3</h3>
+                <p>Started by: User Name</p>
+            </div>
+            <div>
+                <span>Replies : 10</span>
+            </div>
+            <div class="forumItemInfoText">
+                <div>
+                    <p>Last Replay by : user name</p>
+                <p>Last Reply : date of replay</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-ellipsis-vertical ellipse"></i>
+                </div>
+            </div>
+            
+        </div>
+        <div id="nav">
+            <nav class="nav-rubrique d-none">
+                <ul>
+                    <li><a href="">Deplacer Topic</a></li>
+                    <li><a href="">Suppremer Topic</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div  class="forumBodyItem">
+            <div class="forumItemText">
+                <h3>topic 4</h3>
+                <p>Started by: User Name</p>
+            </div>
+            <div>
+                <span>Replies : 10</span>
+            </div>
+            <div class="forumItemInfoText">
+                <div>
+                    <p>Last Replay by : user name</p>
+                <p>Last Reply : date of replay</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-ellipsis-vertical ellipse"></i>
+                </div>
+            </div>
+            
+        </div>
+        <div id="nav">
+            <nav class="nav-rubrique d-none">
+                <ul>
+                    <li><a href="">Deplacer Topic</a></li>
+                    <li><a href="">Suppremer Topic</a></li>
+                </ul>
+            </nav>
+        </div>
+
+
+        
+    </div>
+</div>
+<div class="modal-overlay" [ngClass]="{'open-modal' : addclass == true }" >
+    <div class="modal-container">
+        <div>
+            <div>
+                <h2>Ajouter Topic</h2>
+            </div>
+            <div>
+                <input type="text" formControlName="name">
+                <button class="valider-btn" type="submit">valider</button>
+                <button class="annuler-btn">annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
