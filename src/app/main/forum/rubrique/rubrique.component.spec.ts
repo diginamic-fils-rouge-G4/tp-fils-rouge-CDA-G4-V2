@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostIndexComponent } from './post-index.component';
+import { RubriqueComponent } from './rubrique.component';
 
-describe('PostIndexComponent', () => {
-  let component: PostIndexComponent;
-  let fixture: ComponentFixture<PostIndexComponent>;
+describe('RubriqueIndexComponent', () => {
+  let component: RubriqueComponent;
+  let fixture: ComponentFixture<RubriqueComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostIndexComponent ]
+      declarations: [ RubriqueComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostIndexComponent);
+    fixture = TestBed.createComponent(RubriqueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

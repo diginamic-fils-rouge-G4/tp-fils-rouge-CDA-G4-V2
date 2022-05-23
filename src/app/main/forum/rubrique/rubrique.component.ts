@@ -1,15 +1,15 @@
 import { Component, OnInit ,ElementRef ,AfterViewInit} from '@angular/core';
 
 @Component({
-  selector: 'app-rubrique-index',
-  templateUrl: './rubrique-index.component.html',
-  styleUrls: ['./rubrique-index.component.scss']
+  selector: 'app-rubrique',
+  templateUrl: './rubrique.component.html',
+  styleUrls: ['./rubrique.component.scss']
 })
-export class RubriqueIndexComponent implements OnInit {
+export class RubriqueComponent implements OnInit {
 
   addclass: boolean = false
 
-  constructor(private elementRef:Element) { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     const icon: any = document.querySelector('.ellipse')

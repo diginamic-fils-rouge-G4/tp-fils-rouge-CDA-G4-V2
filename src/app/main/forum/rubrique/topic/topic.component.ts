@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-topic-index',
-  templateUrl: './topic-index.component.html',
-  styleUrls: ['./topic-index.component.scss']
+  selector: 'app-topic',
+  templateUrl: './topic.component.html',
+  styleUrls: ['./topic.component.scss']
 })
-export class TopicIndexComponent implements OnInit {
+export class TopicComponent implements OnInit {
 
   addclass: boolean = false
 
