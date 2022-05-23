@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TopicRoutingModule } from './topic-routing.module';
-import { TopicIndexComponent } from './topic-index/topic-index.component';
+import { TopicComponent } from './topic.component';
 
 
 @NgModule({
   declarations: [
-    TopicIndexComponent
+    TopicComponent
   ],
   imports: [
     CommonModule,

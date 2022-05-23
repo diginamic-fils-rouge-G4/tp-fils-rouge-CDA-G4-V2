@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TopicComponent } from './topic.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '', component: TopicComponent
+  },
+  {
+    path: ':idpost', loadChildren: () => import('./post/post.module')
+      .then(m => m.PostModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RubriqueRoutingModule } from './rubrique-routing.module';
-import { RubriqueIndexComponent } from './rubrique-index/rubrique-index.component';
+import { RubriqueComponent } from './rubrique.component';
 
 
 @NgModule({
   declarations: [
-    RubriqueIndexComponent
+    RubriqueComponent
   ],
   imports: [
     CommonModule,
