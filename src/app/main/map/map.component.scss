@@ -1,0 +1,31 @@
+@import '../../../_shared/assets/variable.scss';
+
+.map-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.map-frame {
+    border: 2px solid black;
+    width: 80%;
+}
+
+.favoris-frame {
+    border: 2px solid black;
+    width: 20%;
+}
+
+#map {
+    height: 500px;
+}
+
+#favoris {
+    width: 40%;
+    height: 500px;
+}
+
+.err {
+    color: $red-color;
+}
