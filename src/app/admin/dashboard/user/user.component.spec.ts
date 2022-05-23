@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserIndexComponent } from './user-index.component';
+import { UserIndexComponent } from './user.component';
 
 describe('UserIndexComponent', () => {
   let component: UserIndexComponent;

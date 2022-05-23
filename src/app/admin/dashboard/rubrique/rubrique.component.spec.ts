@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RubriqueIndexComponent } from './rubrique-index.component';
+import { RubriqueIndexComponent } from './rubrique.component';
 
 describe('RubriqueIndexComponent', () => {
   let component: RubriqueIndexComponent;
