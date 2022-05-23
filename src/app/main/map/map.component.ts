@@ -4,6 +4,9 @@ import * as L from 'leaflet';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+const iconUrl = './leaflet/marker-icon.png';
+const shadowUrl = './leaflet/marker-shadow.png';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -12,6 +15,16 @@ import { Observable } from 'rxjs';
 export class MapComponent implements AfterViewInit {
 
   private map: any;
+
+  icon = {
+    icon: L.icon({
+      iconSize: [ 25, 41 ],
+      iconAnchor: [ 13, 0 ],
+      // specify the path here
+      iconUrl,
+      shadowUrl
+    })
+};
 
   stations: any[] = []
 
@@ -123,7 +136,7 @@ export class MapComponent implements AfterViewInit {
         // console.log(arrayStations)
         for (let i = 0; i < arrayStations.length; i++) {
           // place le marker dans un layer
-          this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon])
+          this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon], this.icon)
           // place tout les layers dans un groupe de layer
           this.allMarkerMap.addLayer(this.markerMap)
         }
