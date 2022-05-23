@@ -108,14 +108,14 @@ export class MapComponent implements AfterViewInit {
           const printData: any = document.querySelector('.printData')
           printData.innerHTML =
             `
-          <li>${city}</li>
-          <li>Moyenne indice qualité de l'air: ${data.data.aqi} AQI</li>
-          <li>Température: ${data.data.iaqi.t.v}°C</li>
-          <li>PM 2.5: ${data.data.iaqi.pm25.v} AQI</li>
-          <li>PM 10: ${data.data.iaqi.pm10.v} AQI</li>
-          <li>Humidité: ${data.data.iaqi.h.v}</li>
-          <li>Pression: ${data.data.iaqi.p.v}</li>
-          <li>Vent: ${data.data.iaqi.w.v}</li>
+          <p>Ville : ${city}</p>
+          <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
+          <li>Température : ${data.data.iaqi.t?.v}°C</li>
+          <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
+          <li>PM 10 : ${data.data.iaqi.pm10?.v} AQI</li>
+          <li>Humidité : ${data.data.iaqi.h?.v}</li>
+          <li>Pression : ${data.data.iaqi.p?.v}</li>
+          <li>Vent : ${data.data.iaqi.w?.v}</li>
           `
         }
       })
@@ -136,7 +136,7 @@ export class MapComponent implements AfterViewInit {
         // console.log(arrayStations)
         for (let i = 0; i < arrayStations.length; i++) {
           // place le marker dans un layer
-          this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon], this.icon)
+          this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon], this.icon).on('click', (event) => this.markerClick(event))
           // place tout les layers dans un groupe de layer
           this.allMarkerMap.addLayer(this.markerMap)
         }
@@ -156,6 +156,31 @@ export class MapComponent implements AfterViewInit {
     let mapBounds = this.map.getBounds()
     // console.log(mapBounds)
     this.showAllStations(mapBounds._northEast.lat, mapBounds._northEast.lng, mapBounds._southWest.lat, mapBounds._southWest.lng)
+  }
+
+  markerClick(marker: any) {
+    // console.log("click ! =>", marker.latlng.lat)
+    return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
+      .subscribe((data: any) => {
+        // console.log(data)
+
+          const errMsg: any = document.querySelector('.err')
+          errMsg.innerHTML = ``
+          this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
+          const printData: any = document.querySelector('.printData')
+
+          printData.innerHTML =
+            `
+          <p>Info : ${data.data.city.name}</p>
+          <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
+          <li>Température : ${data.data.iaqi.t?.v}°C</li>
+          <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
+          <li>PM 10 : ${data.data.iaqi.pm10?.v} AQI</li>
+          <li>Humidité : ${data.data.iaqi.h?.v}</li>
+          <li>Pression : ${data.data.iaqi.p?.v}</li>
+          <li>Vent : ${data.data.iaqi.w?.v}</li>
+          `
+      })
   }
 
 }
