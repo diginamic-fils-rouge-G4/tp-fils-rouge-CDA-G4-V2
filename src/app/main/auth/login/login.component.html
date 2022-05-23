@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="container">
+    <div class="wrapper">
+        <form 
+            name="form"
+            #f="ngForm" 
+            (ngSubmit)="f.form.valid && onSubmit()"
+        >
+        <div>
+            <label>Adresse mail :</label>
+            <input 
+                type="mail" 
+                [(ngModel)]="form.mail" 
+                #mail="ngModel" 
+                name="mail" 
+                required
+            >
+            <div *ngIf="mail.errors && f.submitted">
+                <div *ngIf="mail.errors?.['required']" class="err">
+                    L'adresse mail est requise
+                </div>   
+            </div>
+        </div>
+        <div>
+            <label>Mot de passe :</label>
+            <input 
+                type="password" 
+                name="pwd" 
+                [(ngModel)]="form.password" 
+                #password="ngModel" 
+                required
+                minlength="5"
+            >
+            <div *ngIf="password.errors && f.submitted">
+                <div *ngIf="password.errors['required']" class="err">
+                    Le mot de passe est requis
+                </div>
+                <div *ngIf="password.errors['minlength']" class="err">
+                    Le mot de passe doit faire au minimum 5 caractères
+                </div>
+            </div>
+        <div>
+            <a href="">Vous avez oublié votre mot de passe ?</a>
+        </div>
+        </div>
+            <input type="submit" value="Se connecter">
+        </form>
+        <p>Vous n'avez pas de compte ?<br> Créer en un <a [routerLink]="['/signup']">ici</a></p>
+    </div>
+</div>

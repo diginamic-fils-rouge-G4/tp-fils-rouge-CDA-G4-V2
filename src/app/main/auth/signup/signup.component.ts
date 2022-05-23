@@ -9,7 +9,21 @@ export class SignupComponent implements OnInit {
 
   constructor() { }
 
+  form = {
+    mail: '',
+    password: '',
+    adresse: '',
+    cp: '',
+    ville: '',
+    name: '',
+    firstname: ''
+  }
+
   ngOnInit(): void {
+  }
+
+  onSubmit(): void {
+
   }
 
 }
