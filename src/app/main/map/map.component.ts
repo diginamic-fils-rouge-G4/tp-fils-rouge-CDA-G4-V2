@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,6 +14,7 @@ const shadowUrl = './leaflet/marker-shadow.png';
 })
 export class MapComponent implements AfterViewInit {
 
+  formSubmitted: boolean = false
   private map: any;
 
   icon = {
@@ -32,7 +33,12 @@ export class MapComponent implements AfterViewInit {
   allMarkerMap = L.layerGroup([]);
 
   formMapSearch = new FormGroup({
-    name: new FormControl('')
+    name: new FormControl('',
+      [
+        Validators.required, 
+        Validators.minLength(2)
+      ]
+    )
   });
 
   token_api: string = "dbbd6bd16593d05023748919d281d871c3f79a33"
@@ -71,9 +77,10 @@ export class MapComponent implements AfterViewInit {
   }
 
   onSubmit() {
-
-    this.initApi(this.formMapSearch.value.name)
-
+    this.formSubmitted = true
+    if(this.formMapSearch.valid) {
+      this.initApi(this.formMapSearch.value.name)
+    }
   }
 
   /*
