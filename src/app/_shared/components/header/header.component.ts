@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  formlogin = {
+    mail: '',
+    password: ''
+  }
+
+  formsignup = {
+    mail: '',
+    password: '',
+    adresse: '',
+    cp: '',
+    ville: '',
+    name: '',
+    firstname: ''
+  }
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(): void {
+
   }
 
 }
