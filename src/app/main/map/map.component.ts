@@ -15,6 +15,7 @@ const shadowUrl = './leaflet/marker-shadow.png';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+  showFavoris:boolean = true
   /**
    * constructor
    * @param http 
@@ -100,11 +101,16 @@ export class MapComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    if(this.formMapSearch.value.name == ""){
+    console.log(this.formMapSearch.value.name);
+    
+    if(this.formMapSearch.value.name.length == 0){
       this.afficheFavoris()
+      this.showFavoris = true
     }
-    else
-    this.initApi(this.formMapSearch.value.name)
+    else{
+      this.showFavoris = false
+      this.initApi(this.formMapSearch.value.name)
+    }
 
   }
 
@@ -137,10 +143,10 @@ export class MapComponent implements AfterViewInit {
           const errMsg: any = document.querySelector('.err')
           errMsg.innerHTML = ``
           this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.favoris-frame')
+          const printData: any = document.querySelector('.printData')
           printData.innerHTML =
             `
-          <p>Ville : ${city}</p>
+          <p>Ville : ${data.data.city.name}</p>
           <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
           <li>Température : ${data.data.iaqi.t?.v}°C</li>
           <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
@@ -220,33 +226,35 @@ export class MapComponent implements AfterViewInit {
    * affiche les differents favoris 
    */
      afficheFavoris= ():void=>{
-      const printData: any = this.el.nativeElement.querySelector('.favoris-frame')
-      printData.innerHTML = ""
-      let block:HTMLElement = document.createElement('div')
-      block.classList.add('favorisBlock')
+      // const printData: any = this.el.nativeElement.querySelector('.favoris-frame')
+      // printData.innerHTML = ""
+      // let block:HTMLElement = document.createElement('div')
+      // block.classList.add('favorisBlock')
 
-      this.favoritData.forEach((favoris:{nom:string})=>{
+      // this.favoritData.forEach((favoris:{nom:string})=>{
 
-        let div:HTMLElement = document.createElement('div')
-        let link:HTMLElement = document.createElement('button')
+      //   let div:HTMLElement = document.createElement('div')
+      //   let link:HTMLElement = document.createElement('button')
 
-        div.style.background = "#C4C4C4"
-        div.style.padding = "5%"
-        div.style.margin = "0 0 20px 0"
+      //   div.style.background = "#C4C4C4"
+      //   div.style.padding = "5%"
+      //   div.style.margin = "0 0 20px 0"
 
-        link.style.background="none"
-        link.style.border="none"
-        link.style.margin = "0"
+      //   link.style.background="none"
+      //   link.style.border="none"
+      //   link.style.margin = "0"
         
-        // link.setAttribute('(click)',"test($event)")
+      //   // link.setAttribute('(click)',"test($event)")
+        
 
-        link.innerText = favoris.nom
-        div.appendChild(link)
-        block.appendChild(div)
-      })
-      printData.appendChild(block)
+      //   link.innerText = favoris.nom
+      //   div.appendChild(link)
+      //   block.appendChild(div)
+      // })
+      // printData.appendChild(block)
     }
-    test(){
-
+    test(nom:string){
+      console.log(nom);
+      
     }
 }

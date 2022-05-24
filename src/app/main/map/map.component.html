@@ -13,8 +13,13 @@
         <div id="map"></div>
     </section>
     <section class="favoris-frame">
-        <div class="favorisBlock">
-            <div class="" *ngIf=""></div>
+        <div class="favorisBlock" *ngIf="showFavoris">
+            <ul *ngFor="let favoris of favoritData" >
+                <li><button (click)="test(favoris.nom)">{{favoris.nom}}</button></li>
+            </ul>
+        </div>
+        <div class="printData" *ngIf="!showFavoris">
+            
         </div>
     </section>
 </div>  
