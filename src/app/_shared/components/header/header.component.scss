@@ -132,7 +132,7 @@ button:hover {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 999999; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -165,7 +165,7 @@ a {
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 100%;
     .wrapper {
@@ -196,7 +196,7 @@ a {
         }
 
         
-        .form_label{
+        label{
             text-align: left;
         }
 
