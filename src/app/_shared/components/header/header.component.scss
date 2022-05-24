@@ -11,6 +11,7 @@ header {
         color: $bcg-txt-color;
         text-decoration: none;
     }
+    
 }
 
 // .headerBar {
@@ -92,6 +93,17 @@ header {
     }
 }
 
+.navlist{
+    // flex: 1;
+    // box-sizing: border-box;
+    padding: 0;
+    list-style: none;
+}
+
+.navLink{
+    display: inline-block;
+    padding: 0 5px;
+}
 
 
 
@@ -100,15 +112,7 @@ header {
 //  modal onclick
 
 
-/* Full-width input fields */
-input[type=text], input[type=password] ,input[type=number] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
+
 
 
 
@@ -145,18 +149,7 @@ button:hover {
   
 }
 
-/* The Close Button (x) */
-.close {
-  color:  $bcg-txt-color;
-  font-size: 35px;
-  font-weight: bold;
-}
 
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
 
 //  modal login
 a {
@@ -174,11 +167,42 @@ a {
         padding: 15px;
         border-radius: 10px;
         border: white;
-        box-shadow:0px 0px 10px 10px white;
+        box-shadow:0px 0px 5px 5px rgba(255, 255, 255, 0.277);
+        
+        .divVide{
+            width: 5%;
+        }
 
-        .close-button{
+        .modalHeader{
             display: flex;
-            justify-content: flex-end
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+            
+
+        }
+
+        .modalHeader div h2{
+            margin: 0;
+        }
+
+        /* The Close Button (x) */
+        .close-button{
+            display: inline;
+            
+        }
+
+        .close {
+            color:  $bcg-txt-color;
+            font-size: 35px;
+            font-weight: bold;
+            width: 5%;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
         }
 
         .formcouple {
@@ -187,14 +211,12 @@ a {
             align-items: left;
         }
 
-
         .forminput{
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            align-items: baseline;
+            padding: 10px;
+            align-items: flex-start;
         }
-
         
         label{
             text-align: left;
@@ -204,10 +226,25 @@ a {
             border: 1px solid rgb(133, 133, 133);
             border-radius: 5px;
             height: 30px;
-            width: 200px;
         }
+
+        /* Full-width input fields */
+        input[type=text], input[type=password] ,input[type=number] ,input[type=mail]{
+            width: 100%;
+            padding: 12px 10px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .formSubmit{
+            display: flex;
+            justify-content: center;
+        }
+
         input[type="submit"] {
-            width: 205px;
+            width: 50%;
             background-color: $green-color;
             border: none;
             border-radius: 5px;
@@ -215,10 +252,10 @@ a {
             cursor: pointer;
             color: white;
             transition: .5s;
+            margin: 10px 10px;
         }
         input[type="submit"]:hover {
             background-color: rgb(31, 199, 25);
-            transform: translateY(-2px);
             transition: .5s;
             box-shadow: 0px 5px 5px 0px rgba(58, 58, 58, 0.75);
         }
@@ -226,11 +263,15 @@ a {
             text-align: center;
             font-size: 10px;
         }
+
+        a:hover{
+            text-decoration: underline;
+        }
     }
 
 }
 
 .err {
     font-size: 12px;
-    color: $red-color;
+    color: lightcoral;
 }
