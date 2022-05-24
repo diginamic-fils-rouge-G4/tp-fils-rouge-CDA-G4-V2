@@ -1,1 +1,25 @@
-<p>user-index works!</p>
+<div class="wrap">
+  <table id="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Rôle</th>
+        <th>Edition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of dummy.users">
+        <td>{{ user.nom }}</td> -->
+        <td>
+          <select name="role">
+              <option>utilisateur</option>
+              <option>moderateur</option>
+              <option>administrateur</option>
+          </select>
+        </td>
+        <td><button class="suppr">X</button></td>
+      </tr>
+  </tbody>
+  </table> 
+</div>
+

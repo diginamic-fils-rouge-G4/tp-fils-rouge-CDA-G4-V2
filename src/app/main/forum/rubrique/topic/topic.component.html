@@ -129,7 +129,7 @@
             <div>
                 <h2>Ajouter Topic</h2>
             </div>
-            <div>
+            <div [formGroup]="form">
                 <input type="text" formControlName="name">
                 <button class="valider-btn" type="submit">valider</button>
                 <button class="annuler-btn">annuler</button>

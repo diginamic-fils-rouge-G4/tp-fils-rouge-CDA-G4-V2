@@ -1,4 +1,5 @@
 import { Component, OnInit ,ElementRef ,AfterViewInit} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rubrique',
@@ -8,6 +9,10 @@ import { Component, OnInit ,ElementRef ,AfterViewInit} from '@angular/core';
 export class RubriqueComponent implements OnInit {
 
   addclass: boolean = false
+
+  form = new FormGroup({
+    name: new FormControl(Validators.minLength(2))
+  });
 
   constructor(private elementRef: ElementRef) { }
 

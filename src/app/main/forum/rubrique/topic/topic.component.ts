@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-topic',
@@ -6,8 +7,11 @@ import { Component, ElementRef, OnInit } from '@angular/core';
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements OnInit {
-
   addclass: boolean = false
+
+  form = new FormGroup({
+    name: new FormControl(Validators.minLength(2))
+  });
 
   constructor(private elementRef:ElementRef) { }
 

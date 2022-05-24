@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RubriqueComponent } from 'src/app/admin/dashboard/rubrique/rubrique.component';
+import { RubriqueComponent } from './rubrique.component';
 
 const routes: Routes = [
   {
