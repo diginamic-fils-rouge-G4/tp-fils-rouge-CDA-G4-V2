@@ -1,7 +1,7 @@
 <div>
-    <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()">
-        <input type="text" formControlName="name">
-        <button type="submit">Search</button>
+    <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()" name="ville">
+        <input type="text" formControlName="name" placeholder="ville, departement, region" required>
+        <button type="submit">recherhe</button>
         <div class="err">
 
         </div>
@@ -9,14 +9,12 @@
 </div>
 
 <div class="map-container">
-    <div class="map-frame">
+    <section class="map-frame">
         <div id="map"></div>
-    </div>
-    <div class="favoris-frame">
+    </section>
+    <section class="favoris-frame">
         <div class="favorisBlock">
-            <div class="favoris">
-                <p>nantes</p>
-            </div>
+            <div class="" *ngIf=""></div>
         </div>
-    </div>
+    </section>
 </div>  

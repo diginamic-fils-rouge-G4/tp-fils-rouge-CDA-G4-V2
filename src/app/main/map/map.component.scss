@@ -7,6 +7,8 @@
     .favoris-frame {
         border: 1px solid black;
         width: 25%;
+        overflow: overlay;
+        height: 70vh;
         .favoris {
             color: purple;
             background: #000;

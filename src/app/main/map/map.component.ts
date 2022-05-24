@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as L from 'leaflet';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+
 
 
 
@@ -16,16 +15,29 @@ const shadowUrl = './leaflet/marker-shadow.png';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+  /**
+   * constructor
+   * @param http 
+   * @param el 
+   */
+  constructor(
+    private http: HttpClient,
+    private el: ElementRef,
+    ) {
+     }
+
   favoritData=[
     {nom:"Nantes"},
     {nom:"vanne"},
     {nom:"paris"},
-    {nom:"bain-sur-mer"},
+    {nom:"brem-sur-mer"},
     {nom:"top-secret"},
     {nom:"Dax"},
     {nom:"Nantes"},
+    {nom:"Nantes"},{nom:"Nantes"},
+    {nom:"Nantes"},{nom:"Nantes"},
     {nom:"Nantes"},
-    {nom:"Nantes"},
+
   ]
   private map: any;
   ngOnInit():void{
@@ -74,16 +86,7 @@ export class MapComponent implements AfterViewInit {
     });
     tiles.addTo(this.map);
   }
-/**
- * 
- * @param http 
- * @param el 
- */
-  constructor(
-    private http: HttpClient,
-    private el: ElementRef,
-    @Inject(DOCUMENT) private document: Document
-    ) { }
+
   ngAfterViewInit(): void {
     
     this.initMap();
@@ -97,7 +100,10 @@ export class MapComponent implements AfterViewInit {
   }
 
   onSubmit() {
-
+    if(this.formMapSearch.value.name == ""){
+      this.afficheFavoris()
+    }
+    else
     this.initApi(this.formMapSearch.value.name)
 
   }
@@ -215,21 +221,32 @@ export class MapComponent implements AfterViewInit {
    */
      afficheFavoris= ():void=>{
       const printData: any = this.el.nativeElement.querySelector('.favoris-frame')
-
-      let block:HTMLElement = this.document.createElement('div')
+      printData.innerHTML = ""
+      let block:HTMLElement = document.createElement('div')
       block.classList.add('favorisBlock')
 
       this.favoritData.forEach((favoris:{nom:string})=>{
 
-        let div:HTMLElement = this.document.createElement('div')
-        let p:HTMLElement = this.document.createElement('p')
+        let div:HTMLElement = document.createElement('div')
+        let link:HTMLElement = document.createElement('button')
 
-        div.classList.add('favoris')
+        div.style.background = "#C4C4C4"
+        div.style.padding = "5%"
+        div.style.margin = "0 0 20px 0"
 
-        p.innerText = favoris.nom
-        div.appendChild(p)
+        link.style.background="none"
+        link.style.border="none"
+        link.style.margin = "0"
+        
+        // link.setAttribute('(click)',"test($event)")
+
+        link.innerText = favoris.nom
+        div.appendChild(link)
         block.appendChild(div)
       })
       printData.appendChild(block)
+    }
+    test(){
+
     }
 }
