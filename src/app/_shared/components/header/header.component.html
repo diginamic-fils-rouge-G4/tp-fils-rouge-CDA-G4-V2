@@ -1,37 +1,6 @@
-<!-- <header>
-    <div class="headerBar">
-        <div class="navLogo">
-            <a routerLink="#"><img class="logo" src="" alt=""></a>
-        </div>
-        <nav class="navbare">
-            <div class="navTab">
-<a routerLink="">Accueil</a>
-            </div>
-            <div class="navTab">
-                <a routerLink="home">Map</a>
-            </div>
-            <div class="navTab">
-                <a routerLink="home/forum">Forum</a>
-            </div>
-            <div class="navTab">
-                <a routerLink="admin">Dashboard</a>
-            </div>
-        </nav>
-        <div class="navConnect">
-            <a routerLink="login">Connexion</a>
-            <img class="class imgUser " alt="">
-        </div>
-    </div>
-
-</header> -->
-<!-- ********************************************************************************************************************************************** -->
 <header>
   <div class="logoBlock">
-    <img
-      class="img logo"
-      src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png"
-      alt="logo"
-    />
+    <img class="img logo" src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="logo" />
   </div>
   <div class="util">
     <nav class="navbar">
@@ -46,21 +15,18 @@
           <a routerLink="/home/forum">Forum</a>
         </li>
         <li class="navLink">
-          <a routerLink="/admin/users">Dashboard</a>
+          <a routerLink="/admin/dashboard">Dashboard</a>
         </li>
       </ul>
     </nav>
   </div>
-  <div>
+  <div class="connexionInscription">
     <ul class="navlist">
       <li class="navLink">
-        <a
-          onclick="document.getElementById('id01').style.display='block'"
-          style="width: auto"
-        >
+        <a onclick="document.getElementById('id01').style.display='block'" style="width: auto">
           Connexion
         </a>
-
+        <!-- PARTIE CONNEXION -->
         <div id="id01" class="modal">
           <div class="container">
             <div class="wrapper">
@@ -70,28 +36,14 @@
                   <h2>Connexion</h2>
                 </div>
                 <div class="close-button">
-                  <span
-                    onclick="document.getElementById('id01').style.display='none'"
-                    class="close"
-                    title="Close Modal"
-                    >&times;</span
-                  >
+                  <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
                 </div>
               </div>
-              <form
-                name="form"
-                #f="ngForm"
-                (ngSubmit)="f.form.valid && onSubmit()"
-              >
+              <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
                 <div>
-                  <input
-                    type="mail"
-                    [(ngModel)]="formlogin.mail"
-                    #mail="ngModel"
-                    name="mail"
-                    required
-                    placeholder="Adresse mail"
-                  />
+                  <input type="mail" [(ngModel)]="formlogin.mail" #mail="ngModel" name="mail" required
+                    placeholder="Adresse mail" />
                   <div *ngIf="mail.errors && f.submitted">
                     <div *ngIf="mail.errors?.['required']" class="err">
                       L'adresse mail est requise
@@ -99,15 +51,8 @@
                   </div>
                 </div>
                 <div>
-                  <input
-                    type="password"
-                    name="pwd"
-                    [(ngModel)]="formlogin.password"
-                    #password="ngModel"
-                    required
-                    minlength="5"
-                    placeholder="Mot de passe"
-                  />
+                  <input type="password" name="pwd" [(ngModel)]="formlogin.password" #password="ngModel" required
+                    minlength="5" placeholder="Mot de passe" />
                   <div *ngIf="password.errors && f.submitted">
                     <div *ngIf="password.errors['required']" class="err">
                       Le mot de passe est requis
@@ -123,10 +68,8 @@
               </form>
               <div>
                 <p>
-                  <a [routerLink]="['/signup']"
-                    >Vous n'avez pas de compte ?<br />
-                    Créer en un ici</a
-                  >
+                  <a [routerLink]="['/signup']">Vous n'avez pas de compte ?<br />
+                    Créer en un ici</a>
                 </p>
               </div>
             </div>
@@ -134,18 +77,16 @@
         </div>
       </li>
 
-      <!-- <a routerLink="auth/login">Connexion</a> -->
+      <div class="barreNav"></div>
 
+      <!-- <a routerLink="auth/login">Connexion</a> -->
       <!-- <a routerLink="auth/signup">Inscription</a> -->
 
       <li class="navLink">
-        <a
-          onclick="document.getElementById('id02').style.display='block'"
-          style="width: auto"
-        >
+        <a onclick="document.getElementById('id02').style.display='block'" style="width: auto">
           Inscription
         </a>
-
+        <!-- PARTIE Inscription -->
         <div id="id02" class="modal">
           <div class="container">
             <div class="wrapper">
@@ -155,31 +96,16 @@
                   <h2>Inscription</h2>
                 </div>
                 <div class="close-button">
-                  <span
-                    onclick="document.getElementById('id02').style.display='none'"
-                    class="close"
-                    title="Close Modal"
-                    >&times;</span
-                  >
+                  <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
                 </div>
               </div>
 
-              <form
-                name="form"
-                #f="ngForm"
-                (ngSubmit)="f.form.valid && onSubmit()"
-              >
+              <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
                 <div class="formcouple">
                   <div class="forminput">
-                    <input
-                      type="text"
-                      [(ngModel)]="formsignup.name"
-                      #name="ngModel"
-                      name="name"
-                      minlength="2"
-                      required
-                      placeholder="Votre Nom"
-                    />
+                    <input type="text" [(ngModel)]="formsignup.name" #name="ngModel" name="name" minlength="2" required
+                      placeholder="Votre Nom" />
                     <div *ngIf="name.errors && f.submitted">
                       <div *ngIf="name.errors?.['required']" class="err">
                         Le nom est requis
@@ -190,15 +116,8 @@
                     </div>
                   </div>
                   <div class="forminput">
-                    <input
-                      type="text"
-                      [(ngModel)]="formsignup.firstname"
-                      #firstname="ngModel"
-                      name="firstname"
-                      minlength="3"
-                      required
-                      placeholder="Votre Prénom"
-                    />
+                    <input type="text" [(ngModel)]="formsignup.firstname" #firstname="ngModel" name="firstname"
+                      minlength="3" required placeholder="Votre Prénom" />
                     <div *ngIf="firstname.errors && f.submitted">
                       <div *ngIf="firstname.errors?.['required']" class="err">
                         Le prénom est requis
@@ -211,15 +130,8 @@
                 </div>
                 <div class="formcouple">
                   <div class="forminput">
-                    <input
-                      type="text"
-                      [(ngModel)]="formsignup.ville"
-                      #ville="ngModel"
-                      name="ville"
-                      minlength="3"
-                      required
-                      placeholder="Votre Ville"
-                    />
+                    <input type="text" [(ngModel)]="formsignup.ville" #ville="ngModel" name="ville" minlength="3"
+                      required placeholder="Votre Ville" />
                     <div *ngIf="ville.errors && f.submitted">
                       <div *ngIf="ville.errors?.['required']" class="err">
                         La ville est requise
@@ -230,15 +142,8 @@
                     </div>
                   </div>
                   <div class="forminput">
-                    <input
-                      type="number"
-                      [(ngModel)]="formsignup.cp"
-                      #cp="ngModel"
-                      name="cp"
-                      minlength="5"
-                      required
-                      placeholder="Votre Code postal"
-                    />
+                    <input type="number" [(ngModel)]="formsignup.cp" #cp="ngModel" name="cp" minlength="5" required
+                      placeholder="Votre Code postal" />
                     <div *ngIf="cp.errors && f.submitted">
                       <div *ngIf="cp.errors?.['required']" class="err">
                         Le code postal est requise
@@ -251,14 +156,8 @@
                 </div>
                 <div class="formcouple">
                   <div class="forminput">
-                    <input
-                      type="text"
-                      [(ngModel)]="formsignup.mail"
-                      #mail="ngModel"
-                      name="mail"
-                      required
-                      placeholder="Votre Adresse mail"
-                    />
+                    <input type="text" [(ngModel)]="formsignup.mail" #mail="ngModel" name="mail" required
+                      placeholder="Votre Adresse mail" />
                     <div *ngIf="mail.errors && f.submitted">
                       <div *ngIf="mail.errors?.['required']" class="err">
                         L'adresse mail est requise
@@ -269,15 +168,8 @@
 
                 <div class="formcouple">
                   <div class="forminput">
-                    <input
-                      type="password"
-                      name="pwd"
-                      [(ngModel)]="formsignup.password"
-                      #password="ngModel"
-                      required
-                      minlength="5"
-                      placeholder="Mot de passe"
-                    />
+                    <input type="password" name="pwd" [(ngModel)]="formsignup.password" #password="ngModel" required
+                      minlength="5" placeholder="Mot de passe" />
                     <div *ngIf="password.errors && f.submitted">
                       <div *ngIf="password.errors['required']" class="err">
                         Le mot de passe est requis
@@ -288,15 +180,9 @@
                     </div>
                   </div>
                   <div class="forminput">
-                    <input
-                      type="password"
-                      name="pwd"
-                      [(ngModel)]="formsignup.password"
-                      #password="ngModel"
-                      required
-                      minlength="5"
-                      placeholder="Confirmer mot de passe"
-                    />
+                    <input type="password" name="pwd" [(ngModel)]="formsignup.password" #password="ngModel" required
+                      minlength="5" placeholder="Confirmer mot de passe" />
+                    <!-- NE PAS SUPPRIMER -->
                     <!-- <div *ngIf="password.errors && f.submitted">
                                     <div *ngIf="password.errors['required']" class="err">
                                         Le mot de passe est requis
@@ -312,20 +198,14 @@
                 </div>
               </form>
               <p>
-                <a [routerLink]="['/login']"
-                  >Vous avez déjà un compte ?<br />Se connecter</a
-                >
+                <a [routerLink]="['/login']">Vous avez déjà un compte ?<br />Se connecter</a>
               </p>
             </div>
           </div>
         </div>
       </li>
 
-      <img
-        class="img avatar"
-        src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png"
-        alt=""
-      />
+      <img class="img avatar" src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="" />
     </ul>
   </div>
 </header>
