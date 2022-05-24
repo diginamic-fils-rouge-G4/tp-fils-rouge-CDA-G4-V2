@@ -1,8 +1,11 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as L from 'leaflet';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+
+
 
 const iconUrl = './leaflet/marker-icon.png';
 const shadowUrl = './leaflet/marker-shadow.png';
@@ -13,9 +16,22 @@ const shadowUrl = './leaflet/marker-shadow.png';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
-
+  favoritData=[
+    {nom:"Nantes"},
+    {nom:"vanne"},
+    {nom:"paris"},
+    {nom:"bain-sur-mer"},
+    {nom:"top-secret"},
+    {nom:"Dax"},
+    {nom:"Nantes"},
+    {nom:"Nantes"},
+    {nom:"Nantes"},
+  ]
   private map: any;
+  ngOnInit():void{
+    
 
+  }
   icon = {
     icon: L.icon({
       iconSize: [ 25, 41 ],
@@ -44,7 +60,7 @@ export class MapComponent implements AfterViewInit {
     }),
   };
 
-  /*
+  /**
   Initialisation de la map Leaflet
   */
   private initMap(): void {
@@ -58,9 +74,18 @@ export class MapComponent implements AfterViewInit {
     });
     tiles.addTo(this.map);
   }
-
-  constructor(private http: HttpClient) { }
+/**
+ * 
+ * @param http 
+ * @param el 
+ */
+  constructor(
+    private http: HttpClient,
+    private el: ElementRef,
+    @Inject(DOCUMENT) private document: Document
+    ) { }
   ngAfterViewInit(): void {
+    
     this.initMap();
     this.showStationsVisible()
     this.showStationsByName()
@@ -68,6 +93,7 @@ export class MapComponent implements AfterViewInit {
     this.map.on('moveend', () => {
       this.showStationsVisible()
     })
+    this.afficheFavoris()
   }
 
   onSubmit() {
@@ -76,7 +102,7 @@ export class MapComponent implements AfterViewInit {
 
   }
 
-  /*
+  /**
   Méthode pour effectuer une recherche par ville via Leaflet
   @params : Longitude et latitude
   */
@@ -90,7 +116,7 @@ export class MapComponent implements AfterViewInit {
 
   }
 
-  /*
+  /**
   Méthode pour effectuer une recherche par ville à l'API de qualité de l'air
   @params : nom de la ville
   */
@@ -105,7 +131,7 @@ export class MapComponent implements AfterViewInit {
           const errMsg: any = document.querySelector('.err')
           errMsg.innerHTML = ``
           this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.printData')
+          const printData: any = document.querySelector('.favoris-frame')
           printData.innerHTML =
             `
           <p>Ville : ${city}</p>
@@ -167,10 +193,11 @@ export class MapComponent implements AfterViewInit {
           const errMsg: any = document.querySelector('.err')
           errMsg.innerHTML = ``
           this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.printData')
+          const printData: any = document.querySelector('.favoris-frame')
 
           printData.innerHTML =
             `
+          <ul class="printData">
           <p>Info : ${data.data.city.name}</p>
           <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
           <li>Température : ${data.data.iaqi.t?.v}°C</li>
@@ -179,8 +206,30 @@ export class MapComponent implements AfterViewInit {
           <li>Humidité : ${data.data.iaqi.h?.v}</li>
           <li>Pression : ${data.data.iaqi.p?.v}</li>
           <li>Vent : ${data.data.iaqi.w?.v}</li>
+          </ul>
           `
       })
   }
+  /**
+   * affiche les differents favoris 
+   */
+     afficheFavoris= ():void=>{
+      const printData: any = this.el.nativeElement.querySelector('.favoris-frame')
 
+      let block:HTMLElement = this.document.createElement('div')
+      block.classList.add('favorisBlock')
+
+      this.favoritData.forEach((favoris:{nom:string})=>{
+
+        let div:HTMLElement = this.document.createElement('div')
+        let p:HTMLElement = this.document.createElement('p')
+
+        div.classList.add('favoris')
+
+        p.innerText = favoris.nom
+        div.appendChild(p)
+        block.appendChild(div)
+      })
+      printData.appendChild(block)
+    }
 }
