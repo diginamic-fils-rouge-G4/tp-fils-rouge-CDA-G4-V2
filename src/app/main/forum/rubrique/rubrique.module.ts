@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RubriqueRoutingModule } from './rubrique-routing.module';
 import { RubriqueComponent } from './rubrique.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { RubriqueComponent } from './rubrique.component';
   ],
   imports: [
     CommonModule,
-    RubriqueRoutingModule
+    ReactiveFormsModule,
+    RubriqueRoutingModule,
+    FormsModule
   ]
 })
 export class RubriqueModule { }

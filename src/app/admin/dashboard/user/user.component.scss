@@ -1,0 +1,49 @@
+@import '../../../_shared/assets/variable.scss';
+
+.wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 500px;
+    height: auto;
+
+    .dataTable-wrapper {
+        width: 800px;
+    }
+
+    .dataTable-input {
+        width: 120px;
+        border-radius: 10px;
+        padding: 0 10px;
+        outline: none;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .dataTable-selector {
+        padding: 0 0 0 10px;
+    }
+
+    #table{
+        text-align: center;
+        // border: 1px solid $black-color;
+
+        th{
+            border: 1px solid $black-color;
+            vertical-align: middle;
+            text-align: center;
+            background-color: $black-color;
+            color: $bcg-txt-color;
+        }
+
+        tr:nth-child(even){
+            background-color: white;
+        }
+
+        td{
+            border: 1px solid $black-color;           
+            vertical-align: middle;
+            padding: 15px;
+        }
+    }
+}
