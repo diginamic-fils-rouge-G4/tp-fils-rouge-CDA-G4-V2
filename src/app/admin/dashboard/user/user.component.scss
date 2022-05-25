@@ -10,7 +10,6 @@
     
     #table{
         text-align: center;
-        // border: 1px solid $black-color;
         border-collapse: collapse;
         
         th{
@@ -37,6 +36,18 @@
             // border: 1px solid $black-color;           
             vertical-align: middle;
             padding: 15px 50px;
+
+            .printResp {
+                font-size: 0;
+            }
         }
+    }
+}
+
+@media screen and (max-width: 540px){
+    #table {       
+        td {
+            padding: 15px 20px !important;
+        }    
     }
 }
