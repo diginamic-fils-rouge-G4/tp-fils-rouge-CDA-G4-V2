@@ -43,7 +43,7 @@
               <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
                 <div>
                   <input type="mail" formControlName="mail" placeholder="Adresse mail" />
-                  <div *ngIf="formLogin.status === 'INVALID' && this.formSubmitted === true">
+                  <div *ngIf="formLogin.status === 'INVALID' && this.formSubmittedLogin === true">
                     <div *ngIf="formLogin.controls['mail'].errors?.['required']" class="err">
                       L'adresse mail est requise
                     </div>
@@ -53,12 +53,12 @@
                   </div>
                 </div>
                 <div>
-                  <input type="password" name="pwd" formControlName="password" placeholder="Mot de passe" />
-                  <div *ngIf="formLogin.status === 'INVALID' && this.formSubmitted === true">
+                  <input type="password" name="password" formControlName="password" placeholder="Mot de passe" />
+                  <div *ngIf="formLogin.status === 'INVALID' && this.formSubmittedLogin === true">
                     <div *ngIf="formLogin.controls['password'].errors?.['required']" class="err">
                       Le mot de passe est requis
                     </div>
-                    <div *ngIf="formLogin.controls['password'].errors?.['minlength'].actualLength < 12" class="err">
+                    <div *ngIf="formLogin.controls['password'].errors?.['minlength']" class="err">
                       Le mot de passe doit faire 12 caractères au minimum
                     </div>
                   </div>
@@ -105,28 +105,27 @@
                 </div>
               </div>
 
-              <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmitSignup()">
+              <form name="form" [formGroup]="formsignup" (ngSubmit)="onSubmitSignup()">
                 <div class="formcouple">
                   <div class="forminput">
-                    <input type="text" [(ngModel)]="formsignup.name" #name="ngModel" name="name" minlength="2" required
+                    <input type="text" formControlName="name" name="name"
                       placeholder="Votre Nom" />
-                    <div *ngIf="name.errors && f.submitted">
-                      <div *ngIf="name.errors?.['required']" class="err">
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['name'].errors?.['required']" class="err">
                         Le nom est requis
                       </div>
-                      <div *ngIf="name.errors['minlength']" class="err">
+                      <div *ngIf="formsignup.controls['name'].errors?.['minlength']" class="err">
                         Le nom doit faire au minimum 2 caractères
                       </div>
                     </div>
                   </div>
                   <div class="forminput">
-                    <input type="text" [(ngModel)]="formsignup.firstname" #firstname="ngModel" name="firstname"
-                      minlength="3" required placeholder="Votre Prénom" />
-                    <div *ngIf="firstname.errors && f.submitted">
-                      <div *ngIf="firstname.errors?.['required']" class="err">
+                    <input type="text" formControlName="firstname" name="firstname" placeholder="Votre Prénom" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['firstname'].errors?.['required']" class="err">
                         Le prénom est requis
                       </div>
-                      <div *ngIf="firstname.errors['minlength']" class="err">
+                      <div *ngIf="formsignup.controls['firstname'].errors?.['minlength']" class="err">
                         Le prénom doit faire au minimum 3 caractères
                       </div>
                     </div>
@@ -134,37 +133,41 @@
                 </div>
                 <div class="formcouple">
                   <div class="forminput">
-                    <input type="text" [(ngModel)]="formsignup.ville" #ville="ngModel" name="ville" minlength="3"
-                      required placeholder="Votre Ville" />
-                    <div *ngIf="ville.errors && f.submitted">
-                      <div *ngIf="ville.errors?.['required']" class="err">
+                    <input type="text" formControlName="city" name="ville" placeholder="Votre Ville" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['city'].errors?.['required']" class="err">
                         La ville est requise
                       </div>
-                      <div *ngIf="ville.errors['minlength']" class="err">
+                      <div *ngIf="formsignup.controls['city'].errors?.['minlength']" class="err">
                         La ville doit faire au minimum 3 caractères
                       </div>
                     </div>
                   </div>
                   <div class="forminput">
-                    <input type="number" [(ngModel)]="formsignup.cp" #cp="ngModel" name="cp" minlength="5" required
-                      placeholder="Votre Code postal" />
-                    <div *ngIf="cp.errors && f.submitted">
-                      <div *ngIf="cp.errors?.['required']" class="err">
-                        Le code postal est requise
+                    <input type="number" formControlName="cp" name="cp" placeholder="Votre Code postal" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['cp'].errors?.['required']" class="err">
+                        Le code postal est requis
                       </div>
-                      <div *ngIf="cp.errors['minlength']" class="err">
+                      <div *ngIf="formsignup.controls['cp'].errors?.['minlength']" class="err">
                         Le code postal doit faire au minimum 5 caractères
+                      </div>
+                      <div *ngIf="formsignup.controls['cp'].errors?.['maxlength']" class="err">
+                        Le code postal doit faire au maximum 5 caractères
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="formcouple">
                   <div class="forminput">
-                    <input type="text" [(ngModel)]="formsignup.mail" #mail="ngModel" name="mail" required
+                    <input type="mail" formControlName="mail" name="mail"
                       placeholder="Votre Adresse mail" />
-                    <div *ngIf="mail.errors && f.submitted">
-                      <div *ngIf="mail.errors?.['required']" class="err">
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['mail'].errors?.['required']" class="err">
                         L'adresse mail est requise
+                      </div>
+                      <div *ngIf="formsignup.controls['mail'].invalid" class="err">
+                        L'adresse mail doit être valide
                       </div>
                     </div>
                   </div>
@@ -172,20 +175,29 @@
 
                 <div class="formcouple">
                   <div class="forminput">
-                    <input type="password" name="pwd" [(ngModel)]="formsignup.password" #password="ngModel" required
-                      minlength="5" placeholder="Mot de passe" />
-                    <div *ngIf="password.errors && f.submitted">
-                      <div *ngIf="password.errors['required']" class="err">
+                    <input type="password" name="password" formControlName="password" placeholder="Mot de passe" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['password'].errors?.['required']" class="err">
                         Le mot de passe est requis
                       </div>
-                      <div *ngIf="password.errors['minlength']" class="err">
-                        Le mot de passe doit faire au minimum 5 caractères
+                      <div *ngIf="formsignup.controls['password'].errors?.['minlength']" class="err">
+                        Le mot de passe doit faire au minimum 12 caractères
+                      </div>
+                      <div *ngIf="formsignup.controls['password'].invalid" class="err">
+                        Le mot de passe doit contenir 1 majuscule, 1 minuscule, <br>1 chiffre, 1 caractère spécial et 12 caractères minimum
                       </div>
                     </div>
                   </div>
                   <div class="forminput">
-                    <input type="password" name="pwd" [(ngModel)]="formsignup.password" #password="ngModel" required
-                      minlength="5" placeholder="Confirmer mot de passe" />
+                    <input type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirmer mot de passe" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['confirmPassword'].errors?.['required']" class="err">
+                        La confirmation mot de passe est requise
+                      </div>
+                      <div *ngIf="formsignup.controls['confirmPassword'].invalid" class="err">
+                        Les deux mots de passe ne correspondent pas
+                      </div>
+                    </div>
                     <!-- NE PAS SUPPRIMER -->
                     <!-- <div *ngIf="password.errors && f.submitted">
                                     <div *ngIf="password.errors['required']" class="err">
