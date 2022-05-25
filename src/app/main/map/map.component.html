@@ -1,14 +1,19 @@
-<div>
-  <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()" name="ville">
-    <input
-      type="text"
-      formControlName="name"
-      placeholder="ville, departement, region"
-      required
-    />
-    <button type="submit">recherhe</button>
-    <div class="err"></div>
-  </form>
+<div class="formMap">
+    <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()">
+        <input type="text" formControlName="name" id="name" placeholder="Ville...">
+        <button type="submit">Rechercher</button>
+        <div class="err">
+            
+        </div>
+        <div class="errorForm" *ngIf="formMapSearch.status === 'INVALID' && this.formSubmitted === true">
+            <div *ngIf="formMapSearch.controls['name'].errors?.['required']">
+                <span>Veuillez entrer le nom d'une ville</span>
+            </div>
+            <div *ngIf="formMapSearch.controls['name'].errors?.['minlength'].actualLength < 2">
+                <span>Le nom de la ville doit avoir deux caractères minimum</span>
+            </div>
+        </div>  
+    </form>
 </div>
 
 <div class="map-container">

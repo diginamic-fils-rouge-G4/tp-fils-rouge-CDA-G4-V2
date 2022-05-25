@@ -1,58 +1,239 @@
-<!-- <header>
-    <div class="headerBar">
-        <div class="navLogo">
-            <a routerLink="#"><img class="logo" src="" alt=""></a>
-        </div>
-        <nav class="navbare">
-            <div class="navTab">
-<a routerLink="">Accueil</a>
-            </div>
-            <div class="navTab">
-                <a routerLink="home">Map</a>
-            </div>
-            <div class="navTab">
-                <a routerLink="home/forum">Forum</a>
-            </div>
-            <div class="navTab">
-                <a routerLink="admin">Dashboard</a>
-            </div>
-        </nav>
-        <div class="navConnect">
-            <a routerLink="login">Connexion</a>
-            <img class="class imgUser " alt="">
-        </div>
-    </div>
-
-</header> -->
-<!-- ********************************************************************************************************************************************** -->
 <header>
-    <div class="logoBlock">
-        <img class="img logo"  src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="logo">
-    </div>
-    <div class="util">
-        <nav class="navbar">
-            <ul class="navlist">
-                <li class="navLink">  
-                    <a routerLink="/accueil">Accueil</a>
-                </li>
-                <li class="navLink">
-                    <a routerLink="/home/map">Map</a>
-                </li>
-                <li class="navLink">
-                    <a routerLink="/home/forum">Forum</a>
-                </li>
-                <li class="navLink">
-                    <a routerLink="/admin/users">Dashboard</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <div class="Connexion">
-        <span>
-            <a routerLink="auth/login">Connexion</a>
-                |
-            <a routerLink="auth/signup">Inscription</a>
-            <img class="img avatar" src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="" >
-        </span>
-    </div>
+  <div class="logoBlock">
+    <img class="img logo" src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="logo" />
+  </div>
+  <div class="util">
+    <nav class="navbar">
+      <ul class="navlist">
+        <li class="navLink">
+          <a routerLink="/accueil">Accueil</a>
+        </li>
+        <li class="navLink">
+          <a routerLink="/home/map">Map</a>
+        </li>
+        <li class="navLink">
+          <a routerLink="/home/forum">Forum</a>
+        </li>
+        <li class="navLink">
+          <a routerLink="/admin/dashboard">Dashboard</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="connexionInscription">
+    <ul class="navlist">
+      <li class="navLink">
+        <a onclick="document.getElementById('id01').style.display='block'" style="width: auto">
+          Connexion
+        </a>
+        <!-- PARTIE CONNEXION -->
+        <div id="id01" class="modal">
+          <div class="container">
+            <div class="wrapper">
+              <div class="modalHeader">
+                <div class="divVide"></div>
+                <div>
+                  <h2>Connexion</h2>
+                </div>
+                <div class="close-button">
+                  <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
+                </div>
+              </div>
+              <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
+                <div>
+                  <input type="mail" formControlName="mail" placeholder="Adresse mail" />
+                  <div *ngIf="formLogin.status === 'INVALID' && this.formSubmittedLogin === true">
+                    <div *ngIf="formLogin.controls['mail'].errors?.['required']" class="err">
+                      L'adresse mail est requise
+                    </div>
+                    <div *ngIf="formLogin.controls['mail'].invalid" class="err">
+                      L'adresse mail doit être valide
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <input type="password" name="password" formControlName="password" placeholder="Mot de passe" />
+                  <div *ngIf="formLogin.status === 'INVALID' && this.formSubmittedLogin === true">
+                    <div *ngIf="formLogin.controls['password'].errors?.['required']" class="err">
+                      Le mot de passe est requis
+                    </div>
+                    <div *ngIf="formLogin.controls['password'].errors?.['minlength']" class="err">
+                      Le mot de passe doit faire 12 caractères au minimum
+                    </div>
+                  </div>
+                </div>
+                <div class="formSubmit">
+                  <input type="submit" value="Se connecter" />
+                </div>
+                <div>
+                  <a href="#">Forgot password?</a>
+                </div>
+              </form>
+              <div>
+                <p>
+                  <a [routerLink]="['/signup']">Vous n'avez pas de compte ?<br />
+                    Créer en un ici</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <div class="barreNav"></div>
+
+      <!-- <a routerLink="auth/login">Connexion</a> -->
+      <!-- <a routerLink="auth/signup">Inscription</a> -->
+
+      <li class="navLink">
+        <a onclick="document.getElementById('id02').style.display='block'" style="width: auto">
+          Inscription
+        </a>
+        <!-- PARTIE Inscription -->
+        <div id="id02" class="modal">
+          <div class="container">
+            <div class="wrapper">
+              <div class="modalHeader">
+                <div class="divVide"></div>
+                <div>
+                  <h2>Inscription</h2>
+                </div>
+                <div class="close-button">
+                  <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
+                </div>
+              </div>
+
+              <form name="form" [formGroup]="formsignup" (ngSubmit)="onSubmitSignup()">
+                <div class="formcouple">
+                  <div class="forminput">
+                    <input type="text" formControlName="name" name="name"
+                      placeholder="Votre Nom" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['name'].errors?.['required']" class="err">
+                        Le nom est requis
+                      </div>
+                      <div *ngIf="formsignup.controls['name'].errors?.['minlength']" class="err">
+                        Le nom doit faire au minimum 2 caractères
+                      </div>
+                    </div>
+                  </div>
+                  <div class="forminput">
+                    <input type="text" formControlName="firstname" name="firstname" placeholder="Votre Prénom" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['firstname'].errors?.['required']" class="err">
+                        Le prénom est requis
+                      </div>
+                      <div *ngIf="formsignup.controls['firstname'].errors?.['minlength']" class="err">
+                        Le prénom doit faire au minimum 3 caractères
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="formcouple">
+                  <div class="forminput">
+                    <input type="text" formControlName="city" name="ville" placeholder="Votre Ville" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['city'].errors?.['required']" class="err">
+                        La ville est requise
+                      </div>
+                      <div *ngIf="formsignup.controls['city'].errors?.['minlength']" class="err">
+                        La ville doit faire au minimum 3 caractères
+                      </div>
+                    </div>
+                  </div>
+                  <div class="forminput">
+                    <input type="number" formControlName="cp" name="cp" placeholder="Votre Code postal" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['cp'].errors?.['required']" class="err">
+                        Le code postal est requis
+                      </div>
+                      <div *ngIf="formsignup.controls['cp'].errors?.['minlength']" class="err">
+                        Le code postal doit faire au minimum 5 caractères
+                      </div>
+                      <div *ngIf="formsignup.controls['cp'].errors?.['maxlength']" class="err">
+                        Le code postal doit faire au maximum 5 caractères
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="formcouple">
+                  <div class="forminput">
+                    <input type="mail" formControlName="mail" name="mail"
+                      placeholder="Votre Adresse mail" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['mail'].errors?.['required']" class="err">
+                        L'adresse mail est requise
+                      </div>
+                      <div *ngIf="formsignup.controls['mail'].invalid" class="err">
+                        L'adresse mail doit être valide
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="formcouple">
+                  <div class="forminput">
+                    <input type="password" name="password" formControlName="password" placeholder="Mot de passe" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['password'].errors?.['required']" class="err">
+                        Le mot de passe est requis
+                      </div>
+                      <div *ngIf="formsignup.controls['password'].errors?.['minlength']" class="err">
+                        Le mot de passe doit faire au minimum 12 caractères
+                      </div>
+                      <div *ngIf="formsignup.controls['password'].invalid" class="err">
+                        Le mot de passe doit contenir 1 majuscule, 1 minuscule, <br>1 chiffre, 1 caractère spécial et 12 caractères minimum
+                      </div>
+                    </div>
+                  </div>
+                  <div class="forminput">
+                    <input type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirmer mot de passe" />
+                    <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
+                      <div *ngIf="formsignup.controls['confirmPassword'].errors?.['required']" class="err">
+                        La confirmation mot de passe est requise
+                      </div>
+                      <div *ngIf="formsignup.controls['confirmPassword'].invalid" class="err">
+                        Les deux mots de passe ne correspondent pas
+                      </div>
+                    </div>
+                    <!-- NE PAS SUPPRIMER -->
+                    <!-- <div *ngIf="password.errors && f.submitted">
+                                    <div *ngIf="password.errors['required']" class="err">
+                                        Le mot de passe est requis
+                                    </div>
+                                    <div *ngIf="password.errors['minlength']" class="err">
+                                        Le mot de passe doit faire au minimum 5 caractères
+                                    </div>
+                                </div> -->
+                  </div>
+                </div>
+                <div class="formSubmit">
+                  <input type="submit" value="S'inscrire" />
+                </div>
+              </form>
+              <p>
+                <a [routerLink]="['/login']">Vous avez déjà un compte ?<br />Se connecter</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <img class="img avatar" src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="" />
+    </ul>
+  </div>
 </header>
+
+<script>
+  // Get the modal
+  var modal = document.getElementById("id01");
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>

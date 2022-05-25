@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -31,6 +31,9 @@ export class MapComponent implements AfterViewInit {
     {nom:"Nantes",stations:["Bouteillerie","Bouteillerie"]},
   ]
   testCurentData:any
+
+  formSubmitted: boolean = false
+
   private map: any;
   ngOnInit():void{
     
@@ -52,7 +55,12 @@ export class MapComponent implements AfterViewInit {
   allMarkerMap = L.layerGroup([]);
 
   formMapSearch = new FormGroup({
-    name: new FormControl('')
+    name: new FormControl('',
+      [
+        Validators.required, 
+        Validators.minLength(2)
+      ]
+    )
   });
 
   token_api: string = "dbbd6bd16593d05023748919d281d871c3f79a33"
@@ -74,7 +82,7 @@ export class MapComponent implements AfterViewInit {
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      minZoom: 6,
+      minZoom: 7,
     });
     tiles.addTo(this.map);
   }
@@ -91,8 +99,6 @@ export class MapComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    console.log(this.formMapSearch.value.name);
-    
     if(this.formMapSearch.value.name === ""){
 
       this.showFavoris = true      
@@ -100,7 +106,6 @@ export class MapComponent implements AfterViewInit {
     else{
       this.initApi(this.formMapSearch.value.name)
     }
-
   }
 
   /**
@@ -111,7 +116,7 @@ export class MapComponent implements AfterViewInit {
     this.map.panTo(new L.LatLng(long, lat));
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      minZoom: 3,
+      minZoom: 7,
     });
     tiles.addTo(this.map);
 

@@ -5,89 +5,268 @@ header {
     color: $bcg-txt-color;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
-    a {
-        color: $bcg-txt-color;
+
+    a,
+    a:visited,
+    a:active {
+        color: inherit;
         text-decoration: none;
+        cursor: pointer;
+
+        // font-size: 22px;
+        &:hover {
+            color: $bcg-txt-color-hover;
+            text-decoration: underline;
+        }
     }
 }
 
-// .headerBar {
-//     width: 100%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     flex-flow: wrap;
-//     .navbare{
-//         display: flex;
-//         justify-content: space-between;
-//         width: max-content;
-//         align-items: center;
-//         width: 30%;
-      
-//     }
-//     a, a:visited, a:active {
-//         color: inherit;
-//         text-decoration: none;
-//         font-size: 22px;
-//         &:hover {
-//             color: $bcg-txt-color-hover;
-//             text-decoration: underline;
-//         }
-//     }
-// }
+.logoBlock {
+    width: 30%;
+}
 
-// .navTab {
-//     margin: 0 6%;
-// }
+.connexionInscription {
+    width: 30%;
+    .navlist {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 1em;
+        @media (max-width:750px) {
+            flex-direction: column;
+            .navLink {
+                margin: 5px 0 5px 0;
+            }
+        }
+    }
+}
 
-// .navConnect {
-//     padding-right: 2em;
-//     justify-self: flex-end;
-//     display: flex;
-//     align-items: center;
-//     justify-content: flex-end;
-//     p {
-//         font-size: 18px;
-//     }
-//     .imgUser {
-//         padding-left: 1em;
-//         height: 18px;
-//         width: 18px;
-//     }
-// }
+.barreNav {
+    background: $bcg-txt-color;
+    height: 32px;
+    width: 1px;
+    border-radius: 10em;
 
-// .navLogo {
-//     .logo {
-//         height: 64px;
-//         width: 64px;
-//         padding-left: 1em;
-//     }
-// }
-// ***********************************************************************************************************************************************
-.img{
+    background: $bcg-txt-color;
+    @media (max-width:750px) {
+        height: 1px;
+        width: 6em;
+    }
+}
+
+.img {
     width: 100px;
-    &.logo{
+    padding-left: 1em;
+    &.logo {
         display: block;
     }
-    &.avatar{
+
+    &.avatar {
         display: none;
     }
 }
 
-.util{
-    .navbar{
-        .navlist{
-            // flex: 1;
-            // box-sizing: border-box;
+.util {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .navbar {
+        .navlist {
             padding: 0;
             list-style: none;
-            
-            .navLink{
+
+            .navLink {
                 display: inline-block;
                 padding: 0 5px;
             }
+
+            @media (max-width:750px) {
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
+}
+
+.navlist {
+    padding: 0;
+    list-style: none;
+}
+
+.navLink {
+    display: inline-block;
+    padding: 0 5px;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 999999;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+
+}
+
+//  modal login
+a {
+    color: $bcg-txt-color;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .wrapper {
+        background-color: $black-color;
+        color: $bcg-txt-color;
+        padding: 15px;
+        border-radius: 10px;
+        border: white;
+        box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.277);
+
+        .divVide {
+            width: 5%;
+        }
+
+        .modalHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+        }
+
+        .modalHeader div h2 {
+            margin: 0;
+        }
+
+        /* The Close Button (x) */
+        .close-button {
+            display: inline;
+        }
+
+        .close {
+            color: $bcg-txt-color;
+            font-size: 35px;
+            font-weight: bold;
+            width: 5%;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        .formcouple {
+            display: flex;
+            justify-content: space-between;
+            align-items: left;
+        }
+
+        .forminput {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            align-items: flex-start;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        input {
+            border: 1px solid rgb(133, 133, 133);
+            border-radius: 5px;
+            height: 30px;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password],
+        input[type=number],
+        input[type=mail] {
+            width: 100%;
+            padding: 12px 10px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .formSubmit {
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type="submit"] {
+            width: 50%;
+            background-color: $green-color;
+            border: none;
+            border-radius: 5px;
+            height: 30px;
+            cursor: pointer;
+            color: white;
+            transition: .5s;
+            margin: 10px 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgb(31, 199, 25);
+            transition: .5s;
+            box-shadow: 0px 5px 5px 0px rgba(58, 58, 58, 0.75);
+        }
+
+        p,
+        a {
+            text-align: center;
+            font-size: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+
+}
+
+.err {
+    font-size: 12px;
+    color: lightcoral;
 }
