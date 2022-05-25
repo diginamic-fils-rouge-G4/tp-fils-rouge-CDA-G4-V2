@@ -23,15 +23,21 @@
   <section class="favoris-frame">
     <div class="favorisBlock" *ngIf="showFavoris">
       <ul *ngFor="let favoris of favoritData">
-        <!-- <li>
-          <button (click)="showStationsByName(favoris.nom,favoris.stations)"></button>
-        </li> -->
+        <li>
+          <button (click)="showStationsByName(favoris.nom)">{{favoris.nom}}</button>
+        </li>
         <ul>
           <li>{{ favoris.nom }}</li>
           <ul *ngFor="let station of favoris.stations">
-            <button (click)="showStationsFavoris(station)">
-              {{ station }}
-            </button>
+            <div >
+              <span (click)="showStationsFavoris(station.nom)">
+                  {{ station.nom }}
+
+                </span>
+                <span *ngIf="station.status" style="color: red; font-size:20px"> ♥ </span>
+                <span *ngIf="!station.status"style=" font-size:20px"> ♥ </span>
+             
+            </div>
           </ul>
         </ul>
       </ul>

@@ -28,7 +28,7 @@ export class MapComponent implements AfterViewInit {
     ) {}
 
   favoritData =[
-    {nom:"Nantes",stations:["Bouteillerie","Bouteillerie"]},
+    {nom:"Nantes",stations:[{nom:"Bouteillerie",status:true},{nom:"Chauvinière",status:false}]},
   ]
   testCurentData:any
 
@@ -163,6 +163,8 @@ export class MapComponent implements AfterViewInit {
   showStationsFavoris( stations:string) {
     this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
       .subscribe((data: any) => {
+        console.log(data);
+        
         let obj = {
           latlng:{
             lat:data.data[0].station.geo[0],
@@ -180,21 +182,31 @@ export class MapComponent implements AfterViewInit {
    * @returns toute les station dans la ville
    */
   showStationsByName(nom:string){
-    let nomVille = nom.split(',')[1]
+  
+    console.log(nom);
+    
+    let [nomVille,nomStation]=this.chekNomVille(nom)
+    
+    
     this.http.get(`https://api.waqi.info/search/?keyword=${nomVille}&token=${this.token_api}`)
     .subscribe((data:any)=>{
       console.log(data.data);
       
       let cityStations:any=[]
+
       data.data.forEach((infostation:any) => {
-        console.log(infostation.station.name.split(',')[0]);
-        cityStations.push(infostation.station.name.split(',')[0])
+        // console.log(infostation.station.name);
+        let nomST = this.chekNomVille(infostation.station.name)
+        console.log(nomST);
+        
+        // console.log(infostation.station.name.split(',')[0]);
+        // cityStations.push(infostation.station.name.split(',')[0])
       });
       let obj={
         nom:nomVille,
         stations:cityStations
       }
-      console.log(obj);
+      // console.log(obj);
       
       this.favoritData.push(obj)
       
@@ -231,5 +243,15 @@ export class MapComponent implements AfterViewInit {
       this.showFavoris = false
       this.currentData=data.data
       
+    }
+
+    chekNomVille(nom:string){
+      let [nomStation,nomVille] = nom.split(',')
+      console.log(nomVille);
+      
+      if (!nomVille) {
+        nomVille = nomStation
+      }
+      return [nomVille,nomStation]
     }
 }
