@@ -1,27 +1,34 @@
-# TpFilsRougeCDAG4V2
+# TP Fils Rouge CDA Groupe 4 (Version 2)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+## Equipe
 
-## Development server
+- Mohammad Wasin AL SHAMI
+- Thomas GENTREAU
+- Thibault MARIE-ANGÉLIQUE
+- Guillaume BLAIN
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Lien
 
-## Code scaffolding
+### Trello
+Le Trello est l'un des outils de gestion utilisé pour le projet.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Link : https://trello.com/b/j0792WvN/projet-fil-rouge-diginamic
 
-## Build
+### Figma
+Visuel du projet.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Link : https://www.figma.com/proto/BKCMiZ7qOjYWzQduU3UzVT/front-fil-rouge?node-id=3%3A2&scaling=min-zoom&page-id=0%3A1
 
-## Running unit tests
+## API
+Lien des api utilisés.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Leaflet
+Leaflet est utilisé pour afficher la carte qui permettra de voir les différentes station et ville.
 
-## Running end-to-end tests
+Link : https://leafletjs.com/
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Aqicn
+Aqicn est L'api utilisé pour avoir les informations sur la polution de l'air.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Link : https://aqicn.org/
+Doc : https://aqicn.org/json-api/doc/
