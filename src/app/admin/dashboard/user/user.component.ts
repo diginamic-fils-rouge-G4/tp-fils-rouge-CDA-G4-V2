@@ -63,6 +63,9 @@ export class UserComponent implements OnInit, AfterViewInit {
     datatable.on('datatable.search', () => {
       style.pagination()
     })
+    datatable.on('datatable.page', () => {
+      style.pagination()
+    })
   }
 
 }

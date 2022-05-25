@@ -1,1 +1,19 @@
-
+<div class="wrap">
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of rubrique">
+            <td>{{ user.nom }}</td>
+            <td>
+              <button class="suppr">Edit</button>
+              <button class="suppr">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+    </table> 
+  </div>

@@ -1,0 +1,42 @@
+@import '../../../_shared/assets/variable.scss';
+.wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 500px;
+    height: auto;
+    margin: 3% 0;
+    
+    #table{
+        text-align: center;
+        // border: 1px solid $black-color;
+        border-collapse: collapse;
+        
+        th{
+            padding: 10px;
+            vertical-align: middle;
+            text-align: center;
+            background-color: $black-color;
+            color: $bcg-txt-color;
+            &:nth-child(even) {
+                border-left: 1px solid $bcg-txt-color;
+                border-right: 1px solid $bcg-txt-color;
+            }
+        }
+
+        tr:nth-child(even){
+            background-color: white;
+        }
+
+        tr:nth-child(odd){
+            background-color: rgb(219, 219, 219);
+        }
+
+        td{
+            // border: 1px solid $black-color;           
+            vertical-align: middle;
+            padding: 15px 50px;
+        }
+    }
+}
