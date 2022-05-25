@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  formlogin = {
-    mail: '',
-    password: ''
-  }
+  formSubmitted: boolean = false
+  formLogin = new FormGroup({
+    mail: new FormControl('',
+      [
+        Validators.required, 
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+      ]
+    ),
+    password: new FormControl('',
+      [
+        Validators.required,
+        Validators.minLength(12)
+      ]
+    )
+  });
 
   formsignup = {
     mail: '',
@@ -27,7 +39,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
+  onSubmitLogin(): void {
+    this.formSubmitted = true
+    console.log(this.formLogin.controls['password'])
+  }
+
+  onSubmitSignup(): void {
 
   }
 
