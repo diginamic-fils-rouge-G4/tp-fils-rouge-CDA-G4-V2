@@ -40,6 +40,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) { }
   
   ngOnInit(): void {
+    
 
   }
   

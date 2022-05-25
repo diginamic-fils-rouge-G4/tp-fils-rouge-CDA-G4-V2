@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of dummy.users">
-        <td>{{ user.nom }}</td> -->
+        <td>{{ user.nom }}</td>
         <td>
           <div *ngIf="user.role === 0">
             <select name="role" >
@@ -33,7 +33,9 @@
             </select>
           </div>
         </td>
-        <td><button class="suppr">X</button></td>
+        <td>
+          <button class="suppr">X</button>
+        </td>
       </tr>
   </tbody>
   </table> 
