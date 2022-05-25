@@ -1,8 +1,10 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
+
+
 
 const iconUrl = './leaflet/marker-icon.png';
 const shadowUrl = './leaflet/marker-shadow.png';
@@ -13,10 +15,30 @@ const shadowUrl = './leaflet/marker-shadow.png';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+  showFavoris:boolean = true
+  currentData:any
+  /**
+   * constructor
+   * @param http 
+   * @param el 
+   */
+  constructor(
+    private http: HttpClient,
+    private el: ElementRef,
+    ) {}
+
+  favoritData =[
+    {nom:"Nantes",stations:["Bouteillerie","Bouteillerie"]},
+  ]
+  testCurentData:any
 
   formSubmitted: boolean = false
-  private map: any;
 
+  private map: any;
+  ngOnInit():void{
+    
+
+  }
   icon = {
     icon: L.icon({
       iconSize: [ 25, 41 ],
@@ -50,7 +72,7 @@ export class MapComponent implements AfterViewInit {
     }),
   };
 
-  /*
+  /**
   Initialisation de la map Leaflet
   */
   private initMap(): void {
@@ -65,11 +87,11 @@ export class MapComponent implements AfterViewInit {
     tiles.addTo(this.map);
   }
 
-  constructor(private http: HttpClient) { }
   ngAfterViewInit(): void {
+    
     this.initMap();
     this.showStationsVisible()
-    this.showStationsByName()
+    // this.showStationsByName()
 
     this.map.on('moveend', () => {
       this.showStationsVisible()
@@ -77,13 +99,16 @@ export class MapComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    this.formSubmitted = true
-    if(this.formMapSearch.valid) {
+    if(this.formMapSearch.value.name === ""){
+
+      this.showFavoris = true      
+    }
+    else{
       this.initApi(this.formMapSearch.value.name)
     }
   }
 
-  /*
+  /**
   Méthode pour effectuer une recherche par ville via Leaflet
   @params : Longitude et latitude
   */
@@ -97,37 +122,21 @@ export class MapComponent implements AfterViewInit {
 
   }
 
-  /*
+  /**
   Méthode pour effectuer une recherche par ville à l'API de qualité de l'air
   @params : nom de la ville
   */
   initApi(city: string) {
     return this.http.get(`https://api.waqi.info/feed/${city}/?token=${this.token_api}`)
       .subscribe((data: any) => {
-        console.log(data)
         if (data.status === "error") {
           const errMsg: any = document.querySelector('.err')
           errMsg.innerHTML = `Nous n'avons aucune informations sur la ville de ${city}`
         } else {
-          const errMsg: any = document.querySelector('.err')
-          errMsg.innerHTML = ``
-          this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.printData')
-          printData.innerHTML =
-            `
-          <p>Ville : ${city}</p>
-          <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
-          <li>Température : ${data.data.iaqi.t?.v}°C</li>
-          <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
-          <li>PM 10 : ${data.data.iaqi.pm10?.v} AQI</li>
-          <li>Humidité : ${data.data.iaqi.h?.v}</li>
-          <li>Pression : ${data.data.iaqi.p?.v}</li>
-          <li>Vent : ${data.data.iaqi.w?.v}</li>
-          `
+          this.afficheDonneVille(data)
         }
       })
   }
-
 
   showAllStations(lat1: number, lng1: number, lat2: number, lng2: number) {
     this.http.get(`https://api.waqi.info/map/bounds?latlng=${lat1},${lng1},${lat2},${lng2}&networks=all&token=${this.token_api}`)
@@ -151,12 +160,45 @@ export class MapComponent implements AfterViewInit {
         this.map.addLayer(this.allMarkerMap)
       })
   }
-
-  showStationsByName() {
-    this.http.get(`https://api.waqi.info/search/?keyword=paris&token=${this.token_api}`)
+  showStationsFavoris( stations:string) {
+    this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
       .subscribe((data: any) => {
-        // console.log(data);
+        let obj = {
+          latlng:{
+            lat:data.data[0].station.geo[0],
+            lng:data.data[0].station.geo[1]
+          }
+        }
+        this.markerClick(obj)
       })
+  }
+
+  /**
+   * 
+   * @param nomVille string 
+   * @param target string
+   * @returns toute les station dans la ville
+   */
+  showStationsByName(nom:string){
+    let nomVille = nom.split(',')[1]
+    this.http.get(`https://api.waqi.info/search/?keyword=${nomVille}&token=${this.token_api}`)
+    .subscribe((data:any)=>{
+      console.log(data.data);
+      
+      let cityStations:any=[]
+      data.data.forEach((infostation:any) => {
+        console.log(infostation.station.name.split(',')[0]);
+        cityStations.push(infostation.station.name.split(',')[0])
+      });
+      let obj={
+        nom:nomVille,
+        stations:cityStations
+      }
+      console.log(obj);
+      
+      this.favoritData.push(obj)
+      
+    })
   }
 
   showStationsVisible() {
@@ -165,29 +207,29 @@ export class MapComponent implements AfterViewInit {
     this.showAllStations(mapBounds._northEast.lat, mapBounds._northEast.lng, mapBounds._southWest.lat, mapBounds._southWest.lng)
   }
 
-  markerClick(marker: any) {
+  markerClick(marker: any) {    
     // console.log("click ! =>", marker.latlng.lat)
     return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
       .subscribe((data: any) => {
-        // console.log(data)
-
-          const errMsg: any = document.querySelector('.err')
-          errMsg.innerHTML = ``
-          this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.printData')
-
-          printData.innerHTML =
-            `
-          <p>Info : ${data.data.city.name}</p>
-          <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
-          <li>Température : ${data.data.iaqi.t?.v}°C</li>
-          <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
-          <li>PM 10 : ${data.data.iaqi.pm10?.v} AQI</li>
-          <li>Humidité : ${data.data.iaqi.h?.v}</li>
-          <li>Pression : ${data.data.iaqi.p?.v}</li>
-          <li>Vent : ${data.data.iaqi.w?.v}</li>
-          `
+        // console.log(data);
+        
+        this.afficheDonneVille(data)
+          
       })
   }
 
+    /**
+     * affiche les données de la ville
+     * @param data retour de l'api
+     */
+    afficheDonneVille(data:any){
+      console.log(data);
+      
+      const errMsg: any = document.querySelector('.err')
+      errMsg.innerHTML = ``
+      this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
+      this.showFavoris = false
+      this.currentData=data.data
+      
+    }
 }

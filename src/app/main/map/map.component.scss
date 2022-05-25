@@ -30,23 +30,34 @@
 
 .map-container {
     display: flex;
+    justify-content: space-between;
     margin: 30px;
-    .map-frame {
-        border: 2px solid black;
-        width: 80%;
-        #map {
-            height: 500px;
+    .favoris-frame {
+        border: 1px solid black;
+        width: 25%;
+        overflow: overlay;
+        height: 70vh;
+        .favoris {
+            color: purple;
+            background: #000;
         }
     }
-    .favoris-frame {
-        border: 2px solid black;
-        width: 20%;
-    }
-    #favoris {
-        width: 40%;
-        height: 500px;
-    }
 }
+
+.map-frame {
+    border: 1px solid black;
+    width: 70%;
+}
+
+#map {
+    min-height: 600px;
+    height: 100%;
+}
+
+#favoris {
+    width: 40%;
+}
+
 .err {
     color: $red-color;
 }
