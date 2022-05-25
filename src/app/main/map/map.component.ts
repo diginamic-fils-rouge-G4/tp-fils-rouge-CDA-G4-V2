@@ -60,7 +60,7 @@ export class MapComponent implements AfterViewInit {
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      minZoom: 6,
+      minZoom: 7,
     });
     tiles.addTo(this.map);
   }
@@ -91,7 +91,7 @@ export class MapComponent implements AfterViewInit {
     this.map.panTo(new L.LatLng(long, lat));
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      minZoom: 3,
+      minZoom: 7,
     });
     tiles.addTo(this.map);
 
