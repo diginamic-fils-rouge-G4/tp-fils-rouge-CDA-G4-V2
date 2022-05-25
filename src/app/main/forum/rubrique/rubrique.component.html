@@ -6,12 +6,76 @@
     <div class="forumFilAriane">
         <p class="forumFilArianeText">Accueil > Forum</p>
     </div>
-    <div class="forumBody" >
+    <div class="forumBody"  >
+        <div  *ngFor="let rubrique of rubriques" >
+            <div  class="forumBodyItem">
+                <h3 class="forumItemText">
+                    rubrique 1
+                </h3>
+                <span>15 topics</span>
+                <i (click)="openVerticale(rubrique.id)" [id]='"icon"+rubrique.id' class="fa-solid fa-ellipsis-vertical ellipse"></i>
+                <i (click)="closeVerticale(rubrique.id)" [id]='"Xicon"+rubrique.id' class="fa-solid fa-xmark d-none"></i>
+                <div id="nav">
+                    <nav [id]='"rub"+rubrique.id' class="nav-rubrique d-none">
+                        <ul>
+                            <li><a >Modifier la rubrique</a></li>
+                            <li><a >Supprimer la rubrique</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" [class.open-modal]="addClass" >
+    <div class="modal-container">
+        <div>
+            <div>
+                <h2>Ajouter Rubrique</h2>
+            </div>
+            <div [formGroup]="form">
+
+                <input type="text" formControlName="name" placeholder="Nom de la rubrique">
+                
+            </div>
+            <div>
+                <button class="annuler-btn">Annuler</button>
+                <button class="valider-btn" type="submit">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="parent">
+    <div class="child">
+        test
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- <div class="forum" >
+    <div class="forumHeader">
+        <h2 class="forumHeaderText">Forum</h2>
+        <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
+    </div>
+    <div class="forumFilAriane">
+        <p class="forumFilArianeText">Accueil > Forum</p>
+    </div>
+    <div class="forumBody" *ngFor="let rubrique of rubriques" >
         <div  class="forumBodyItem">
             <h3 class="forumItemText">
-                rubrique 1
+                 {{rubrique.nom}}
             </h3>
-            <span>15 topics</span>
+            <span>{{rubrique.topicnumber}}</span>
             <i class="fa-solid fa-ellipsis-vertical ellipse"></i>
         </div>
         <div id="nav">
@@ -21,31 +85,11 @@
                     <li><a href="">Supprimer la rubrique</a></li>
                 </ul>
             </nav>
-        </div>
-        <div  class="forumBodyItem">
-            <h3 class="forumItemText">
-                rubrique 2
-            </h3>
-            <span>15 topics</span>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </div>
-        <div  class="forumBodyItem">
-            <h3 class="forumItemText">
-                rubrique 3 
-            </h3>
-            <span>15 topics</span>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </div>
-        <div  class="forumBodyItem">
-            <h3 class="forumItemText">
-                rubrique 4
-            </h3>
-            <span>15 topics</span>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </div>
-        
+        </div>       
     </div>
 </div>
+
+
 <div class="modal-overlay" [ngClass]="{'open-modal' : addclass == true }" >
     <div class="modal-container">
         <div>
@@ -61,4 +105,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
