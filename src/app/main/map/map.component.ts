@@ -16,6 +16,7 @@ const shadowUrl = './leaflet/marker-shadow.png';
 })
 export class MapComponent implements AfterViewInit {
   showFavoris:boolean = true
+  currentData:any
   /**
    * constructor
    * @param http 
@@ -24,22 +25,12 @@ export class MapComponent implements AfterViewInit {
   constructor(
     private http: HttpClient,
     private el: ElementRef,
-    ) {
-     }
+    ) {}
 
-  favoritData=[
-    {nom:"Nantes"},
-    {nom:"vanne"},
-    {nom:"paris"},
-    {nom:"brem-sur-mer"},
-    {nom:"top-secret"},
-    {nom:"Dax"},
-    {nom:"Nantes"},
-    {nom:"Nantes"},{nom:"Nantes"},
-    {nom:"Nantes"},{nom:"Nantes"},
-    {nom:"Nantes"},
-
+  favoritData =[
+    {nom:"Nantes",stations:["Bouteillerie","Bouteillerie"]},
   ]
+  testCurentData:any
   private map: any;
   ngOnInit():void{
     
@@ -92,23 +83,21 @@ export class MapComponent implements AfterViewInit {
     
     this.initMap();
     this.showStationsVisible()
-    this.showStationsByName()
+    // this.showStationsByName()
 
     this.map.on('moveend', () => {
       this.showStationsVisible()
     })
-    this.afficheFavoris()
   }
 
   onSubmit() {
     console.log(this.formMapSearch.value.name);
     
-    if(this.formMapSearch.value.name.length == 0){
-      this.afficheFavoris()
-      this.showFavoris = true
+    if(this.formMapSearch.value.name === ""){
+
+      this.showFavoris = true      
     }
     else{
-      this.showFavoris = false
       this.initApi(this.formMapSearch.value.name)
     }
 
@@ -135,30 +124,14 @@ export class MapComponent implements AfterViewInit {
   initApi(city: string) {
     return this.http.get(`https://api.waqi.info/feed/${city}/?token=${this.token_api}`)
       .subscribe((data: any) => {
-        console.log(data)
         if (data.status === "error") {
           const errMsg: any = document.querySelector('.err')
           errMsg.innerHTML = `Nous n'avons aucune informations sur la ville de ${city}`
         } else {
-          const errMsg: any = document.querySelector('.err')
-          errMsg.innerHTML = ``
-          this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.printData')
-          printData.innerHTML =
-            `
-          <p>Ville : ${data.data.city.name}</p>
-          <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
-          <li>Température : ${data.data.iaqi.t?.v}°C</li>
-          <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
-          <li>PM 10 : ${data.data.iaqi.pm10?.v} AQI</li>
-          <li>Humidité : ${data.data.iaqi.h?.v}</li>
-          <li>Pression : ${data.data.iaqi.p?.v}</li>
-          <li>Vent : ${data.data.iaqi.w?.v}</li>
-          `
+          this.afficheDonneVille(data)
         }
       })
   }
-
 
   showAllStations(lat1: number, lng1: number, lat2: number, lng2: number) {
     this.http.get(`https://api.waqi.info/map/bounds?latlng=${lat1},${lng1},${lat2},${lng2}&networks=all&token=${this.token_api}`)
@@ -182,12 +155,45 @@ export class MapComponent implements AfterViewInit {
         this.map.addLayer(this.allMarkerMap)
       })
   }
-
-  showStationsByName() {
-    this.http.get(`https://api.waqi.info/search/?keyword=paris&token=${this.token_api}`)
+  showStationsFavoris( stations:string) {
+    this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
       .subscribe((data: any) => {
-        // console.log(data);
+        let obj = {
+          latlng:{
+            lat:data.data[0].station.geo[0],
+            lng:data.data[0].station.geo[1]
+          }
+        }
+        this.markerClick(obj)
       })
+  }
+
+  /**
+   * 
+   * @param nomVille string 
+   * @param target string
+   * @returns toute les station dans la ville
+   */
+  showStationsByName(nom:string){
+    let nomVille = nom.split(',')[1]
+    this.http.get(`https://api.waqi.info/search/?keyword=${nomVille}&token=${this.token_api}`)
+    .subscribe((data:any)=>{
+      console.log(data.data);
+      
+      let cityStations:any=[]
+      data.data.forEach((infostation:any) => {
+        console.log(infostation.station.name.split(',')[0]);
+        cityStations.push(infostation.station.name.split(',')[0])
+      });
+      let obj={
+        nom:nomVille,
+        stations:cityStations
+      }
+      console.log(obj);
+      
+      this.favoritData.push(obj)
+      
+    })
   }
 
   showStationsVisible() {
@@ -196,65 +202,29 @@ export class MapComponent implements AfterViewInit {
     this.showAllStations(mapBounds._northEast.lat, mapBounds._northEast.lng, mapBounds._southWest.lat, mapBounds._southWest.lng)
   }
 
-  markerClick(marker: any) {
+  markerClick(marker: any) {    
     // console.log("click ! =>", marker.latlng.lat)
     return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
       .subscribe((data: any) => {
-        // console.log(data)
-
-          const errMsg: any = document.querySelector('.err')
-          errMsg.innerHTML = ``
-          this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
-          const printData: any = document.querySelector('.favoris-frame')
-
-          printData.innerHTML =
-            `
-          <ul class="printData">
-          <p>Info : ${data.data.city.name}</p>
-          <li>Moyenne indice qualité de l'air : ${data.data.aqi} AQI</li>
-          <li>Température : ${data.data.iaqi.t?.v}°C</li>
-          <li>PM 2.5 : ${data.data.iaqi.pm25?.v} AQI</li>
-          <li>PM 10 : ${data.data.iaqi.pm10?.v} AQI</li>
-          <li>Humidité : ${data.data.iaqi.h?.v}</li>
-          <li>Pression : ${data.data.iaqi.p?.v}</li>
-          <li>Vent : ${data.data.iaqi.w?.v}</li>
-          </ul>
-          `
+        // console.log(data);
+        
+        this.afficheDonneVille(data)
+          
       })
   }
-  /**
-   * affiche les differents favoris 
-   */
-     afficheFavoris= ():void=>{
-      // const printData: any = this.el.nativeElement.querySelector('.favoris-frame')
-      // printData.innerHTML = ""
-      // let block:HTMLElement = document.createElement('div')
-      // block.classList.add('favorisBlock')
 
-      // this.favoritData.forEach((favoris:{nom:string})=>{
-
-      //   let div:HTMLElement = document.createElement('div')
-      //   let link:HTMLElement = document.createElement('button')
-
-      //   div.style.background = "#C4C4C4"
-      //   div.style.padding = "5%"
-      //   div.style.margin = "0 0 20px 0"
-
-      //   link.style.background="none"
-      //   link.style.border="none"
-      //   link.style.margin = "0"
-        
-      //   // link.setAttribute('(click)',"test($event)")
-        
-
-      //   link.innerText = favoris.nom
-      //   div.appendChild(link)
-      //   block.appendChild(div)
-      // })
-      // printData.appendChild(block)
-    }
-    test(nom:string){
-      console.log(nom);
+    /**
+     * affiche les données de la ville
+     * @param data retour de l'api
+     */
+    afficheDonneVille(data:any){
+      console.log(data);
+      
+      const errMsg: any = document.querySelector('.err')
+      errMsg.innerHTML = ``
+      this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
+      this.showFavoris = false
+      this.currentData=data.data
       
     }
 }
