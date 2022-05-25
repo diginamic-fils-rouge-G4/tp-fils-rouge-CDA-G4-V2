@@ -27,8 +27,8 @@ export class MapComponent implements AfterViewInit {
     private el: ElementRef,
     ) {}
 
-  favoritData =[
-    {nom:"Nantes",stations:["Bouteillerie","Bouteillerie"]},
+  favoritData :any =[
+    {nom:"Nantes",stations:[{nom:"Bouteillerie",status:true},{nom:"Bouteillerie",status:false}]},
   ]
   testCurentData:any
 
@@ -84,7 +84,8 @@ export class MapComponent implements AfterViewInit {
       maxZoom: 18,
       minZoom: 7,
     });
-    tiles.addTo(this.map);
+    tiles.addTo(this.map)
+    
   }
 
   ngAfterViewInit(): void {
@@ -119,7 +120,6 @@ export class MapComponent implements AfterViewInit {
       minZoom: 7,
     });
     tiles.addTo(this.map);
-
   }
 
   /**
@@ -152,7 +152,8 @@ export class MapComponent implements AfterViewInit {
         // console.log(arrayStations)
         for (let i = 0; i < arrayStations.length; i++) {
           // place le marker dans un layer
-          this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon], this.icon).on('click', (event) => this.markerClick(event))
+          this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon], this.icon)
+          this.markerMap.on('click', (event: any) => this.markerClick(event))
           // place tout les layers dans un groupe de layer
           this.allMarkerMap.addLayer(this.markerMap)
         }
@@ -212,7 +213,6 @@ export class MapComponent implements AfterViewInit {
     return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
       .subscribe((data: any) => {
         // console.log(data);
-        
         this.afficheDonneVille(data)
           
       })
