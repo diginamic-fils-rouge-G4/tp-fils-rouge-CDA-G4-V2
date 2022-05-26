@@ -1,0 +1,128 @@
+@import "../../../../../_shared/assets/variable.scss";
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: $black-color;
+}
+
+.forum{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2%;
+}
+
+.forumHeader{
+    display: flex;
+    justify-content: space-between;
+    background-color: $black-color;
+    width: 100%;
+}
+
+.forumHeaderText{
+    padding-left: 2%;
+    color:$bcg-txt-color;
+}
+
+.forumFilAriane{
+    background-color: $filAriane-color;
+    width: 100%;
+    opacity: $filAriane-opacity;
+}
+
+.forumFilArianeText{
+    padding-left: 2%;
+    color: white;
+}
+
+.forumBody{
+    background-color: $secondary-bcg-body-color;
+    width: 100%;
+}
+
+.forumBodyItem{
+    margin: 2%;
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color:$rubrique-bcg-color;
+
+    .headPost {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        .iconsPost{
+            width: 6%;
+            vertical-align: middle;
+            i {
+                margin-left: 15%;
+                color: rgba(22, 49, 202, 0.507);
+                cursor: pointer;
+                &:last-child {
+                    color: rgba(207, 36, 36, 0.644);
+                }
+            }
+        }
+        .iconsSelfPost {
+            width: 5%;
+            vertical-align: middle;
+            i {
+                margin-right: 20%;
+                color: rgb(163, 152, 0);
+                cursor: pointer;
+                &:last-child {
+                    font-size: 20px;
+                    color: $red-color;
+                }
+            }
+        }
+        .userPost {
+            display: flex;
+            align-items: flex-start;
+            width: 40%;
+            i {
+                font-size: 20px;
+                margin-right: 5%;
+            }
+        }
+    }
+    .replyPost {
+        width: 150px;
+        background-color: $green-color;
+        margin-top: 1%;
+        border: none;
+        border-radius: 5px;
+        height: 30px;
+        cursor: pointer;
+        color: white;
+        transition: .5s;
+    }
+}
+.forumItemText{
+    padding: 2%;
+}
+
+.forumHeaderIcon{
+    padding-right: 2%;
+    display: flex;
+    align-self: center;
+    color: $bcg-txt-color;
+}
+
+.forumItemInfoText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 250px;
+}
+.forumItemIcon{
+    padding-left: 2%;
+    padding-right: 2%;
+}
