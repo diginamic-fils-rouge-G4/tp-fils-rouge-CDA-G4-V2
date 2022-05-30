@@ -297,26 +297,28 @@ a {
     margin: 0;
     width: 7em;
     li {
+        display: block;
         color: black;
         float: none;
         text-align: left;
         list-style: none;
-        padding: 6px 0 6px 1em;
+        padding: 0 0 0 0;
         &:hover {
             background: $secondary-bcg-body-color;
         }
     }
     a {
+        height: 100%;
+        // width: 100%;
+        padding: 6px 0 6px 1em;
         display: block;
-        width: 100%;
+
     }
 }
 
 .navbar ul li:hover .sousderoulant {
     display: block;
 }
-
-
 
 .err {
     font-size: 12px;
