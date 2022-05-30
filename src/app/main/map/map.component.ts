@@ -48,4 +48,5 @@ export class MapComponent implements AfterViewInit {
   onSubmit() {
     this.api_map.onSubmit(this.formMapSearch)
   }
+
 }

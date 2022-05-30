@@ -27,6 +27,8 @@
         <li class="enteteVilleFAv">
           <button (click)="api_map.showStationsFavoris(favoris.name)">{{ favoris.name }}</button>
         </li>
+        <ul>
+          <li>{{ favoris.nom }}</li>
           <ul *ngFor="let station of favoris.stations">
             <button (click)="api_map.showStationsFavoris(station.name)" class="stationBtn">
               <span>{{ station.name }}
@@ -36,7 +38,7 @@
             </button>
           </ul>
         </ul>
-     
+      </ul>
     </div>
     <div class="printData" *ngIf="api_map.showFavoris == false">
       <div class="buttonAddFav">
