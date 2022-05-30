@@ -72,6 +72,8 @@ export class MapComponent implements AfterViewInit {
   testCurentData:any
 
   formSubmitted: boolean = false
+  sousList: boolean = true
+  listID: number = 0
   ngOnInit():void{
     
 
@@ -101,5 +103,14 @@ export class MapComponent implements AfterViewInit {
   onSubmit() {
     this.api_map.onSubmit(this.formMapSearch)
   }
-
+  test(i:any){
+    console.log(this.listID);
+    
+    if (this.listID != i) {
+      this.listID = i
+    }else{ 
+      this.listID = NaN
+    }
+    console.log(this.listID);
+  }
 }

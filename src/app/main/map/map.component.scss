@@ -37,14 +37,64 @@
     margin: 30px;
 
     .favoris-frame {
-        border: 1px solid black;
-        width: 28%;
-        overflow: overlay;
-
-        .favoris {
-            color: purple;
-            background: #000;
+        border: solid;
+        width: 25%;
+            
+        .favorisBlock{
+            height: 70vh;
+            overflow:auto;
+            *{
+                list-style: none;
+            }
         }
+        
+        .favorisList{
+            padding: 0;
+            .FavEntete{
+                display: flex;
+                position: sticky;
+                top: 0;
+                justify-content: space-between;
+                padding: 0 5%;
+                user-select: none;
+                background: white;
+                margin: 0;
+                width: 90%;
+                .favListTitle{
+                    margin: 0;
+                    padding: 15px;
+                }
+                .deroule{
+                    transition: .3s;
+                    
+                    transform: rotate(-90deg);
+                    &.off{
+                        transform: rotate(0deg);
+
+                    }
+                    .arrowSvg{
+                        width: 1rem;
+                    }
+                }
+            }
+            li{
+                width: 95%;
+                margin: auto;
+                cursor: pointer;
+                .sousList {
+                    padding: 0;
+                    .sousListStation{
+                        transition: .3s;
+                        .stationBtn{
+                            display: flex;
+                            justify-content: space-between;
+                            padding:0 5% ;
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 
     @media (max-width:750px) {
@@ -133,7 +183,7 @@
 
 .map-frame {
     border: 1px solid black;
-    width: 70%;
+    width: 65%;
 }
 
 #map {

@@ -214,7 +214,7 @@ export class ApiMapService {
     //
   }
   showStationsFavoris( stations:string) {
-    console.log(stations)
+    
     this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
       .subscribe((data: any) => {
         console.log(data)
