@@ -20,24 +20,26 @@
       </ul>
     </nav>
   </div>
+
+  <!-- PARTIE CONNEXION -->
+
   <div class="connexionInscription">
     <ul class="navlist">
       <li class="navLink">
-        <a onclick="document.getElementById('id01').style.display='block'" style="width: auto">
+        <a class="Connexion" style="width: auto">
           Connexion
         </a>
-        <!-- PARTIE CONNEXION -->
-        <div id="id01" class="modal">
-          <div class="container">
-            <div class="wrapper">
+        
+        <div id="id01" class="modal" [class.d-none]="loginVisible == false" >
+          <div id="containerCon" class="container">
+            <div id="wrapperCon" class="wrapperCon">
               <div class="modalHeader">
                 <div class="divVide"></div>
                 <div>
                   <h2>Connexion</h2>
                 </div>
                 <div class="close-button">
-                  <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                    title="Close Modal">&times;</span>
+                  <span id="closeCon" class="close" title="Close Modal" >&times;</span>
                 </div>
               </div>
               <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
@@ -83,25 +85,23 @@
 
       <div class="barreNav"></div>
 
-      <!-- <a routerLink="auth/login">Connexion</a> -->
-      <!-- <a routerLink="auth/signup">Inscription</a> -->
+      <!-- PARTIE Inscription -->
 
       <li class="navLink">
-        <a onclick="document.getElementById('id02').style.display='block'" style="width: auto">
+        <a class="Inscription" style="width: auto">
           Inscription
         </a>
-        <!-- PARTIE Inscription -->
-        <div id="id02" class="modal">
-          <div class="container">
-            <div class="wrapper">
+        
+        <div id="id02" class="modal" [class.d-none]="SignupVisible == false" >
+          <div id="containerIns" class="container">
+            <div id="wrapperIns" class="wrapperIsn">
               <div class="modalHeader">
                 <div class="divVide"></div>
                 <div>
                   <h2>Inscription</h2>
                 </div>
                 <div class="close-button">
-                  <span onclick="document.getElementById('id02').style.display='none'" class="close"
-                    title="Close Modal">&times;</span>
+                  <span id="closeIns" class="close" title="Close Modal">&times;</span>
                 </div>
               </div>
 
