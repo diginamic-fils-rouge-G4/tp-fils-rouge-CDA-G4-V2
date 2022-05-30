@@ -22,6 +22,7 @@
   </section>
   <section class="favoris-frame">
     <div class="favorisBlock" *ngIf="showFavoris">
+      <h3>Vos favoris</h3>
       <ul *ngFor="let favoris of favoritData">
         <li>
           <button (click)="showStationsByName(favoris.nom)">{{favoris.nom}}</button>
@@ -40,24 +41,26 @@
             </div>
           </ul>
         </ul>
-      </ul>
+     
     </div>
     <div class="printData" *ngIf="showFavoris == false">
-      <div>
+      <div class="printTitle">
+        <h3>{{ currentData.city.name }}</h3>
+      </div>
+      <div class="printValue">
+        <p><span>Moyenne indice qualité de l'air :</span> {{ currentData.aqi }} AQI</p>
+        <p><span>Température :</span> {{ currentData.iaqi.t?.v }} °C</p>
+        <p *ngIf="currentData.iaqi.pm25 != undefined"><span>PM 2.5 :</span> {{ currentData.iaqi.pm25?.v }} µ</p>
+        <p *ngIf="currentData.iaqi.pm10 != undefined"><span>PM 10 :</span> {{ currentData.iaqi.pm10?.v }} µ</p>
+        <p *ngIf="currentData.iaqi.h != undefined"><span>Humidité :</span> {{ currentData.iaqi.h?.v }} %</p>
+        <p *ngIf="currentData.iaqi.p != undefined"><span>Pression :</span> {{ currentData.iaqi.p?.v }} hPa</p>
+        <p *ngIf="currentData.iaqi.w != undefined"><span>Vent :</span> {{ currentData.iaqi.w?.v }} km/h</p>
+      </div>
+      <div class="buttonAddFav">
         <button (click)="showStationsByName(currentData.city.name)">
           Ajouté aux favoris
         </button>
       </div>
-      <ul>
-        <p>Info : {{ currentData.city.name }}</p>
-        <li>Moyenne indice qualité de l'air : {{ currentData.aqi }} AQI</li>
-        <li>Température : {{ currentData.iaqi.t?.v }} °C</li>
-        <li>PM 2.5 : {{ currentData.iaqi.pm25?.v }} µ</li>
-        <li>PM 10 : {{ currentData.iaqi.pm10?.v }} µ</li>
-        <li>Humidité : {{ currentData.iaqi.h?.v }} %</li>
-        <li>Pression : {{ currentData.iaqi.p?.v }} hPa</li>
-        <li>Vent : {{ currentData.iaqi.w?.v }} km/h</li>
-      </ul>
     </div>
   </section>
 </div>
