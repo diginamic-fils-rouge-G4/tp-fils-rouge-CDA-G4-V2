@@ -83,14 +83,52 @@
 }
 
 .buttonAddFav {
+    display: flex;
+    justify-content: space-around;
     height: 10%;
-    justify-self: flex-end;
-    align-self: center;
 
-    button {
-        height: 2em;
-        width: 10em;
+    .fa-arrow-left {
+        cursor: pointer;
     }
+
+    .fa-heart {
+        cursor: pointer;
+        transition: .5s;
+        position: relative;
+        transition: .5s;
+
+        .tooltiptext {
+          visibility: hidden;
+          width: 150px;
+          background-color: $black-color;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          top: 61%;
+          left: 50%;
+          margin-left: -75px;
+        }
+    }
+    .fa-heart .tooltiptext::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color:  transparent transparent $black-color transparent;
+    }    
+      .fa-heart:hover .tooltiptext {
+        visibility: visible;
+        transition: .5s;
+      }
+      .fa-heart:hover {
+          color: red;
+      }
 }
 
 .map-frame {

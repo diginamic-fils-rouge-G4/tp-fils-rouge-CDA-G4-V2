@@ -21,45 +21,43 @@
     <div id="map"></div>
   </section>
   <section class="favoris-frame">
-    <div class="favorisBlock" *ngIf="showFavoris">
+    <div class="favorisBlock" *ngIf="api_map.showFavoris">
       <h3>Vos favoris</h3>
-      <ul *ngFor="let favoris of favoritData">
-        <li>
-          <button (click)="showStationsByName(favoris.nom)">{{favoris.nom}}</button>
+      <ul *ngFor="let favoris of api_map.favoritData">
+        <li class="enteteVilleFAv">
+          <button (click)="api_map.showStationsFavoris(favoris.name)">{{ favoris.name }}</button>
         </li>
         <ul>
           <li>{{ favoris.nom }}</li>
           <ul *ngFor="let station of favoris.stations">
-            <div >
-              <span (click)="showStationsFavoris(station.nom)">
-                  {{ station.nom }}
-
-                </span>
-                <span *ngIf="station.status" style="color: red; font-size:20px"> ♥ </span>
-                <span *ngIf="!station.status"style=" font-size:20px"> ♥ </span>
-             
-            </div>
+            <button (click)="api_map.showStationsFavoris(station.name)" class="stationBtn">
+              <span>{{ station.name }}
+                <p *ngIf="station.status" style="color: red"> <3 </p>
+                <p *ngIf="!station.status"> <3 </p>
+              </span>
+            </button>
           </ul>
         </ul>
       </ul>
     </div>
-    <div class="printData" *ngIf="showFavoris == false">
+    <div class="printData" *ngIf="api_map.showFavoris == false">
+      <div class="buttonAddFav">
+        <i class="fa-solid fa-arrow-left" (click)="api_map.showFavori(this.formMapSearch)"></i>
+        <i class="fa-regular fa-heart" (click)="api_map.showStationsByName(api_map.currentData.city.name)">
+          <span class="tooltiptext">Ajouter aux favoris</span>
+        </i>
+      </div>
       <div class="printTitle">
-        <h3>{{ currentData.city.name }}</h3>
+        <h3>{{ api_map.currentData.city.name }}</h3>
       </div>
       <div class="printValue">
-        <p><span>Moyenne indice qualité de l'air :</span> {{ currentData.aqi }} AQI</p>
-        <p><span>Température :</span> {{ currentData.iaqi.t?.v }} °C</p>
-        <p *ngIf="currentData.iaqi.pm25 != undefined"><span>PM 2.5 :</span> {{ currentData.iaqi.pm25?.v }} µ</p>
-        <p *ngIf="currentData.iaqi.pm10 != undefined"><span>PM 10 :</span> {{ currentData.iaqi.pm10?.v }} µ</p>
-        <p *ngIf="currentData.iaqi.h != undefined"><span>Humidité :</span> {{ currentData.iaqi.h?.v }} %</p>
-        <p *ngIf="currentData.iaqi.p != undefined"><span>Pression :</span> {{ currentData.iaqi.p?.v }} hPa</p>
-        <p *ngIf="currentData.iaqi.w != undefined"><span>Vent :</span> {{ currentData.iaqi.w?.v }} km/h</p>
-      </div>
-      <div class="buttonAddFav">
-        <button (click)="showStationsByName(currentData.city.name)">
-          Ajouté aux favoris
-        </button>
+        <p><span>Moyenne indice qualité de l'air :</span> {{ api_map.currentData.aqi }} AQI</p>
+        <p><span>Température :</span> {{ api_map.currentData.iaqi.t?.v }} °C</p>
+        <p *ngIf="api_map.currentData.iaqi.pm25 != undefined"><span>PM 2.5 :</span> {{ api_map.currentData.iaqi.pm25?.v }} µ</p>
+        <p *ngIf="api_map.currentData.iaqi.pm10 != undefined"><span>PM 10 :</span> {{ api_map.currentData.iaqi.pm10?.v }} µ</p>
+        <p *ngIf="api_map.currentData.iaqi.h != undefined"><span>Humidité :</span> {{ api_map.currentData.iaqi.h?.v }} %</p>
+        <p *ngIf="api_map.currentData.iaqi.p != undefined"><span>Pression :</span> {{ api_map.currentData.iaqi.p?.v }} hPa</p>
+        <p *ngIf="api_map.currentData.iaqi.w != undefined"><span>Vent :</span> {{ api_map.currentData.iaqi.w?.v }} km/h</p>
       </div>
     </div>
   </section>
