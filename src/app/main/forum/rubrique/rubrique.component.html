@@ -1,46 +1,54 @@
-<div class="forum" >
-    <div class="forumHeader">
-        <h2 class="forumHeaderText">Forum</h2>
-        <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
+<div class="forum">
+  <div class="forumHeader">
+    <h2 class="forumHeaderText">Forum</h2>
+    <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
+  </div>
+  <div class="forumFilAriane">
+    <p class="forumFilArianeText">Accueil > Forum</p>
+  </div>
+  <div class="forumBody">
+    <div *ngFor="let rubrique of rubriques">
+      <div class="forumBodyItem">
+        <h3 class="forumItemText">rubrique 1</h3>
+        <span>15 topics</span>
+        <i
+          (click)="openVerticale($event, rubrique.id)"
+          id="icon"
+          class="fa-solid fa-ellipsis-vertical ellipse"
+        ></i>
+        <i
+          (click)="closeVerticale($event)"
+          id="Xicon"
+          class="fa-solid fa-xmark d-none"
+        ></i>
+        <nav id="nav">
+            <ul id="rub" class="nav-rubrique d-none">
+                <li><a>Modifier la rubrique</a></li>
+                <li><a>Supprimer la rubrique</a></li>
+            </ul>
+        </nav>
+      </div>
     </div>
-    <div class="forumFilAriane">
-        <p class="forumFilArianeText">Accueil > Forum</p>
-    </div>
-    <div class="forumBody"  >
-        <div  *ngFor="let rubrique of rubriques" >
-            <div  class="forumBodyItem">
-                <h3 class="forumItemText">
-                    rubrique 1
-                </h3>
-                <span>15 topics</span>
-                <i (click)="openVerticale($event,rubrique.id)" id="icon" class="fa-solid fa-ellipsis-vertical ellipse"></i>
-                <i (click)="closeVerticale($event)" id="Xicon" class="fa-solid fa-xmark d-none"></i>
-                <div id="nav">
-                    <div id='rub' class="nav-rubrique d-none">
-                        <p><a>Modifier la rubrique</a></p>
-                        <p><a>Supprimer la rubrique</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
-<div class="modal-overlay" [class.open-modal]="addClass" >
-    <div class="modal-container">
-        <div>
-            <div>
-                <h2>Ajouter Rubrique</h2>
-            </div>
-            <div [formGroup]="form">
-
-                <input type="text" formControlName="name" placeholder="Nom de la rubrique">
-                
-            </div>
-            <div>
-                <button class="annuler-btn">Annuler</button>
-                <button class="valider-btn" type="submit">Valider</button>
-            </div>
-        </div>
+<div class="modal-overlay" [class.open-modal]="addClass">
+  <div class="modal-container">
+    <div>
+      <div>
+        <h2>Ajouter Rubrique</h2>
+      </div>
+      <div [formGroup]="form">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Nom de la rubrique"
+        />
+      </div>
+      <div>
+        <button class="annuler-btn">Annuler</button>
+        <button class="valider-btn" type="submit">Valider</button>
+      </div>
     </div>
+  </div>
 </div>
