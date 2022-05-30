@@ -45,6 +45,10 @@ export class RubriqueComponent implements OnInit {
     this.closeVerticale(e)
     
     e.stopPropagation()
+
+    console.log(id);
+    
+
     this.selectedId = id
     const navRubrique: any = document.querySelectorAll("#rub");
     const icon: any = document.querySelectorAll("#icon");
@@ -82,10 +86,6 @@ export class RubriqueComponent implements OnInit {
   }
 
   onClick() {
-    
-    if (this.selectedId) {
-      
-    }
     this.addClass = !this.addClass;
   }
 

@@ -45,12 +45,14 @@ a {
 }
 
 .forumBodyItem{
-    margin: 2%;
-    padding: 1%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:$rubrique-bcg-color ;
+  margin: 2%;
+  padding: 1%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: #F6F1EA;
+  height: 50px;
+  align-items: center;
+  align-content: center;
 
     i {
         cursor: pointer;
@@ -67,22 +69,83 @@ a {
         transition: .5s;
         background-color: $secondary-bcg-body-color;
     }
+
+    .replays{
+      text-align: center;
+    }
+
+    .replayinfo{
+      margin-right: 5em;
+    }
+
+
+}
+
+.formUtility{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  margin:0 2em;
+}
+
+.rechercheTopic{
+  margin: 0 2%;
+  width: 17%;
+  display: flex;
+  justify-content: space-between;
+
+  input{
+    height: 25px;
+    border-radius: 0.6rem
+  }
+  button{
+    height: 31px; 
+    border-radius: 0.6rem
+  }
+
+}
+
+
+.forumItemInfoText{
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  align-content: center;
 }
 
 #nav {
     display: flex;
+    position: absolute;
     justify-content: flex-end;
-    margin: 0 2%;
+    right: 5px;
+    bottom: -100px;
+    // margin: 0 2%;
+    z-index: 2;
+    
+    .nav-center {
+        padding: 1em;
+    }
     .nav-rubrique {
         border-radius: 5px;
-        width: 250px;
+        width: 140px;
         height: auto;
-        padding: .5%;
+        padding: 1.5em 1em 1.5em 1em;
         background-color: $bcg-txt-color;
+        font-size: 1rem;
         box-shadow: 1px 1px 5px 2px rgba(105, 105, 105, 0.75);
-    
-        ul li {
-            margin-top: 15px;
+        a:hover {
+            // color: $bcg-txt-color-hover;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        ul {
+            padding: 0;
+            li {
+                margin: 15px 0 0 0;
+            }
         }
     }
 }
@@ -94,6 +157,7 @@ a {
 
 .forumItemText{
     padding: 2%;
+    width: 10em;
 }
 
 .forumHeaderIcon{
@@ -103,26 +167,15 @@ a {
     color: $bcg-txt-color;
 }
 
-.forumItemInfoText{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 2%;
-    padding-right: 2%;
-    width: 250px;
-}
-.forumItemIcon{
-    padding-left: 2%;
-    padding-right: 2%;
-}
-
-
 /*
 =============== 
 Modal
 ===============
 */
 
+.forumHeaderIcon{
+    cursor: pointer;
+}
   .forumHeaderIcon:hover {
     background: transparent;
     color: $bcg-txt-color-hover;
@@ -133,7 +186,7 @@ Modal
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(73, 166, 233, 0.5);
+    background: rgba(0, 0, 0, 0.4);;
     display: grid;
     place-items: center;
     visibility: hidden;
@@ -145,32 +198,170 @@ Modal
     z-index: 10;
   }
   .modal-container {
+    
     background: $rubrique-bcg-color;
     width: 90vw;
     height: 30vh;
     max-width: 1000px;
+    border-radius: 5px;
     text-align: center;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     position: relative;
+
+    input {
+        margin-bottom: 3%;
+        padding-left: 1%;
+        border: 1px solid rgb(133, 133, 133);
+        border-radius: 5px;
+        height: 30px;
+        width: 200px;
+    }
   }
   .valider-btn{
-    background: transparent;
-    border-color: transparent;
-    color: black;
+    width: 100px;
+    height: 25px;
+    background: $green-color;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
     cursor: pointer;
+    transition: .5s;
   }
   .valider-btn:hover {
-    color: green;
-    transform: scale(1.3);
+    background: rgb(26, 197, 20);
   }
   .annuler-btn {
-    background: transparent;
-    border-color: transparent;
-    color: black;
+    width: 100px;
+    height: 25px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
     cursor: pointer;
+    transition: .5s;
   }
   .annuler-btn:hover {
-    color: red;
-    transform: scale(1.3);
+    background: rgb(37, 37, 37);
+  }
+
+
+  /* Pagination */
+
+  .container {
+    margin: 0 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  .items-list {
+    max-width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+    justify-content: center;
+    align-content: center;
+  
+    @media only screen and (max-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .item {
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+  
+    span {
+      background: #ffffff;
+      box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+      border-radius: 0.6rem;
+      padding: 2rem;
+      font-size: 3rem;
+      transition: all 0.3s ease;
+    }
+  
+    &:hover {
+      span {
+        transform: scale(1.2);
+        color: var(--primary);
+      }
+    }
+  
+    p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: var(--greyLight);
+    }
+  }
+  
+  .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1rem;
+    border-radius: 0.6rem;
+    padding: 10px;
+    background: $pag-bcg-color;
+    box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+  
+    &__numbers,
+    &__btn,
+    &__dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      color: $pag-text-color;
+      cursor: pointer;
+    }
+  
+    &__dots {
+      width: 2.6rem;
+      height: 2.6rem;
+      cursor: initial;
+    }
+  
+    &__numbers {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.4rem;
+  
+      &:hover {
+        color: $pag-hover-text-color;
+      }
+  
+      &.active {
+        color: $pag-selected-text-color;
+        background: $pag-selected-bcg-color;
+        font-weight: 600;
+        border: 1px solid $bcg-txt-color-hover;
+      }
+    }
+  
+    &__btn {
+      color: $pag-text-color;
+      &.active {
+        color: var(--greyDark);
+        pointer-events: initial;
+  
+        &:hover {
+          color: var(--primary);
+        }
+      }
+    }
   }

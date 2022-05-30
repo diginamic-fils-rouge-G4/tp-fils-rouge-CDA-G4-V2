@@ -79,6 +79,7 @@ a {
     bottom: -60px;
     // margin: 0 2%;
     z-index: 2;
+    
     .nav-center {
         padding: 1em;
     }
@@ -86,7 +87,7 @@ a {
         border-radius: 5px;
         width: auto;
         height: auto;
-        padding: 0.5em 1em 0.5em 1em;
+        padding: 1.5em 1em 1.5em 1em;
         background-color: $bcg-txt-color;
         font-size: 1rem;
         box-shadow: 1px 1px 5px 2px rgba(105, 105, 105, 0.75);
@@ -94,6 +95,12 @@ a {
             // color: $bcg-txt-color-hover;
             text-decoration: underline;
             cursor: pointer;
+        }
+        ul {
+            padding: 0;
+            li {
+                margin: 15px 0 0 0;
+            }
         }
     }
 }
@@ -193,3 +200,4 @@ Modal
   .annuler-btn:hover {
     background: rgb(37, 37, 37);
   }
+
