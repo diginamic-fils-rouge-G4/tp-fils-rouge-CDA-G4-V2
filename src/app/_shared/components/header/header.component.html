@@ -14,8 +14,11 @@
         <li class="navLink">
           <a routerLink="/home/forum">Forum</a>
         </li>
-        <li class="navLink">
-          <a routerLink="/admin/dashboard">Dashboard</a>
+        <li class="navLink deroulant"><a class="linkDeroulant" routerLink="/admin/dashboard">Dashboard</a>
+          <ul class="sousderoulant">
+            <li><a routerLink="/admin/dashboard/user">User</a></li>
+            <li><a routerLink="/admin/dashboard/rubrique">Rubrique</a></li>
+          </ul>
         </li>
       </ul>
     </nav>

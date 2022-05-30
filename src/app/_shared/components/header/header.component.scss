@@ -19,6 +19,17 @@ header {
         &:hover {
             color: $bcg-txt-color-hover;
             text-decoration: underline;
+
+        }
+    }
+    .linkDeroulant {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .sousderoulant a {
+        &:hover {
+            color: black;
         }
     }
 }
@@ -270,6 +281,45 @@ a {
         }
     }
 
+}
+
+.deroulant::after {
+    font-size: 12px;
+    content:" ▼";
+}
+
+.sousderoulant {
+    display: none;
+    background: $rubrique-bcg-color;
+    box-shadow: 0px 1px 2px 0px #CCC;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    padding: 0 0 0 0;
+    margin: 0;
+    width: 7em;
+    li {
+        display: block;
+        color: black;
+        float: none;
+        text-align: left;
+        list-style: none;
+        padding: 0 0 0 0;
+        &:hover {
+            background: $secondary-bcg-body-color;
+        }
+    }
+    a {
+        height: 100%;
+        // width: 100%;
+        padding: 6px 0 6px 1em;
+        display: block;
+
+    }
+}
+
+.navbar ul li:hover .sousderoulant {
+    display: block;
 }
 
 .err {
