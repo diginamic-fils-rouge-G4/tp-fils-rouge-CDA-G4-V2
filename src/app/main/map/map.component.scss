@@ -1,29 +1,61 @@
 @import '../../_shared/assets/variable.scss';
 
+.formMap {
+    margin: 2% 0 0 2.3%;
+    input{
+        margin-right: 1%;
+        border: 1px solid rgb(133, 133, 133);
+        border-radius: 5px;
+        height: 20px;
+        width: 200px;
+        padding-left: 10px;
+    }
+    button {
+        width: 100px;
+        background-color: rgb(16, 54, 179);
+        border: none;
+        border-radius: 5px;
+        height: 24px;
+        cursor: pointer;
+        color: white;
+        transition: .5s;
+        &:hover {
+            transform: translateY(-2px);
+            transition: .5s;
+            box-shadow: 0px 5px 5px 0px rgba(58, 58, 58, 0.25);
+        }
+    }
+    
+}
+
 .map-container {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     margin: 30px;
+    .favoris-frame {
+        border: 1px solid black;
+        width: 25%;
+        overflow: overlay;
+        height: 70vh;
+        .favoris {
+            color: purple;
+            background: #000;
+        }
+    }
 }
 
 .map-frame {
-    border: 2px solid black;
-    width: 80%;
-}
-
-.favoris-frame {
-    border: 2px solid black;
-    width: 20%;
+    border: 1px solid black;
+    width: 70%;
 }
 
 #map {
-    height: 500px;
+    min-height: 600px;
+    height: 100%;
 }
 
 #favoris {
     width: 40%;
-    height: 500px;
 }
 
 .err {

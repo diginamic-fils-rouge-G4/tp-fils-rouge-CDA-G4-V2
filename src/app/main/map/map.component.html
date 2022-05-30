@@ -1,20 +1,63 @@
-<div>
+<div class="formMap">
     <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()">
-        <input type="text" formControlName="name">
-        <button type="submit">Search</button>
+        <input type="text" formControlName="name" id="name" placeholder="Ville...">
+        <button type="submit">Rechercher</button>
         <div class="err">
-
+            
         </div>
+        <div class="errorForm" *ngIf="formMapSearch.status === 'INVALID' && this.formSubmitted === true">
+            <div *ngIf="formMapSearch.controls['name'].errors?.['required']">
+                <span>Veuillez entrer le nom d'une ville</span>
+            </div>
+            <div *ngIf="formMapSearch.controls['name'].errors?.['minlength'].actualLength < 2">
+                <span>Le nom de la ville doit avoir deux caractères minimum</span>
+            </div>
+        </div>  
     </form>
 </div>
 
 <div class="map-container">
-    <div class="map-frame">
-        <div id="map"></div>
-    </div>
-    <div class="favoris-frame">
-        <ul class="printData">
+  <section class="map-frame">
+    <div id="map"></div>
+  </section>
+  <section class="favoris-frame">
+    <div class="favorisBlock" *ngIf="showFavoris">
+      <ul *ngFor="let favoris of favoritData">
+        <li>
+          <button (click)="showStationsByName(favoris.nom)">{{favoris.nom}}</button>
+        </li>
+        <ul>
+          <li>{{ favoris.nom }}</li>
+          <ul *ngFor="let station of favoris.stations">
+            <div >
+              <span (click)="showStationsFavoris(station.nom)">
+                  {{ station.nom }}
 
+                </span>
+                <span *ngIf="station.status" style="color: red; font-size:20px"> ♥ </span>
+                <span *ngIf="!station.status"style=" font-size:20px"> ♥ </span>
+             
+            </div>
+          </ul>
         </ul>
+      </ul>
     </div>
+    <div class="printData" *ngIf="showFavoris == false">
+      <div>
+        <button (click)="showStationsByName(currentData.city.name)">
+          Ajouté aux favoris
+        </button>
+      </div>
+      <ul>
+        <p>Info : {{ currentData.city.name }}</p>
+        <li>Moyenne indice qualité de l'air : {{ currentData.aqi }} AQI</li>
+        <li>Température : {{ currentData.iaqi.t?.v }} °C</li>
+        <li>PM 2.5 : {{ currentData.iaqi.pm25?.v }} µ</li>
+        <li>PM 10 : {{ currentData.iaqi.pm10?.v }} µ</li>
+        <li>Humidité : {{ currentData.iaqi.h?.v }} %</li>
+        <li>Pression : {{ currentData.iaqi.p?.v }} hPa</li>
+        <li>Vent : {{ currentData.iaqi.w?.v }} km/h</li>
+      </ul>
+    </div>
+  </section>
 </div>
