@@ -17,7 +17,7 @@
 
 ![image](https://user-images.githubusercontent.com/44068884/184831992-7fe59173-5845-4a30-8e82-1923e1a7b32e.png)
 
-- [ ] POST /signup
+- [ ] POST /users
 ```
 {
   status : 201,
@@ -29,15 +29,15 @@
 
 ![image](https://user-images.githubusercontent.com/44068884/184832427-e527a2b6-3a8a-4850-a284-d1dacde6d6d9.png)
 
-- [ ] GET /map/favories
-Recevoir la liste des favories de l'utilisateur (user).
+- [ ] GET /favoris
+Recevoir la liste des favories de l'utilisateurs.
 ```
 {
   status : 200,
-  body : {"listeStation" : "..."}
+  body : {"listeStation" : [...]}
 }
 ```
-- [ ] POST /map/favorie
+- [ ] POST /favoris
 Envoyer un nouveau favorie de l'utilisateur.
 ```
 {
@@ -45,7 +45,7 @@ Envoyer un nouveau favorie de l'utilisateur.
   body : {"nom_station" : "..."}
 }
 ```
-- [ ] DELETE /map/favorie
+- [ ] DELETE /favoris/{id}
 Retirer un favorie de l'utilisateur.
 ```
 {
@@ -59,7 +59,7 @@ Retirer un favorie de l'utilisateur.
 
 ![image](https://user-images.githubusercontent.com/44068884/184851837-ff9dc027-077a-4cf4-8217-c8481092d0bd.png)
 
-- [ ] GET /rubrique
+- [ ] GET /rubriques
 Recevoir la liste des rubriques du forum.
 ```
 {
@@ -67,7 +67,7 @@ Recevoir la liste des rubriques du forum.
   body : {"listeRubrique" : [...]}
 }
 ```
-- [ ] POST /rubrique
+- [ ] POST /rubriques
 Ajouté une rubrique.
 ```
 {
@@ -75,19 +75,25 @@ Ajouté une rubrique.
   body : {"nomRubrique" : "..."}
 }
 ```
-- [ ] DELETE /rubrique
+- [ ] DELETE /rubriques/{id}
 Supprimer une rubrique.
 ```
 {
   status : 204
 }
 ```
-
+- [ ] PUT /rubriques/{id}
+modifi une rubrique.
+```
+{
+  status : 204
+}
+```
 ### Topic
 
 ![image](https://user-images.githubusercontent.com/44068884/184851889-691e7add-af31-4832-b305-f720cb03f0c0.png)
 
-- [ ] GET /topic
+- [ ] GET /topics
 Recevoir la liste des topics de la rubrique.
 ```
 {
@@ -95,7 +101,7 @@ Recevoir la liste des topics de la rubrique.
   body : {"listeTopic" : [...]}
 }
 ```
-- [ ] POST /topic
+- [ ] POST /topics
 Ajouté un topic.
 ```
 {
@@ -103,19 +109,25 @@ Ajouté un topic.
   body : {"nom_topic" : "..."}
 }
 ```
-- [ ] DELETE /topic
+- [ ] DELETE /topics/{id}
 Supprimer un topic.
 ```
 {
   status : 204
 }
 ```
-
+- [ ] PUT /topics/{id}
+modifi un topic.
+```
+{
+  status : 204
+}
+```
 ### Post
 
 ![image](https://user-images.githubusercontent.com/44068884/184852047-2f44b85d-1d85-4d8e-9761-f52f681d6933.png)
 
-- [ ] GET /post
+- [ ] GET /posts
 Recevoir la liste des posts du topic.
 ```
 {
@@ -123,7 +135,7 @@ Recevoir la liste des posts du topic.
   body : {"listePost" : [...]}
 }
 ```
-- [ ] POST /post
+- [ ] POST /posts
 Ajouté un post.
 ```
 {
@@ -131,7 +143,7 @@ Ajouté un post.
   body : {"user_id" : "...", "content" : {"sitation": post_id, "body":"..."}, "date" : "...", "heure" : "..."}
 }
 ```
-- [ ] DELETE /post
+- [ ] DELETE /posts/{id}
 Supprimer un post.
 ```
 {
@@ -142,11 +154,13 @@ Supprimer un post.
 ## Dashboard
 Gestion pour les administrateurs des utilisateurs (User) et des rubriques des forums (Rubrique).
 
+** prefix /Dashboard **
+
 ### User
 
 ![image](https://user-images.githubusercontent.com/44068884/184852169-8f8051cc-8c51-4ec1-92de-5f74e450efed.png)
 
-- [ ] GET /admin/dashboard/user
+- [ ] GET /users
 Affiche la liste des utilisateurs (users).
 ```
 {
@@ -154,27 +168,25 @@ Affiche la liste des utilisateurs (users).
   body : {"listeUtilisateur" : [...]}
 }
 ```
-- [ ] PATCH /admin/dashboard/user/changerole
-Change le rôle d'un utilisateur.
-```
-{
-  status : 201,
-  body : {"idUser" : "...", "nouveauRole" : "..."}
-}
-```
-- [ ] DELETE /admin/dashboard/user/deleteuser
+- [ ] DELETE users/{id}
 Supprime un utilisateur.
 ```
 {
   status : 204
 }
 ```
-
+- [ ] PUT users/{id}
+modifi un utilisateur.
+```
+{
+  status : 204
+}
+```
 ### Rubrique
 
 ![image](https://user-images.githubusercontent.com/44068884/184852115-893617d5-45dc-4ecc-980e-30e64cc8903a.png)
 
-- [ ] GET /admin/dashboard/rubrique
+- [ ] GET /rubriques
 Affiche la liste des rubriques (rubrique).
 ```
 {
@@ -182,7 +194,7 @@ Affiche la liste des rubriques (rubrique).
   body : {"listeRubrique" : [...]}
 }
 ```
-- [ ] PATCH /admin/dashboard/rubrique/changerubrique
+- [ ] PUT /rubriques/{id}
 Change le nom d'une rubrique.
 ```
 {
@@ -190,7 +202,7 @@ Change le nom d'une rubrique.
   body : {"nom_rubrique" : "...", "nouveauNom" : "..."}
 }
 ```
-- [ ] DELETE /admin/dashboard/rubrique/deleterubrique
+- [ ] DELETE /rubriques/{id}
 Supprime une rubrique.
 ```
 {
