@@ -62,7 +62,7 @@ Recevoir la liste des rubriques du forum.
 ```
 {
   status : 200,
-  body : {"listeRubrique" : "..."}
+  body : {"listeRubrique" : [...]}
 }
 ```
 - [ ] POST /rubrique
@@ -85,6 +85,12 @@ Supprimer une rubrique.
 
 - [ ] GET /topic
 Recevoir la liste des topics de la rubrique.
+```
+{
+  status : 200,
+  body : {"listeTopic" : [...]}
+}
+```
 - [ ] POST /topic
 Ajouté un topic.
 ```
@@ -108,7 +114,7 @@ Recevoir la liste des posts du topic.
 ```
 {
   status : 200,
-  body : liste_post
+  body : {"listePost" : [...]}
 }
 ```
 - [ ] POST /post
@@ -133,15 +139,49 @@ Gestion pour les administrateurs des utilisateurs (User) et des rubriques des fo
 ### User
 - [ ] GET /admin/dashboard/user
 Affiche la liste des utilisateurs (users).
+```
+{
+  status : 200,
+  body : {"listeUtilisateur" : [...]}
+}
+```
 - [ ] PATCH /admin/dashboard/user/changerole
 Change le rôle d'un utilisateur.
+```
+{
+  status : 201,
+  body : {"idUser" : "...", "nouveauRole" : "..."}
+}
+```
 - [ ] DELETE /admin/dashboard/user/deleteuser
 Supprime un utilisateur.
+```
+{
+  status : 204
+}
+```
 
 ### Rubrique
 - [ ] GET /admin/dashboard/rubrique
 Affiche la liste des rubriques (rubrique).
+```
+{
+  status : 200,
+  body : {"listeRubrique" : [...]}
+}
+```
 - [ ] PATCH /admin/dashboard/rubrique/changerubrique
 Change le nom d'une rubrique.
+```
+{
+  status : 201,
+  body : {"nom_rubrique" : "...", "nouveauNom" : "..."}
+}
+```
 - [ ] DELETE /admin/dashboard/rubrique/deleterubrique
 Supprime une rubrique.
+```
+{
+  status : 204
+}
+```
