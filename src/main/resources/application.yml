@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+jwt:
+  cookie: AUTH-TOKEN
+  expires_in: 86400
