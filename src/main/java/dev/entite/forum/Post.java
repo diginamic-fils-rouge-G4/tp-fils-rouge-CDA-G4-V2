@@ -12,6 +12,8 @@ public class Post extends BaseEntite {
     private String content;
     @ManyToOne
     private Utilisateur utilisateur;
+    @ManyToOne
+    private Topic topic;
 
     // Constructeur
 
@@ -35,4 +37,11 @@ public class Post extends BaseEntite {
         this.utilisateur = utilisateur;
     }
 
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 }

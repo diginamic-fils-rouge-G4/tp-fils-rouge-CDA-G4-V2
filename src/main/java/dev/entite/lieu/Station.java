@@ -16,7 +16,7 @@ public class Station extends BaseEntite {
     @ManyToOne
     private Ville ville;
     @ManyToMany
-    private List<Station> stationList = new ArrayList<>();
+    private List<Polluant> polluants = new ArrayList<>();
 
     // Constructeur
     public Station() {
@@ -39,11 +39,11 @@ public class Station extends BaseEntite {
         this.ville = ville;
     }
 
-    public List<Station> getStationList() {
-        return stationList;
+    public List<Polluant> getPolluants() {
+        return polluants;
     }
 
-    public void setStationList(List<Station> stationList) {
-        this.stationList = stationList;
+    public void setPolluants(List<Polluant> polluants) {
+        this.polluants = polluants;
     }
 }

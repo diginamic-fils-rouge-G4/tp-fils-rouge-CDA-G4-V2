@@ -16,7 +16,7 @@ public class Meteo extends BaseEntite {
     private LocalDateTime date;
     private LocalDateTime heure;
     @ManyToMany
-    private List<Ville> villeList = new ArrayList<>();
+    private List<Ville> villes = new ArrayList<>();
 
     // Constructeur
     public Meteo() {
@@ -47,11 +47,11 @@ public class Meteo extends BaseEntite {
         this.heure = heure;
     }
 
-    public List<Ville> getVilleList() {
-        return villeList;
+    public List<Ville> getVilles() {
+        return villes;
     }
 
-    public void setVilleList(List<Ville> villeList) {
-        this.villeList = villeList;
+    public void setVilles(List<Ville> villes) {
+        this.villes = villes;
     }
 }

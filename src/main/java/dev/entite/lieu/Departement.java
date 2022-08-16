@@ -3,6 +3,7 @@ package dev.entite.lieu;
 import dev.entite.BaseEntite;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,10 @@ public class Departement extends BaseEntite {
 
     private String nom;
     private String code;
-    @OneToMany
-    private List<Ville> villeList = new ArrayList<>();
+    @OneToMany(mappedBy = "departement")
+    private List<Ville> villes = new ArrayList<>();
+    @ManyToOne
+    private Region region;
 
     // Constructeur
     public Departement() {
@@ -28,19 +31,27 @@ public class Departement extends BaseEntite {
         this.nom = nom;
     }
 
-    public List<Ville> getVilleList() {
-        return villeList;
-    }
-
-    public void setVilleList(List<Ville> villeList) {
-        this.villeList = villeList;
-    }
-
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<Ville> getVilles() {
+        return villes;
+    }
+
+    public void setVilles(List<Ville> villes) {
+        this.villes = villes;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

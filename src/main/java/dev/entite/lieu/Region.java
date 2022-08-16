@@ -11,8 +11,8 @@ import java.util.List;
 public class Region extends BaseEntite {
 
     private String nom;
-    @OneToMany
-    private List<Departement> departementList = new ArrayList<>();
+    @OneToMany(mappedBy = "region")
+    private List<Departement> departements = new ArrayList<>();
 
     // Constructeur
     public Region() {
@@ -27,11 +27,11 @@ public class Region extends BaseEntite {
         this.nom = nom;
     }
 
-    public List<Departement> getDepartementList() {
-        return departementList;
+    public List<Departement> getDepartements() {
+        return departements;
     }
 
-    public void setDepartementList(List<Departement> departementList) {
-        this.departementList = departementList;
+    public void setDepartements(List<Departement> departements) {
+        this.departements = departements;
     }
 }

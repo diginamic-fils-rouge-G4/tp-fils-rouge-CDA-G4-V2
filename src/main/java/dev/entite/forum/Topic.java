@@ -15,8 +15,10 @@ public class Topic extends BaseEntite {
     private String libelle;
     @ManyToOne
     private Utilisateur utilisateur;
-    @OneToMany
-    private List<Post> postList = new ArrayList<>();
+    @OneToMany(mappedBy = "topic")
+    private List<Post> posts = new ArrayList<>();
+    @ManyToOne
+    private Rubrique rubrique;
 
     // Constructeur
     public Topic() {
@@ -39,11 +41,19 @@ public class Topic extends BaseEntite {
         this.utilisateur = utilisateur;
     }
 
-    public List<Post> getPostList() {
-        return postList;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setPostList(List<Post> postList) {
-        this.postList = postList;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Rubrique getRubrique() {
+        return rubrique;
+    }
+
+    public void setRubrique(Rubrique rubrique) {
+        this.rubrique = rubrique;
     }
 }
