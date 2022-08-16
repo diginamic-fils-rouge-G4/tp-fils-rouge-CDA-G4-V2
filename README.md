@@ -29,15 +29,15 @@
 
 ![image](https://user-images.githubusercontent.com/44068884/184832427-e527a2b6-3a8a-4850-a284-d1dacde6d6d9.png)
 
-- [ ] GET /map
-Recevoir la liste des favories de l'utilisateurs.
+- [ ] GET /map/favories/{user}/favorie
+Recevoir la liste des favories de l'utilisateur (user).
 ```
 {
   status : 200,
   body : {"listeStation" : "..."}
 }
 ```
-- [ ] POST /map/addfavorie
+- [ ] POST /map/favorie
 Envoyer un nouveau favorie de l'utilisateur.
 ```
 {
@@ -45,7 +45,7 @@ Envoyer un nouveau favorie de l'utilisateur.
   body : {"nom_station" : "..."}
 }
 ```
-- [ ] DELETE /map/removefavorie
+- [ ] DELETE /map/favorie
 Retirer un favorie de l'utilisateur.
 ```
 {
