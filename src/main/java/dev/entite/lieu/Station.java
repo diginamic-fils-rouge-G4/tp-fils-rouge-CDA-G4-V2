@@ -1,11 +1,13 @@
 package dev.entite.lieu;
 
 import dev.entite.BaseEntite;
+import dev.entite.Favoris;
 import dev.entite.qualite.Polluant;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class Station extends BaseEntite {
     private Ville ville;
     @ManyToMany
     private List<Polluant> polluants = new ArrayList<>();
+
+    @OneToMany(mappedBy = "station")
+    private List<Favoris> favoris = new ArrayList<>();
 
     // Constructeur
     public Station() {
@@ -45,5 +50,13 @@ public class Station extends BaseEntite {
 
     public void setPolluants(List<Polluant> polluants) {
         this.polluants = polluants;
+    }
+
+    public List<Favoris> getFavoris() {
+        return favoris;
+    }
+
+    public void setFavoris(List<Favoris> favoris) {
+        this.favoris = favoris;
     }
 }
