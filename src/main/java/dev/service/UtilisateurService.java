@@ -45,7 +45,8 @@ public class UtilisateurService {
     }
     public Optional<Utilisateur> getByName(String nom){
         return utilisateurRepository.findByNom(nom);
-    }public Optional<Utilisateur> getByMail(String mail){
+    }
+    public Optional<Utilisateur> getByMail(String mail){
         return utilisateurRepository.findByMail(mail);
     }
 }

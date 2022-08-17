@@ -1,6 +1,9 @@
 package dev.controller.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class RubriqueDTO {
+    @NotBlank
     private String libelle;
 
     public RubriqueDTO() {
