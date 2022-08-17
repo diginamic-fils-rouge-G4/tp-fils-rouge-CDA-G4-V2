@@ -324,14 +324,21 @@ export class ApiMapService {
 
     this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
       .subscribe((data: any) => {
-        console.log(data)
-        let obj = {
-          latlng:{
-            lat:data.data[0].station.geo[0],
-            lng:data.data[0].station.geo[1]
+        if(data.data.length < 1) {
+          const errMsg: any = document.querySelector('.err')
+          errMsg.innerHTML = `Nous n'avons aucune informations sur la station de ${stations}`
+        } else {
+          console.log(data)
+          let obj = {
+            latlng:{
+              lat:data.data[0].station.geo[0],
+              lng:data.data[0].station.geo[1]
+            }
           }
+          this.markerClick(obj)
         }
-        this.markerClick(obj)
+          
+          
       })
   }
 
@@ -339,9 +346,14 @@ export class ApiMapService {
     if(form.value.name === ""){
 
       this.showFavoris = true
+
     }
     else{
-      this.initApi(form.value.name)
+      if(form.value.radio === "ville") {
+        this.initApi(form.value.name)
+      } else {
+        this.showStationsFavoris(form.value.name)
+      }
     }
   }
 
