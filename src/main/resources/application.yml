@@ -2,5 +2,6 @@ spring:
   profiles:
     active: @spring.profiles.active@
 jwt:
-  cookie: AUTH-TOKEN
+  secret: SecretKeyToGenJWTszerbghbegilrzlbgzerlelrzbgqlgrbgzlhjkghjklzbzrglfbzeREZGERGfbZALIBHZEliblBHBDLIABNJEBELZFBFLZEbefzlkbzeflLZ
   expires_in: 86400
+  cookie: AUTH-TOKEN
