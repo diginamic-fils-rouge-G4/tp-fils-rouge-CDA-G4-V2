@@ -1,11 +1,9 @@
 package dev.entite;
 
 import dev.entite.lieu.Station;
+import dev.entite.lieu.Ville;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +22,8 @@ public class Utilisateur extends BaseEntite {
     private String password;
     @ManyToMany
     private List<Station> stationFavoris = new ArrayList<>();
+    @ManyToOne
+    private Ville ville;
 
     // Constructeur
     public Utilisateur() {
@@ -78,15 +78,12 @@ public class Utilisateur extends BaseEntite {
         this.stationFavoris = stationFavoris;
     }
 
-    // toString
-    @Override
-    public String toString() {
-        return "Utilisateur{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", mail='" + mail + '\'' +
-                ", role=" + role +
-                ", password='" + password + '\'' +
-                '}';
+    public Ville getVille() {
+        return ville;
     }
+
+    public void setVille(Ville ville) {
+        this.ville = ville;
+    }
+
 }
