@@ -22,8 +22,8 @@ public class Utilisateur extends BaseEntite {
     private int role;
     @Column(nullable = false)
     private String password;
-    @OneToMany(mappedBy = "utilisateur")
-    private List<Favoris> stationFavoris = new ArrayList<>();
+    @ManyToMany
+    private List<Station> stationFavoris = new ArrayList<>();
 
     // Constructeur
     public Utilisateur() {
@@ -70,11 +70,11 @@ public class Utilisateur extends BaseEntite {
         this.password = password;
     }
 
-    public List<Favoris> getStationFavoris() {
+    public List<Station> getStationFavoris() {
         return stationFavoris;
     }
 
-    public void setStationFavoris(List<Favoris> stationFavoris) {
+    public void setStationFavoris(List<Station> stationFavoris) {
         this.stationFavoris = stationFavoris;
     }
 
