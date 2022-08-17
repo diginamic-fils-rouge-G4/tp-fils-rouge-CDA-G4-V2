@@ -15,8 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Value("${jwt.cookie}")
     private String TOKEN_COOKIE;
-    @Autowired
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
