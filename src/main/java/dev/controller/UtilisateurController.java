@@ -1,8 +1,8 @@
 package dev.controller;
 
-import dev.config.KeyConfig;
 import dev.controller.dto.UtilisateurConnexionDTO;
 import dev.controller.dto.UtilisateurInscriptionDTO;
+import dev.entite.Utilisateur;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,19 +10,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -62,5 +61,13 @@ public class UtilisateurController {
                            .build();
                    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,tokenCookie.toString()).build();
                }).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
+    @GetMapping("utilisateur/all")
+    public List<Utilisateur> getAll(){
+        return utilisateurService.getAll();
+    }@GetMapping("utilisateur/all/{page}")
+    public Page<Utilisateur> getAllBetween(@PathVariable int page){
+        return utilisateurService.getAll(page,30);
     }
 }
