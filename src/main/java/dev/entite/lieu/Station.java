@@ -48,4 +48,13 @@ public class Station extends BaseEntite {
         this.polluants = polluants;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Station{");
+        sb.append("nom='").append(nom).append('\'');
+        sb.append(", ville=").append(ville);
+        sb.append(", polluants=").append(polluants);
+        sb.append('}');
+        return sb.toString();
+    }
 }

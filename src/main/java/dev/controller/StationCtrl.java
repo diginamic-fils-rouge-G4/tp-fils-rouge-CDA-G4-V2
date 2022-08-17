@@ -21,7 +21,6 @@ public class StationCtrl {
         this.stationService = stationService;
     }
 
-
     @PostMapping
     public ResponseEntity<?> createClient(@RequestBody @Validated StationDto stationDto, BindingResult bindingResult) {
 
@@ -30,7 +29,7 @@ public class StationCtrl {
                     .body(new ErrorDto(List.of("Les informations saisies ne sont pas valides")));
         } else {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(stationService.addStationToUser(stationDto));
+                    .body(stationService.ajouterStationToUtilisateur(stationDto));
         }
     }
 

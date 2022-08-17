@@ -16,5 +16,33 @@ public class StationDto {
 
     private List<Polluant> polluants = new ArrayList<>();
 
+    public StationDto(String nom, Ville ville, List<Polluant> polluants) {
+        this.nom = nom;
+        this.ville = ville;
+        this.polluants = polluants;
+    }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Ville getVille() {
+        return ville;
+    }
+
+    public void setVille(Ville ville) {
+        this.ville = ville;
+    }
+
+    public List<Polluant> getPolluants() {
+        return polluants;
+    }
+
+    public void setPolluants(List<Polluant> polluants) {
+        this.polluants = polluants;
+    }
 }
