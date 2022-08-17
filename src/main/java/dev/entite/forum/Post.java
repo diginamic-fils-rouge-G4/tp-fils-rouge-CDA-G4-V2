@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Post extends BaseEntite {
 
+    /**
+     * @Lob permet de changer le String "content" de simple "varchar" en "longtext",
+     * columnDefinition permet de le changer en "text"
+     */
     @Lob
     @Column(columnDefinition = "TEXT", length = 2048)
     private String content;
@@ -20,7 +24,6 @@ public class Post extends BaseEntite {
     private Topic topic;
 
     // Constructeur
-
     public Post() {
     }
 
