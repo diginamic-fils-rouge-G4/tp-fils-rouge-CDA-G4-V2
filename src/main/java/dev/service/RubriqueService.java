@@ -6,6 +6,7 @@ import dev.repository.RubriqueRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RubriqueService {
@@ -23,5 +24,9 @@ public class RubriqueService {
 
     public List<Rubrique> findAll() {
         return rubriqueRepository.findAll();
+    }
+
+    public Optional<Rubrique> findByLibelle(String libelle) {
+        return rubriqueRepository.findByLibelle(libelle);
     }
 }
