@@ -1,6 +1,7 @@
 package dev.entite.lieu;
 
 import dev.entite.BaseEntite;
+import dev.entite.Utilisateur;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -19,6 +20,8 @@ public class Ville extends BaseEntite {
     private Departement departement;
     @OneToMany(mappedBy = "ville")
     private List<Station> stations = new ArrayList<>();
+    @OneToMany(mappedBy = "ville")
+    private List<Utilisateur> utilisateurs = new ArrayList<>();
 
     // Constructeur
     public Ville() {
@@ -63,5 +66,13 @@ public class Ville extends BaseEntite {
 
     public void setStations(List<Station> stations) {
         this.stations = stations;
+    }
+
+    public List<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public void setUtilisateurs(List<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
     }
 }
