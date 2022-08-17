@@ -3,12 +3,16 @@ package dev.entite.forum;
 import dev.entite.BaseEntite;
 import dev.entite.Utilisateur;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Post extends BaseEntite {
 
+    @Lob
+    @Column(columnDefinition = "TEXT", length = 2048)
     private String content;
     @ManyToOne
     private Utilisateur utilisateur;
