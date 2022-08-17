@@ -1,11 +1,17 @@
 <div class="formMap">
     <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="ville_checkbox">Ville :</label>
+          <input type="radio" formControlName="radio" id="ville_checkbox" value="ville" name="radio">
+          <label for="station_checkbox">Station :</label>
+          <input type="radio" formControlName="radio" id="station_checkbox" value="station" name="radio">
+        </div>
         <input type="text" formControlName="name" id="name" placeholder="Ville...">
         <button type="submit">Rechercher</button>
         <div class="err">
             
         </div>
-        <div class="errorForm" *ngIf="formMapSearch.status === 'INVALID' && this.formSubmitted === true">
+        <div class="errorForm" *ngIf="formMapSearch.status === 'INVALID' && this.formSubmitted === true && this.formMapSearch.value.radio === 'ville'" >
             <div *ngIf="formMapSearch.controls['name'].errors?.['required']">
                 <span>Veuillez entrer le nom d'une ville</span>
             </div>
