@@ -1,3 +1,4 @@
+
 package dev.config;
 
 import io.jsonwebtoken.SignatureAlgorithm;
