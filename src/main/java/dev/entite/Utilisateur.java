@@ -85,4 +85,5 @@ public class Utilisateur extends BaseEntite {
     public void setVille(Ville ville) {
         this.ville = ville;
     }
+
 }
