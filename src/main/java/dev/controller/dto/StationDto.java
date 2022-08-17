@@ -1,29 +1,27 @@
-package dev.entite.lieu;
+package dev.controller.dto;
 
-import dev.entite.BaseEntite;
+import dev.entite.lieu.Ville;
 import dev.entite.qualite.Polluant;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Station extends BaseEntite {
+public class StationDto {
 
     private String nom;
-    @ManyToOne
+
     private Ville ville;
-    @ManyToMany
+
     private List<Polluant> polluants = new ArrayList<>();
 
-    // Constructeur
-    public Station() {
+    public StationDto(String nom, Ville ville, List<Polluant> polluants) {
+        this.nom = nom;
+        this.ville = ville;
+        this.polluants = polluants;
     }
 
-    // Getter & Setter
     public String getNom() {
         return nom;
     }
@@ -46,15 +44,5 @@ public class Station extends BaseEntite {
 
     public void setPolluants(List<Polluant> polluants) {
         this.polluants = polluants;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Station{");
-        sb.append("nom='").append(nom).append('\'');
-        sb.append(", ville=").append(ville);
-        sb.append(", polluants=").append(polluants);
-        sb.append('}');
-        return sb.toString();
     }
 }

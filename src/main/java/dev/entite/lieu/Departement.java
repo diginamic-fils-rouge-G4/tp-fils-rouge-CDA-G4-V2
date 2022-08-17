@@ -54,4 +54,15 @@ public class Departement extends BaseEntite {
     public void setRegion(Region region) {
         this.region = region;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Departement{");
+        sb.append("nom='").append(nom).append('\'');
+        sb.append(", code='").append(code).append('\'');
+        sb.append(", villes=").append(villes);
+        sb.append(", region=").append(region);
+        sb.append('}');
+        return sb.toString();
+    }
 }
