@@ -1,4 +1,4 @@
-package dev.exception.controller;
+package dev.controller;
 
 import dev.controller.dto.PostDTO;
 import dev.entite.forum.Post;

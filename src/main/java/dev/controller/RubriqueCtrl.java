@@ -1,6 +1,7 @@
-package dev.exception.controller;
+package dev.controller;
 
-import dev.exception.controller.dto.RubriqueDTO;
+import dev.controller.dto.RubriqueDTO;
+import dev.controller.dto.RubriqueLibelleDTO;
 import dev.entite.forum.Rubrique;
 import dev.service.RubriqueService;
 import org.slf4j.Logger;

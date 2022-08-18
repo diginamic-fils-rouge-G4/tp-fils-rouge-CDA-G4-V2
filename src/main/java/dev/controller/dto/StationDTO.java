@@ -1,4 +1,4 @@
-package dev.exception.controller.dto;
+package dev.controller.dto;
 
 import dev.entite.lieu.Ville;
 import dev.entite.qualite.Polluant;
