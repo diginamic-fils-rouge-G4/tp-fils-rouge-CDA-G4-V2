@@ -87,10 +87,10 @@ Ajouté un topic.
 ```
 {
   status : 201,
-  body : {
-    "libelle": "...",
-    "rubrique": "...",
-    "utilisateur": "..."
+  {
+    "libelle": "content",
+    "rubrique": "nbr",
+    "utilisateur": "email @ utilisateur . com"
 }
 }
 ```
