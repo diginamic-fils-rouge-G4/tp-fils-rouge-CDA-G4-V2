@@ -80,6 +80,7 @@ export class ApiMapService {
     })
   };
 
+  // A delete plus tard
   token_api: string = "dbbd6bd16593d05023748919d281d871c3f79a33"
   url_api: string = "https://api.waqi.info/feed/beijing/?token=dbbd6bd16593d05023748919d281d871c3f79a33"
   api_key: string = "7802a0de66c1782d81dadaced12330c8"
@@ -87,18 +88,25 @@ export class ApiMapService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Initialisation de la map lorsque la page "map" est ouverte
+   */
   initMap(): void {
     this.map = L.map('map', {
+      // Définie le centre de les cordonnées de la map et le zoom que l'utilisateur va avoir
       center: [47.47621157665071, -1.2676804621092463],
       zoom: 8
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // Définie le zoom maximum et minimum que la map va avoir
+      // Un zoom trop grand va causée des problèmes avec les marqueurs qui doivent être posé
       maxZoom: 18,
       minZoom: 7,
     });
     tiles.addTo(this.map)
-    
+
   }
+
 
   testApi(lat:string, long:string) {
     return this.http.get(`${this.url}lat=${lat}&lon=${long}&appid=${this.api_key}`)
@@ -107,8 +115,13 @@ export class ApiMapService {
       })
   }
 
+
+  /**
+   * NE PAS DELETE
+   */
+
   initApi(city: string) {
-    return this.http.get(`https://api.waqi.info/feed/${city}/?token=${this.token_api}`)
+    return this.http.get(`http://localhost:8080/api/ville/${city}`)
       .subscribe((data: any) => {
         if (data.status === "error") {
           const errMsg: any = document.querySelector('.err')
@@ -118,12 +131,25 @@ export class ApiMapService {
         }
       })
   }
+  // vvv A REMPLACER vvv
+  // initApi(city: string) {
+  //   return this.http.get(`https://api.waqi.info/feed/${city}/?token=${this.token_api}`)
+  //     .subscribe((data: any) => {
+  //       if (data.status === "error") {
+  //         const errMsg: any = document.querySelector('.err')
+  //         errMsg.innerHTML = `Nous n'avons aucune informations sur la ville de ${city}`
+  //       } else {
+  //         this.afficheDonneVille(data)
+  //       }
+  //     })
+  // }
+
   /**
      * affiche les données de la ville
      * @param data retour de l'api
   */
   afficheDonneVille(data:any){
-    
+
     const errMsg: any = document.querySelector('.err')
     errMsg.innerHTML = ``
     this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
@@ -131,7 +157,7 @@ export class ApiMapService {
     this.currentData=data.data
     console.log(this.currentData);
     this.graphics(this.currentData.forecast.daily)
-    
+
   }
 
   searchByCity(long: number, lat: number) {
@@ -149,8 +175,11 @@ export class ApiMapService {
     this.showAllStations(mapBounds._northEast.lat, mapBounds._northEast.lng, mapBounds._southWest.lat, mapBounds._southWest.lng)
   }
 
+  /**
+   * NE PAS DELETE
+   */
   showAllStations(lat1: number, lng1: number, lat2: number, lng2: number) {
-    this.http.get(`https://api.waqi.info/map/bounds?latlng=${lat1},${lng1},${lat2},${lng2}&networks=all&token=${this.token_api}`)
+    this.http.get(`http://localhost:8080/api/latlng?lat1=${lat1}&lng1=${lng1}&lat2=${lat2}&lng2=${lng2}`)
       .subscribe((data: any): any => {
         const allStations = data.data
 
@@ -172,13 +201,47 @@ export class ApiMapService {
         this.map.addLayer(this.allMarkerMap)
       })
   }
+  // vvv A REMPLACER vvv
+  // showAllStations(lat1: number, lng1: number, lat2: number, lng2: number) {
+  //   this.http.get(`https://api.waqi.info/map/bounds?latlng=${lat1},${lng1},${lat2},${lng2}&networks=all&token=${this.token_api}`)
+  //     .subscribe((data: any): any => {
+  //       const allStations = data.data
+  //
+  //       // clear les multiples layers dans "allMarkerMap" pour éviter les doublons
+  //       this.allMarkerMap.clearLayers()
+  //
+  //       this.stations = [];
+  //       this.stations.push(allStations);
+  //       const arrayStations = this.stations[0]
+  //       // console.log(arrayStations)
+  //       for (let i = 0; i < arrayStations.length; i++) {
+  //         // place le marker dans un layer
+  //         this.markerMap = L.marker([arrayStations[i].lat, arrayStations[i].lon], this.icon)
+  //         this.markerMap.on('click', (event: any) => this.markerClick(event))
+  //         // place tout les layers dans un groupe de layer
+  //         this.allMarkerMap.addLayer(this.markerMap)
+  //       }
+  //       // applique le groupe de layer à la map
+  //       this.map.addLayer(this.allMarkerMap)
+  //     })
+  // }
 
-  markerClick(marker: any) {    
-    return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
+  /**
+   * NE PAS DELETE
+   */
+  markerClick(marker: any) {
+    return this.http.get(`http://localhost:8080/api/markerClick?lat=${marker.latlng.lat}&lng=${marker.latlng.lng}`)
       .subscribe((data: any) => {
-        this.afficheDonneVille(data)         
+        this.afficheDonneVille(data)
       })
   }
+  // vvv A REMPLACER vvv
+  // markerClick(marker: any) {
+  //   return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
+  //     .subscribe((data: any) => {
+  //       this.afficheDonneVille(data)
+  //     })
+  // }
 
   mapMoveEnd() {
     this.map.on('moveend', () => {
@@ -187,66 +250,121 @@ export class ApiMapService {
   }
 
   /**
-   * 
-   * @param nomVille string 
+   * NE PAS DELETE
+   * Une erreur ! Empêche d'ajouter aux favoris !
+   * L'erreur car un JSONArray n'est pas renvoyer par le back mais un String
+   */
+  showStationsByName(id:string){
+    this.http.get(`http://localhost:8080/api/station/${id}`)
+      .subscribe((data:any)=>{
+        console.log(data.data);
+
+        let cityStations:any=[]
+        data.data.forEach((infostation:any) => {
+          console.log(infostation.station.name.split(',')[0]);
+          const city = {
+            name: infostation.station.name.split(',')[0],
+            status: true
+          }
+          cityStations.push(city)
+        });
+        let obj={
+          id:id,
+          stations:cityStations
+        }
+        console.log(obj);
+
+        this.favoritData.push(obj)
+        console.log(this.favoritData)
+
+      })
+    // A enlever quand on va faire le back
+    const test:any = document.querySelector('.fa-heart')
+    test.style.color = 'red'
+  }
+  // vvv A REMPLACER vvv
+  /**
+   *
+   * @param nomVille string
    * @param target string
    * @returns toute les station dans la ville
    */
-   showStationsByName(nom:string){
-    let nomVille = nom.split(',')[1]
-    this.http.get(`https://api.waqi.info/search/?keyword=${nomVille}&token=${this.token_api}`)
-    .subscribe((data:any)=>{
-      console.log(data.data);
-      
-      let cityStations:any=[]
-      data.data.forEach((infostation:any) => {
-        console.log(infostation.station.name.split(',')[0]);
-        const city = {
-          name: infostation.station.name.split(',')[0],
-          status: true
-        }
-        cityStations.push(city)
-      });
-      let obj={
-        name:nomVille,
-        stations:cityStations
-      }
-      console.log(obj);
-      
-      this.favoritData.push(obj)
-      console.log(this.favoritData)
-      
-    })
-    //A enlever quand on va faire le back
-    const test:any = document.querySelector('.fa-heart')
-    test.style.color = 'red'
-    //
-  }
+  //  showStationsByName(nom:string){
+  //   let nomVille = nom.split(',')[1]
+  //   this.http.get(`https://api.waqi.info/search/?keyword=${nomVille}&token=${this.token_api}`)
+  //   .subscribe((data:any)=>{
+  //     console.log(data.data);
+  //
+  //     let cityStations:any=[]
+  //     data.data.forEach((infostation:any) => {
+  //       console.log(infostation.station.name.split(',')[0]);
+  //       const city = {
+  //         name: infostation.station.name.split(',')[0],
+  //         status: true
+  //       }
+  //       cityStations.push(city)
+  //     });
+  //     let obj={
+  //       name:nomVille,
+  //       stations:cityStations
+  //     }
+  //     console.log(obj);
+  //
+  //     this.favoritData.push(obj)
+  //     console.log(this.favoritData)
+  //
+  //   })
+  //   //A enlever quand on va faire le back
+  //   const test:any = document.querySelector('.fa-heart')
+  //   test.style.color = 'red'
+  //   //
+  // }
+
+  /**
+   * NE PAS DELETE
+   */
   showStationsFavoris( stations:string) {
-    
-    this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
+    // Utilise la même méthode que "showStationsByName", j'ignore si c'est normal
+    this.http.get(`http://localhost:8080/api/station/${stations}`)
       .subscribe((data: any) => {
-        if(data.data.length < 1) {
-          const errMsg: any = document.querySelector('.err')
-          errMsg.innerHTML = `Nous n'avons aucune informations sur la station de ${stations}`
-        } else {
-          console.log(data)
-          let obj = {
-            latlng:{
-              lat:data.data[0].station.geo[0],
-              lng:data.data[0].station.geo[1]
-            }
+        console.log(data)
+        let obj = {
+          latlng:{
+            lat:data.data[0].station.geo[0],
+            lng:data.data[0].station.geo[1]
           }
-          this.markerClick(obj)
         }
-          
-          
+        this.markerClick(obj)
       })
   }
+  // vvv A REMPLACER vvv
+  // showStationsFavoris( stations:string) {
+  //
+  //   this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
+  //     .subscribe((data: any) => {
+  //       if(data.data.length < 1) {
+  //         const errMsg: any = document.querySelector('.err')
+  //         errMsg.innerHTML = `Nous n'avons aucune informations sur la station de ${stations}`
+  //       } else {
+  //         console.log(data)
+  //         let obj = {
+  //           latlng:{
+  //             lat:data.data[0].station.geo[0],
+  //             lng:data.data[0].station.geo[1]
+  //           }
+  //         }
+  //         this.markerClick(obj)
+  //       }
+  //
+  //
+  //     })
+  // }
 
   onSubmit(form: any) {
     if(form.value.name === ""){
-      this.showFavoris = true      
+
+      this.showFavoris = true
+
     }
     else{
       if(form.value.radio === "ville") {
@@ -288,25 +406,25 @@ export class ApiMapService {
     for (let i = 0; i < arrUv[0].length; i++) {
       arrDate.push(arrUv[0][i].day);
       avgUIV.push(arrUv[0][i].avg)
-      minUV.push(arrUv[0][i].min) 
+      minUV.push(arrUv[0][i].min)
       maxUV.push(arrUv[0][i].max)
     }
     for (let i = 0; i < arro3[0].length; i++) {
-      avgO3.push(arro3[0][i].avg) 
-      minO3.push(arro3[0][i].min) 
+      avgO3.push(arro3[0][i].avg)
+      minO3.push(arro3[0][i].min)
       maxO3.push(arro3[0][i].max)
     }
     for (let i = 0; i < arrPM25[0].length; i++) {
-      avgPM25.push(arrPM25[0][i].avg)  
-      minPM25.push(arrPM25[0][i].min) 
-      maxPM25.push(arrPM25[0][i].max) 
+      avgPM25.push(arrPM25[0][i].avg)
+      minPM25.push(arrPM25[0][i].min)
+      maxPM25.push(arrPM25[0][i].max)
     }
     for (let i = 0; i < arrPM10[0].length; i++) {
-      avgPM10.push(arrPM10[0][i].avg)   
-      minPM10.push(arrPM10[0][i].min) 
-      maxPM10.push(arrPM10[0][i].max) 
+      avgPM10.push(arrPM10[0][i].avg)
+      minPM10.push(arrPM10[0][i].min)
+      maxPM10.push(arrPM10[0][i].max)
     }
-    
+
     const dataAvg = {
       labels: arrDate,
       datasets: [{
@@ -395,7 +513,7 @@ export class ApiMapService {
             }
           }
         }
-      
+
       }
     })
     const bar: any = document.querySelector('#o3MinMax')
@@ -419,7 +537,7 @@ export class ApiMapService {
             }
           }
         }
-      
+
       }
     })
   }

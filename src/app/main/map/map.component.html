@@ -9,7 +9,7 @@
         <input type="text" formControlName="name" id="name" placeholder="Ville...">
         <button type="submit">Rechercher</button>
         <div class="err">
-            
+
         </div>
         <div class="errorForm" *ngIf="formMapSearch.status === 'INVALID' && this.formSubmitted === true && this.formMapSearch.value.radio === 'ville'" >
             <div *ngIf="formMapSearch.controls['name'].errors?.['required']">
@@ -21,7 +21,7 @@
             <div *ngIf="formMapSearch.controls['radio'].errors?.['required']">
               <span>Veuillez choisir une ville ou une station</span>
           </div>
-        </div>  
+        </div>
     </form>
 </div>
 
@@ -56,7 +56,7 @@
     <div class="printData" *ngIf="api_map.showFavoris == false">
       <div class="buttonAddFav">
         <i class="fa-solid fa-arrow-left" (click)="api_map.showFavori(this.formMapSearch)"></i>
-        <i class="fa-regular fa-heart" (click)="api_map.showStationsByName(api_map.currentData.city.name)">
+        <i class="fa-regular fa-heart" (click)="api_map.showStationsByName(api_map.currentData.idx)">
           <span class="tooltiptext">Ajouter aux favoris</span>
         </i>
       </div>
