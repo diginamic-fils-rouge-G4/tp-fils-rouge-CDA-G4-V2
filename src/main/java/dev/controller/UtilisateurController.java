@@ -1,9 +1,10 @@
 package dev.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.config.KeyConfig;
 import dev.controller.dto.UtilisateurConnexionDTO;
 import dev.controller.dto.UtilisateurInscriptionDTO;
+import dev.controller.dto.UtilisateurRoleDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.config.KeyConfig;
 import dev.entite.Utilisateur;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
@@ -12,21 +13,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.SecretKey;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class UtilisateurController {
@@ -69,5 +66,32 @@ public class UtilisateurController {
                            .build();
                    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,tokenCookie.toString()).build();
                }).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
+    //admin methods
+    @GetMapping("/utilisateur/all")
+    public List<Utilisateur> getAll(){return utilisateurService.getAll();}
+    @GetMapping("/utilisateur/all/{page}")
+    public Page<Utilisateur> getAllBetween(@PathVariable int page){return utilisateurService.getAll(page,30);}
+
+    @PatchMapping("/utilisateur")
+    public ResponseEntity<Utilisateur> updateRole(@RequestBody UtilisateurRoleDTO utilisateurRoleDTO){
+        Optional<Utilisateur> utilisateur = utilisateurService.getByid(utilisateurRoleDTO.getId());
+        if (utilisateur.isPresent()){
+            Utilisateur current = utilisateur.get();
+            current.setRole(utilisateurRoleDTO.getRole());
+            return ResponseEntity.ok(utilisateurService.saveUtilisateur(current));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    @DeleteMapping("/utilisateur/{id}")
+    public ResponseEntity<?> deleteUtilisateur(@PathVariable Integer id){
+        Optional<Utilisateur> utilisateur = utilisateurService.getByid(id);
+        if (utilisateur.isPresent()){
+            Utilisateur current = utilisateur.get();
+            utilisateurService.deleteUtilisateur(current);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

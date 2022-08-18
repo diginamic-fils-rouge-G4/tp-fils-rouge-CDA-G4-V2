@@ -2,7 +2,7 @@ package dev.controller.dto;
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class UtilisateurInscriptionDTO {
     String  nom;
     String  prenom;
