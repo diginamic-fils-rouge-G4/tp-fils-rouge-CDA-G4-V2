@@ -1,6 +1,7 @@
 package dev.controller;
 
-import dev.controller.dto.ErrorDTO;
+
+import dev.controller.dto.ErrorDto;
 import dev.controller.dto.StationDTO;
 import dev.service.StationService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class StationCtrl {
 
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorDTO(List.of("Les informations saisies ne sont pas valides")));
+                    .body(new ErrorDto(List.of("Les informations saisies ne sont pas valides")));
         } else {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(stationService.ajouterStationToUtilisateur(stationDto));
