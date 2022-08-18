@@ -1,4 +1,4 @@
-package dev.controller.dto;
+package dev.exception.controller.dto;
 
 import org.springframework.stereotype.Component;
 

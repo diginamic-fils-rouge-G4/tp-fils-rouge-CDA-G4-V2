@@ -1,7 +1,7 @@
 package dev.service;
 
-import dev.controller.UtilisateurController;
-import dev.controller.dto.UtilisateurInscriptionDTO;
+import dev.exception.controller.UtilisateurController;
+import dev.exception.controller.dto.UtilisateurInscriptionDTO;
 import dev.entite.Utilisateur;
 import dev.repository.UtilisateurRepository;
 import org.slf4j.Logger;
