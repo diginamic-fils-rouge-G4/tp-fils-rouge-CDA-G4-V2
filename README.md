@@ -106,7 +106,7 @@ modifi un topic.
   }
 }
 ```
-- [ ] DELETE /topic/{id}
+- [X] DELETE /topic/{id}
 Supprimer un topic.
 ```
 {
