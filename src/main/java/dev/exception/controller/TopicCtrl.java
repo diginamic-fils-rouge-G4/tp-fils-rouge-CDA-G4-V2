@@ -1,6 +1,6 @@
-package dev.controller;
+package dev.exception.controller;
 
-import dev.controller.dto.TopicDTO;
+import dev.exception.controller.dto.TopicDTO;
 import dev.entite.forum.Topic;
 import dev.service.TopicService;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +23,22 @@ public class TopicCtrl {
     }
 
     @PostMapping
-    public TopicDTO create(@RequestBody TopicDTO topicDTO) {
+    public Topic create(@RequestBody TopicDTO topicDTO) {
         Topic topic = topicService.create(topicDTO);
-        TopicDTO newTopicDTO = new TopicDTO();
+        Topic newTopicDTO = new Topic();
         newTopicDTO.setLibelle(topic.getLibelle());
-        newTopicDTO.setRubrique(topic.getRubrique().getLibelle());
-        newTopicDTO.setUtilisateur(topic.getUtilisateur().getMail());
+        newTopicDTO.setRubrique(topic.getRubrique());
+        newTopicDTO.setUtilisateur(topic.getUtilisateur());
         //Créer un topic dto pour la création et pour la réponse et enlever le json ignore
         return newTopicDTO;
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id ){
+        topicService.delete(id);
+    }
+    @PatchMapping("/{id}")
+    public void patch(@RequestBody int i){
+
+    }
+
 }

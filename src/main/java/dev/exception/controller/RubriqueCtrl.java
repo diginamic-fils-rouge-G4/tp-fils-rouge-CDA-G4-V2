@@ -1,7 +1,6 @@
-package dev.controller;
+package dev.exception.controller;
 
-import dev.controller.dto.RubriqueDTO;
-import dev.controller.dto.RubriqueLibelleDTO;
+import dev.exception.controller.dto.RubriqueDTO;
 import dev.entite.forum.Rubrique;
 import dev.service.RubriqueService;
 import org.slf4j.Logger;
@@ -9,12 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Optional;
 

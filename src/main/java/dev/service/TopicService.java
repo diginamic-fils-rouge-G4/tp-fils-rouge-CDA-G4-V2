@@ -1,6 +1,6 @@
 package dev.service;
 
-import dev.controller.dto.TopicDTO;
+import dev.exception.controller.dto.TopicDTO;
 import dev.entite.Utilisateur;
 import dev.entite.forum.Rubrique;
 import dev.entite.forum.Topic;
@@ -28,10 +28,10 @@ public class TopicService {
 
     public Topic create(@Valid TopicDTO topicDTO) {
         List<String> errMsg = new ArrayList<>();
-        Optional<Rubrique> rubrique = rubriqueService.findByLibelle(topicDTO.getRubrique());
+        Optional<Rubrique> rubrique = rubriqueService.getByid(Integer.parseInt(topicDTO.getIdRubrique()));
 
         if(rubrique.isEmpty()) {
-            errMsg.add("La rubrique " + topicDTO.getRubrique() + " n'existe pas");
+            errMsg.add("La rubrique " + topicDTO.getIdRubrique() + " n'existe pas");
         }
 
         Optional<Utilisateur> utilisateur = utilisateurService.getByMail(topicDTO.getUtilisateur());
@@ -58,5 +58,8 @@ public class TopicService {
     }
     public Optional<Topic> findById(int id){
         return topicRepository.findById(id);
+    }
+    public void delete(int id){
+        topicRepository.delete(findById(id).get());
     }
 }
