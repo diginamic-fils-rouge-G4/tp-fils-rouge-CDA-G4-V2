@@ -35,11 +35,13 @@ public class WebSecurityConfig {
                 // non utilisée dans le cadre d'une Web API
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/signup").permitAll()
-                .antMatchers(HttpMethod.POST, "/signup").permitAll()
-                .anyRequest().authenticated()
+
+                .anyRequest().permitAll()
+//                .antMatchers(HttpMethod.GET, "/login").permitAll()
+//                .antMatchers(HttpMethod.POST, "/login").permitAll()
+//                .antMatchers(HttpMethod.GET, "/signup").permitAll()
+//                .antMatchers(HttpMethod.POST, "/signup").permitAll()
+//                .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()
                 .and()
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

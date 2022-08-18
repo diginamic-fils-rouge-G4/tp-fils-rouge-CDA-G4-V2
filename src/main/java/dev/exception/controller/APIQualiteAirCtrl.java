@@ -1,4 +1,4 @@
-package dev.controller;
+package dev.exception.controller;
 
 import dev.entite.forum.Rubrique;
 import dev.service.APIQualiteAirService;

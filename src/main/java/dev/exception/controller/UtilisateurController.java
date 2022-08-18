@@ -1,10 +1,8 @@
-package dev.controller;
+package dev.exception.controller;
 
-import dev.controller.dto.UtilisateurConnexionDTO;
-import dev.controller.dto.UtilisateurInscriptionDTO;
-import dev.controller.dto.UtilisateurRoleDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.config.KeyConfig;
+import dev.exception.controller.dto.UtilisateurConnexionDTO;
+import dev.exception.controller.dto.UtilisateurInscriptionDTO;
+import dev.exception.controller.dto.UtilisateurRoleDTO;
 import dev.entite.Utilisateur;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
@@ -18,7 +16,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package dev.controller;
+package dev.exception.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

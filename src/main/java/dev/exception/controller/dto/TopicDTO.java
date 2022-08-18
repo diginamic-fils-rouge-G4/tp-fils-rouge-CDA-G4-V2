@@ -1,4 +1,4 @@
-package dev.controller.dto;
+package dev.exception.controller.dto;
 
 import javax.validation.constraints.NotBlank;
 
@@ -8,7 +8,7 @@ public class TopicDTO {
     @NotBlank
     private String utilisateur;
     @NotBlank
-    private String rubrique;
+    private String idRubrique;
 
     public TopicDTO() {
     }
@@ -29,11 +29,11 @@ public class TopicDTO {
         this.utilisateur = utilisateur;
     }
 
-    public String getRubrique() {
-        return rubrique;
+    public String getIdRubrique() {
+        return idRubrique;
     }
 
-    public void setRubrique(String rubrique) {
-        this.rubrique = rubrique;
+    public void setIdRubrique(String idRubrique) {
+        this.idRubrique = idRubrique;
     }
 }
