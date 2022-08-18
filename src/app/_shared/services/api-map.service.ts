@@ -80,17 +80,24 @@ export class ApiMapService {
     })
   };
 
+  // A delete plus tard
   token_api: string = "dbbd6bd16593d05023748919d281d871c3f79a33"
   url_api: string = "https://api.waqi.info/feed/beijing/?token=dbbd6bd16593d05023748919d281d871c3f79a33"
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Initialisation de la map lorsque la page "map" est ouverte
+   */
   initMap(): void {
     this.map = L.map('map', {
+      // Définie le centre de les cordonnées de la map et le zoom que l'utilisateur va avoir
       center: [47.47621157665071, -1.2676804621092463],
       zoom: 8
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // Définie le zoom maximum et minimum que la map va avoir
+      // Un zoom trop grand va causée des problèmes avec les marqueurs qui doivent être posé
       maxZoom: 18,
       minZoom: 7,
     });
@@ -304,42 +311,42 @@ export class ApiMapService {
   /**
    * NE PAS DELETE
    */
-  // showStationsFavoris( stations:string) {
-  //   // Utilise la même méthode que "showStationsByName", j'ignore si c'est normal
-  //   this.http.get(`http://localhost:8080/api/station/${stations}`)
-  //     .subscribe((data: any) => {
-  //       console.log(data)
-  //       let obj = {
-  //         latlng:{
-  //           lat:data.data[0].station.geo[0],
-  //           lng:data.data[0].station.geo[1]
-  //         }
-  //       }
-  //       this.markerClick(obj)
-  //     })
-  // }
-  // vvv A REMPLACER vvv
   showStationsFavoris( stations:string) {
-
-    this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
+    // Utilise la même méthode que "showStationsByName", j'ignore si c'est normal
+    this.http.get(`http://localhost:8080/api/station/${stations}`)
       .subscribe((data: any) => {
-        if(data.data.length < 1) {
-          const errMsg: any = document.querySelector('.err')
-          errMsg.innerHTML = `Nous n'avons aucune informations sur la station de ${stations}`
-        } else {
-          console.log(data)
-          let obj = {
-            latlng:{
-              lat:data.data[0].station.geo[0],
-              lng:data.data[0].station.geo[1]
-            }
+        console.log(data)
+        let obj = {
+          latlng:{
+            lat:data.data[0].station.geo[0],
+            lng:data.data[0].station.geo[1]
           }
-          this.markerClick(obj)
         }
-
-
+        this.markerClick(obj)
       })
   }
+  // vvv A REMPLACER vvv
+  // showStationsFavoris( stations:string) {
+  //
+  //   this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
+  //     .subscribe((data: any) => {
+  //       if(data.data.length < 1) {
+  //         const errMsg: any = document.querySelector('.err')
+  //         errMsg.innerHTML = `Nous n'avons aucune informations sur la station de ${stations}`
+  //       } else {
+  //         console.log(data)
+  //         let obj = {
+  //           latlng:{
+  //             lat:data.data[0].station.geo[0],
+  //             lng:data.data[0].station.geo[1]
+  //           }
+  //         }
+  //         this.markerClick(obj)
+  //       }
+  //
+  //
+  //     })
+  // }
 
   onSubmit(form: any) {
     if(form.value.name === ""){
