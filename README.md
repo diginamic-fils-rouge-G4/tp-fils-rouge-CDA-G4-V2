@@ -159,7 +159,7 @@ Supprime un utilisateur.
 ```
 ### Rubrique
 ![image](https://user-images.githubusercontent.com/44068884/184852115-893617d5-45dc-4ecc-980e-30e64cc8903a.png)
-- [ ] GET /admin/dashboard/rubrique
+- [x] GET /admin/dashboard/rubrique
 Affiche la liste des rubriques (rubrique).
 ```
 {
