@@ -49,7 +49,7 @@ Retirer un favorie de l'utilisateur.
 ## Forum
 ### Rubrique
 ![image](https://user-images.githubusercontent.com/44068884/184851837-ff9dc027-077a-4cf4-8217-c8481092d0bd.png)
-- [ ] GET /rubrique
+- [X] GET /rubrique
 Recevoir la liste des rubriques du forum.
 ```
 {
@@ -57,7 +57,7 @@ Recevoir la liste des rubriques du forum.
   body : {"listeRubrique" : [...]}
 }
 ```
-- [ ] POST /rubrique
+- [X] POST /rubrique
 Ajouté une rubrique.
 ```
 {
@@ -74,7 +74,7 @@ Supprimer une rubrique.
 ```
 ### Topic
 ![image](https://user-images.githubusercontent.com/44068884/184851889-691e7add-af31-4832-b305-f720cb03f0c0.png)
-- [ ] GET /topic
+- [X] GET /topic
 Recevoir la liste des topics de la rubrique.
 ```
 {
@@ -82,7 +82,7 @@ Recevoir la liste des topics de la rubrique.
   body : {"listeTopic" : [...]}
 }
 ```
-- [ ] POST /topic
+- [X] POST /topic
 Ajouté un topic.
 ```
 {
@@ -159,7 +159,7 @@ Supprime un utilisateur.
 ```
 ### Rubrique
 ![image](https://user-images.githubusercontent.com/44068884/184852115-893617d5-45dc-4ecc-980e-30e64cc8903a.png)
-- [ ] GET /admin/dashboard/rubrique
+- [x] GET /admin/dashboard/rubrique
 Affiche la liste des rubriques (rubrique).
 ```
 {
