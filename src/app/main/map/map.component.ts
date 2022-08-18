@@ -102,6 +102,7 @@ export class MapComponent implements AfterViewInit {
     this.api_map.initMap();
     this.api_map.showStationsVisible()
     this.api_map.mapMoveEnd()
+    this.api_map.testApi("47.2831", "-1.78308")
   }
 
   onSubmit() {

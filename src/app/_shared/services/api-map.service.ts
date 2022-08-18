@@ -83,6 +83,8 @@ export class ApiMapService {
   // A delete plus tard
   token_api: string = "dbbd6bd16593d05023748919d281d871c3f79a33"
   url_api: string = "https://api.waqi.info/feed/beijing/?token=dbbd6bd16593d05023748919d281d871c3f79a33"
+  api_key: string = "7802a0de66c1782d81dadaced12330c8"
+  url: string = "http://api.openweathermap.org/geo/1.0/reverse?"
 
   constructor(private http: HttpClient) { }
 
@@ -105,9 +107,19 @@ export class ApiMapService {
 
   }
 
+
+  testApi(lat:string, long:string) {
+    return this.http.get(`${this.url}lat=${lat}&lon=${long}&appid=${this.api_key}`)
+      .subscribe((data:any) => {
+        console.log(data)
+      })
+  }
+
+
   /**
    * NE PAS DELETE
    */
+
   initApi(city: string) {
     return this.http.get(`http://localhost:8080/api/ville/${city}`)
       .subscribe((data: any) => {
