@@ -88,7 +88,7 @@ export class MapComponent implements AfterViewInit {
     ),
     radio: new FormControl('',
     [
-
+      Validators.required
     ])
   });
 
@@ -102,12 +102,11 @@ export class MapComponent implements AfterViewInit {
     this.api_map.initMap();
     this.api_map.showStationsVisible()
     this.api_map.mapMoveEnd()
-    console.log(this.formMapSearch.value)
   }
 
   onSubmit() {
     this.api_map.onSubmit(this.formMapSearch)
-    console.log(this.formMapSearch.value.radio)
+    console.log(this.formMapSearch)
   }
   test(i:any){
     console.log(this.listID);

@@ -12,6 +12,17 @@
         padding-left: 10px;
     }
 
+    .radio {
+        display: flex;
+        margin-bottom: 10px;
+        input[type="radio"] {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    
+
     button {
         width: 100px;
         background-color: rgb(16, 54, 179);

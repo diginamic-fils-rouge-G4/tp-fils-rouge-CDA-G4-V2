@@ -1,6 +1,6 @@
 <div class="formMap">
     <form [formGroup]="formMapSearch" (ngSubmit)="onSubmit()">
-        <div>
+        <div class="radio">
           <label for="ville_checkbox">Ville :</label>
           <input type="radio" formControlName="radio" id="ville_checkbox" value="ville" name="radio">
           <label for="station_checkbox">Station :</label>
@@ -18,6 +18,9 @@
             <div *ngIf="formMapSearch.controls['name'].errors?.['minlength'].actualLength < 2">
                 <span>Le nom de la ville doit avoir deux caractères minimum</span>
             </div>
+            <div *ngIf="formMapSearch.controls['radio'].errors?.['required']">
+              <span>Veuillez choisir une ville ou une station</span>
+          </div>
         </div>  
     </form>
 </div>
