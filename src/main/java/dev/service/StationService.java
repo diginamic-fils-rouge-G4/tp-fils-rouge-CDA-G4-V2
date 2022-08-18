@@ -5,12 +5,15 @@ import dev.entite.api.ApiResponse;
 import dev.entite.lieu.Departement;
 import dev.entite.lieu.Station;
 import dev.entite.lieu.Ville;
+import dev.entite.qualite.Polluant;
 import dev.repository.StationRepository;
 import dev.repository.UtilisateurRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -34,22 +37,73 @@ public class StationService {
     public Station obtenirStationParNom (String nom){
         return stationRepository.findByNom(nom);
     }
-    public Station obtenirStationParID (String id){
-        return stationRepository.findByIdx(id);
+    public Station obtenirStationParID (int id){
+        return stationRepository.findByIdx(String.valueOf(id));
     }
 
-    public ApiResponse ajouterStationEnFavoris(String id){
+    public Station ajouterStationEnFavoris(String id){
         ApiResponse data = apiQualiteAirService.getStationById(id);
-        System.out.println("#########################################################################");
-        System.out.println("#########################################################################");
-        System.out.println("#########################################################################");
 
-        System.out.println(data.getData());
+        Station station =obtenirStationParID(Math.round(data.getData().getIdx()));
 
-        System.out.println("#########################################################################");
-        System.out.println("#########################################################################");
-        System.out.println("#########################################################################");
-        return data;
+        if (station == null){
+
+            station = new Station();
+            station.setIdx(String.valueOf(data.getData().getIdx()) );
+            station.setNom(data.getData().getCity().getName());
+
+            data.getData().getIaqi().getH();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            Polluant H = new Polluant();
+            H.setType("H");
+            H.setQualite(String.valueOf(data.getData().getIaqi().getH().getV()));
+            H.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+
+            station.getPolluants().add(H);
+
+            Polluant P = new Polluant();
+            P.setType("P");
+            P.setQualite(String.valueOf(data.getData().getIaqi().getP().getV()));
+            P.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+
+            station.getPolluants().add(P);
+
+            Polluant Pm25 = new Polluant();
+            Pm25.setType("Pm25");
+            Pm25.setQualite(String.valueOf(data.getData().getIaqi().getPm25().getV()));
+            Pm25.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+
+            station.getPolluants().add(Pm25);
+
+            Polluant T = new Polluant();
+            T.setType("T");
+            T.setQualite(String.valueOf(data.getData().getIaqi().getT().getV()));
+            T.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+
+            station.getPolluants().add(T);
+
+            Polluant W = new Polluant();
+            W.setType("W");
+            W.setQualite(String.valueOf(data.getData().getIaqi().getW().getV()));
+            W.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+
+            station.getPolluants().add(W);
+
+            Polluant Wg = new Polluant();
+            Wg.setType("Wg");
+            Wg.setQualite(String.valueOf(data.getData().getIaqi().getWg().getV()));
+            Wg.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+
+            station.getPolluants().add(Wg);
+
+            return station;
+        }else {
+            return station;
+        }
+
+
     }
 
 

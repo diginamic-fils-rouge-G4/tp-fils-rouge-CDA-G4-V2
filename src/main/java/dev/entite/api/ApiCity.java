@@ -38,4 +38,14 @@ public class ApiCity {
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ApiCity{");
+        sb.append("geo=").append(geo);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", location='").append(location).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
