@@ -22,7 +22,7 @@ public class StationCtrl {
         this.stationService = stationService;
     }
 
-    @PostMapping
+/*    @PostMapping
     public ResponseEntity<?> createClient(@RequestBody @Validated StationDTO stationDto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -32,6 +32,16 @@ public class StationCtrl {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(stationService.ajouterStationToUtilisateur(stationDto));
         }
+    }*/
+
+
+
+    @PostMapping("metEnFavoris/{id}")
+    public ResponseEntity<?> createClient( @PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(stationService.ajouterStationEnFavoris(id));
     }
+
+
 
 }

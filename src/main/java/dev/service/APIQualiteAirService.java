@@ -1,5 +1,8 @@
 package dev.service;
 
+import dev.entite.api.ApiResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,7 +18,7 @@ public class APIQualiteAirService {
     }
 
     public String getFeedCityByName(String city) {
-        String url = "https://api.waqi.info/feed/" + city + "/?token=" + token_api;
+        String url = "https://api.waqi.info/feed/" + city + "/?token=" + this.token_api;
         return this.restTemplate.getForObject(url, String.class);
     }
 
@@ -31,10 +34,14 @@ public class APIQualiteAirService {
         return this.restTemplate.getForObject(url, String.class);
     }
 
-    public String getStationByName(String station) {
-        String url = "https://api.waqi.info/search/?keyword=" + station + "/?token=" + token_api;
-        return this.restTemplate.getForObject(url, String.class);
+    public JSONObject getStationByName(String station) {
+        String url = "https://api.waqi.info/search/?keyword=" + station + "&token=" + this.token_api;
+        return this.restTemplate.getForObject(url, JSONObject.class);
     }
 
+    public ApiResponse getStationById(String id) {
+        String url = "https://api.waqi.info/feed/@" + id + "/?token=" + this.token_api;
+        return this.restTemplate.getForObject(url, ApiResponse.class);
+    }
 
 }
