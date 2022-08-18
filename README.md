@@ -87,11 +87,11 @@ Ajouté un topic.
 ```
 {
   status : 201,
-  {
+  body{
     "libelle": "content",
     "rubrique": "nbr",
     "utilisateur": "email @ utilisateur . com"
-}
+  }
 }
 ```
 - [ ] DELETE /topic
