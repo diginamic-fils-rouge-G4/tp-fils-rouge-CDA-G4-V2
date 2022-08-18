@@ -89,7 +89,7 @@ Ajouté un topic.
   status : 201,
   body{
     "libelle": "content",
-    "rubrique": "nbr",
+    "rubrique": 12,
     "utilisateur": "email @ utilisateur . com"
   }
 }
