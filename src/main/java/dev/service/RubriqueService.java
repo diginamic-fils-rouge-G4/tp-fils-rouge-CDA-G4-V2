@@ -1,6 +1,7 @@
 package dev.service;
 
 import dev.controller.dto.RubriqueDTO;
+import dev.entite.Utilisateur;
 import dev.entite.forum.Rubrique;
 import dev.repository.RubriqueRepository;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,13 @@ public class RubriqueService {
 
     public Optional<Rubrique> findByLibelle(String libelle) {
         return rubriqueRepository.findByLibelle(libelle);
+    }
+
+    public Optional<Rubrique> getByid(Integer id){
+        return rubriqueRepository.findById(id);
+    }
+
+    public void deleteRubrique(Rubrique rubrique) {
+        rubriqueRepository.delete(rubrique);
     }
 }
