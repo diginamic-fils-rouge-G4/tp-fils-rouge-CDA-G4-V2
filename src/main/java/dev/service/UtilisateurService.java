@@ -39,6 +39,7 @@ public class UtilisateurService {
         utilisateur.setMail(utilisateurInscriptionDTO.getEmail());
         utilisateur.setNom(utilisateurInscriptionDTO.getNom());
         utilisateur.setPrenom(utilisateurInscriptionDTO.getPrenom());
+        utilisateur.setRole("ROLE_USER");
         utilisateur.setPassword(passwordEncoder.encode(utilisateurInscriptionDTO.getPassword()));
         LOGGER.info(utilisateur.toString());
         utilisateurRepository.save(utilisateur);
