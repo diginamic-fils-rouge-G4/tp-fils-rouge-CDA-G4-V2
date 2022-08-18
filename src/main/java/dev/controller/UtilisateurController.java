@@ -45,7 +45,7 @@ public class UtilisateurController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurController.class);
     @Autowired
     private UtilisateurService utilisateurService;
-    @PostMapping("/sinup")
+    @PostMapping("/signup")
     public void sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         utilisateurService.creeUtilisateur(utilisateurInscriptionDTO);
     }
