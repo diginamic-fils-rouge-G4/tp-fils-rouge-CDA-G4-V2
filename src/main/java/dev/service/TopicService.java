@@ -56,4 +56,7 @@ public class TopicService {
     public List<Topic> findAll() {
         return topicRepository.findAll();
     }
+    public Optional<Topic> findById(int id){
+        return topicRepository.findById(id);
+    }
 }
