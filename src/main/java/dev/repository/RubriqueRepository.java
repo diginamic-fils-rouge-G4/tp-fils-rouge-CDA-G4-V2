@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface RubriqueRepository extends JpaRepository<Rubrique, Integer> {
     Optional<Rubrique> findByLibelle(String libelle);
+
+
 }
