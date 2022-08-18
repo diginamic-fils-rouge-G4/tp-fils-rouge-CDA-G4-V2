@@ -235,9 +235,8 @@ export class ApiMapService {
    * Une erreur ! Empêche d'ajouter aux favoris !
    * L'erreur car un JSONArray n'est pas renvoyer par le back mais un String
    */
-  showStationsByName(nom:string){
-    let nomVille = nom.split(',')[1]
-    this.http.get(`http://localhost:8080/api/station/${nomVille}`)
+  showStationsByName(id:string){
+    this.http.get(`http://localhost:8080/api/station/${id}`)
       .subscribe((data:any)=>{
         console.log(data.data);
 
@@ -251,7 +250,7 @@ export class ApiMapService {
           cityStations.push(city)
         });
         let obj={
-          name:nomVille,
+          id:id,
           stations:cityStations
         }
         console.log(obj);
@@ -337,8 +336,8 @@ export class ApiMapService {
           }
           this.markerClick(obj)
         }
-          
-          
+
+
       })
   }
 
