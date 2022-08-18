@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 public class Station extends BaseEntite {
 
+    private String idx;
     private String nom;
     @ManyToOne
     private Ville ville;
@@ -46,6 +47,14 @@ public class Station extends BaseEntite {
 
     public void setPolluants(List<Polluant> polluants) {
         this.polluants = polluants;
+    }
+
+    public String getIdx() {
+        return idx;
+    }
+
+    public void setIdx(String idx) {
+        this.idx = idx;
     }
 
 }

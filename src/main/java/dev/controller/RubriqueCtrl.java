@@ -3,6 +3,7 @@ package dev.controller;
 import dev.controller.dto.RubriqueDTO;
 import dev.entite.forum.Rubrique;
 import dev.service.RubriqueService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

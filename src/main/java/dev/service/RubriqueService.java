@@ -5,6 +5,7 @@ import dev.entite.forum.Rubrique;
 import dev.repository.RubriqueRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class RubriqueService {
         this.rubriqueRepository = rubriqueRepository;
     }
 
-    public Rubrique create(RubriqueDTO rubriqueDTO) {
+    public Rubrique create(@Valid RubriqueDTO rubriqueDTO) {
         Rubrique rubrique = new Rubrique();
         rubrique.setLibelle(rubriqueDTO.getLibelle());
         return rubriqueRepository.save(rubrique);

@@ -3,6 +3,7 @@ package dev.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Configuration
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     @Value("AUTH-TOKEN")
@@ -38,15 +40,19 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                     .filter(cookie -> cookie.getName().equals(TOKEN_COOKIE))
                     .map(Cookie::getValue)
                     .forEach(token -> {
-                        Claims body = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
+                        Claims body = Jwts.parserBuilder()
+                                .setSigningKey(secretKey)
+                                .build()
+                                .parseClaimsJws(token)
+                                .getBody();
 
                         String username = body.getSubject();
 
-                        List<String> roles = body.get("roles", List.class);
+                        Integer roles = body.get("roles", Integer.class);
 
-                        List<SimpleGrantedAuthority> authorities = roles
-                                .stream()
-                                .map(SimpleGrantedAuthority::new).toList();
+                        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roles.toString()));
+//                                .stream()
+//                                .map(SimpleGrantedAuthority::new).toList();
                         Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     });

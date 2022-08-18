@@ -3,6 +3,8 @@ package dev.controller;
 import dev.controller.dto.UtilisateurConnexionDTO;
 import dev.controller.dto.UtilisateurInscriptionDTO;
 import dev.controller.dto.UtilisateurRoleDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.config.KeyConfig;
 import dev.entite.Utilisateur;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
@@ -16,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +42,7 @@ public class UtilisateurController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurController.class);
     @Autowired
     private UtilisateurService utilisateurService;
-    @PostMapping("/sinup")
+    @PostMapping("/signup")
     public void sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         utilisateurService.creeUtilisateur(utilisateurInscriptionDTO);
     }
@@ -51,8 +54,12 @@ public class UtilisateurController {
                .map(utilisateur -> {
                    Map<String, Object> infosSupplementaireToken = new HashMap<>();
                    infosSupplementaireToken.put("roles",utilisateur.getRole());
-                   String tokenJwt = Jwts.builder().setSubject(utilisateur.getMail()).addClaims(infosSupplementaireToken)
-                           .setExpiration(new Date(System.currentTimeMillis()+EXPIRES_IN*1000)).signWith(secretKey, SignatureAlgorithm.HS512).compact();
+                   String tokenJwt = Jwts.builder()
+                           .setSubject(utilisateur.getMail())
+                           .addClaims(infosSupplementaireToken)
+                           .setExpiration(new Date(System.currentTimeMillis()+EXPIRES_IN*1000))
+                           .signWith(secretKey, SignatureAlgorithm.HS512)
+                           .compact();
                    ResponseCookie tokenCookie = ResponseCookie.from(TOKEN_COOKIE,tokenJwt).httpOnly(true)
                            .maxAge(EXPIRES_IN*1000)
                            .path("/")

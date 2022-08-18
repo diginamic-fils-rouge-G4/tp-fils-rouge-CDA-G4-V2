@@ -1,6 +1,7 @@
 package dev.service;
 
 import dev.controller.dto.TopicDTO;
+import dev.entite.Utilisateur;
 import dev.entite.forum.Rubrique;
 import dev.entite.forum.Topic;
 import dev.exception.CreateException;
@@ -17,9 +18,12 @@ public class TopicService {
     private TopicRepository topicRepository;
     private RubriqueService rubriqueService;
 
-    public TopicService(TopicRepository topicRepository, RubriqueService rubriqueService) {
+    private UtilisateurService utilisateurService;
+
+    public TopicService(TopicRepository topicRepository, RubriqueService rubriqueService, UtilisateurService utilisateurService) {
         this.topicRepository = topicRepository;
         this.rubriqueService = rubriqueService;
+        this.utilisateurService = utilisateurService;
     }
 
     public Topic create(@Valid TopicDTO topicDTO) {
@@ -30,6 +34,14 @@ public class TopicService {
             errMsg.add("La rubrique " + topicDTO.getRubrique() + " n'existe pas");
         }
 
+        Optional<Utilisateur> utilisateur = utilisateurService.getByMail(topicDTO.getUtilisateur());
+
+        if(utilisateur.isEmpty()) {
+            errMsg.add("L'utilisateur " + topicDTO.getUtilisateur() + " n'existe pas");
+        }
+
+        System.out.println(errMsg);
+
         if(!errMsg.isEmpty()) {
             throw new CreateException(errMsg);
         }
@@ -37,6 +49,11 @@ public class TopicService {
         Topic topic = new Topic();
         topic.setLibelle(topicDTO.getLibelle());
         topic.setRubrique(rubrique.get());
+        topic.setUtilisateur(utilisateur.get());
         return topicRepository.save(topic);
+    }
+
+    public List<Topic> findAll() {
+        return topicRepository.findAll();
     }
 }
