@@ -65,7 +65,7 @@ Ajouté une rubrique.
   body : {"nomRubrique" : "..."}
 }
 ```
-- [ ] DELETE /rubrique
+- [x] DELETE /rubrique
 Supprimer une rubrique.
 ```
 {
@@ -171,7 +171,7 @@ Affiche la liste des rubriques (rubrique).
   body : {"listeRubrique" : [...]}
 }
 ```
-- [ ] PATCH /admin/dashboard/rubrique/changerubrique
+- [x] PATCH /admin/dashboard/rubrique/changerubrique
 Change le nom d'une rubrique.
 ```
 {
@@ -179,7 +179,7 @@ Change le nom d'une rubrique.
   body : {"nom_rubrique" : "...", "nouveauNom" : "..."}
 }
 ```
-- [ ] DELETE /admin/dashboard/rubrique/deleterubrique
+- [x] DELETE /admin/dashboard/rubrique/deleterubrique
 Supprime une rubrique.
 ```
 {
