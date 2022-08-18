@@ -32,13 +32,16 @@ public class UtilisateurService {
         utilisateur.setPrenom(utilisateurInscriptionDTO.getPrenom());
         utilisateur.setPassword(passwordEncoder.encode(utilisateurInscriptionDTO.getPassword()));
         LOGGER.info(utilisateur.toString());
-        utilisateurRepository.save(utilisateur);
+        saveUtilisateur(utilisateur);
     }
     public Optional<Utilisateur> getByName(String nom){
         return utilisateurRepository.findByNom(nom);
     }
+    public Optional<Utilisateur> getByid(Integer id){return utilisateurRepository.findById(id);}
     public Optional<Utilisateur> getByMail(String mail){
-        return utilisateurRepository.findByMail(mail);
+        return utilisateurRepository.findByMail(mail);}
+    public Utilisateur saveUtilisateur(Utilisateur utilisateur){
+        return utilisateurRepository.save(utilisateur);
     }
 
 //    admin methods
@@ -47,5 +50,8 @@ public class UtilisateurService {
     }
     public Page<Utilisateur> getAll(int page, int size){
         return utilisateurRepository.findAll(PageRequest.of(page,size));
+    }
+    public void deleteUtilisateur(Utilisateur utilisateur){
+        utilisateurRepository.delete(utilisateur);
     }
 }
