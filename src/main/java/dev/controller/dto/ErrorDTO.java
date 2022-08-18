@@ -2,13 +2,13 @@ package dev.controller.dto;
 
 import java.util.List;
 
-public class ErrorDto {
+public class ErrorDTO {
     private List<String> messages;
 
-    public ErrorDto() {
+    public ErrorDTO() {
     }
 
-    public ErrorDto(List<String> messages) {
+    public ErrorDTO(List<String> messages) {
         this.messages = messages;
     }
 
