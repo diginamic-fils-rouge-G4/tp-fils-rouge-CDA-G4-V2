@@ -39,4 +39,8 @@ public class RubriqueService {
     public void deleteRubrique(Rubrique rubrique) {
         rubriqueRepository.delete(rubrique);
     }
+
+    public Rubrique saveRubrique(Rubrique rubrique) {
+        return  rubriqueRepository.save(rubrique);
+    }
 }
