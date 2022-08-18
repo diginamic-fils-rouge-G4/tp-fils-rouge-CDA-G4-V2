@@ -87,7 +87,11 @@ Ajouté un topic.
 ```
 {
   status : 201,
-  body : {"nom_topic" : "..."}
+  body : {
+    "libelle": "...",
+    "rubrique": "...",
+    "utilisateur": "..."
+}
 }
 ```
 - [ ] DELETE /topic
