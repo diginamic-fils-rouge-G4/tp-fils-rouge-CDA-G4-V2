@@ -65,7 +65,7 @@ Ajouté une rubrique.
   body : {"nomRubrique" : "..."}
 }
 ```
-- [ ] DELETE /rubrique
+- [x] DELETE /rubrique
 Supprimer une rubrique.
 ```
 {
@@ -103,7 +103,7 @@ Supprimer un topic.
 ```
 ### Post
 ![image](https://user-images.githubusercontent.com/44068884/184852047-2f44b85d-1d85-4d8e-9761-f52f681d6933.png)
-- [ ] GET /post
+- [X] GET /post
 Recevoir la liste des posts du topic.
 ```
 {
@@ -111,7 +111,7 @@ Recevoir la liste des posts du topic.
   body : {"listePost" : [...]}
 }
 ```
-- [ ] POST /post
+- [X] POST /post
 Ajouté un post.
 ```
 {
@@ -119,7 +119,7 @@ Ajouté un post.
   body : {"user_id" : "...", "content" : {"sitation": post_id, "body":"..."}, "date" : "...", "heure" : "..."}
 }
 ```
-- [ ] DELETE /post
+- [X] DELETE /post
 Supprimer un post.
 ```
 {
@@ -171,7 +171,7 @@ Affiche la liste des rubriques (rubrique).
   body : {"listeRubrique" : [...]}
 }
 ```
-- [ ] PATCH /admin/dashboard/rubrique/changerubrique
+- [x] PATCH /admin/dashboard/rubrique/changerubrique
 Change le nom d'une rubrique.
 ```
 {
@@ -179,7 +179,7 @@ Change le nom d'une rubrique.
   body : {"nom_rubrique" : "...", "nouveauNom" : "..."}
 }
 ```
-- [ ] DELETE /admin/dashboard/rubrique/deleterubrique
+- [x] DELETE /admin/dashboard/rubrique/deleterubrique
 Supprime une rubrique.
 ```
 {
