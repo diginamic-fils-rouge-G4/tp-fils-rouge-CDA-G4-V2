@@ -1,5 +1,6 @@
 package dev.entite.forum;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.entite.BaseEntite;
 import dev.entite.Utilisateur;
 
@@ -19,8 +20,10 @@ public class Post extends BaseEntite {
     @Column(columnDefinition = "TEXT", length = 2048)
     private String content;
     @ManyToOne
+    @JsonIgnore
     private Utilisateur utilisateur;
     @ManyToOne
+    @JsonIgnore
     private Topic topic;
 
     // Constructeur
