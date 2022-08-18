@@ -2,6 +2,7 @@ package dev.controller;
 
 import dev.entite.forum.Rubrique;
 import dev.service.APIQualiteAirService;
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class APIQualiteAirCtrl {
     @GetMapping("station/{station}")
     @ResponseBody
     // !!! Le fait de return un string pose des problèmes dans le front où un JSONArray est nécessaire
-    public String getStationByName(@PathVariable String station) {
+    public JSONObject getStationByName(@PathVariable String station) {
         return apiQualiteAirService.getStationByName(station);
     }
 

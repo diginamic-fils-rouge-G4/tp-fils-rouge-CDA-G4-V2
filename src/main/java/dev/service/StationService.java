@@ -1,11 +1,14 @@
 package dev.service;
 
 import dev.controller.dto.StationDTO;
+import dev.entite.api.ApiResponse;
 import dev.entite.lieu.Departement;
 import dev.entite.lieu.Station;
 import dev.entite.lieu.Ville;
 import dev.repository.StationRepository;
 import dev.repository.UtilisateurRepository;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,16 +21,37 @@ public class StationService {
     private DepartementService departementService;
     private UtilisateurRepository utilisateurRepository;
 
-    public StationService(StationRepository stationRepository, VilleService villeService, DepartementService departementService, UtilisateurRepository utilisateurRepository) {
+    private APIQualiteAirService apiQualiteAirService;
+
+    public StationService(StationRepository stationRepository, VilleService villeService, DepartementService departementService, UtilisateurRepository utilisateurRepository, APIQualiteAirService apiQualiteAirService) {
         this.stationRepository = stationRepository;
         this.villeService = villeService;
         this.departementService = departementService;
         this.utilisateurRepository = utilisateurRepository;
+        this.apiQualiteAirService = apiQualiteAirService;
     }
 
     public Station obtenirStationParNom (String nom){
         return stationRepository.findByNom(nom);
     }
+    public Station obtenirStationParID (String id){
+        return stationRepository.findByIdx(id);
+    }
+
+    public ApiResponse ajouterStationEnFavoris(String id){
+        ApiResponse data = apiQualiteAirService.getStationById(id);
+        System.out.println("#########################################################################");
+        System.out.println("#########################################################################");
+        System.out.println("#########################################################################");
+
+        System.out.println(data.getData());
+
+        System.out.println("#########################################################################");
+        System.out.println("#########################################################################");
+        System.out.println("#########################################################################");
+        return data;
+    }
+
 
     public Station ajouterStationToUtilisateur(StationDTO stationDto){
         //We have to check if this station exists in the database, if it exists then we just add this station to the Users Favorites.
