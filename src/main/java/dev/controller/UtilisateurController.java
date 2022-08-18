@@ -57,7 +57,7 @@ public class UtilisateurController {
                    String tokenJwt = Jwts.builder()
                            .setSubject(utilisateur.getMail())
                            .addClaims(infosSupplementaireToken)
-                           .setExpiration(new Date(System.currentTimeMillis()+EXPIRES_IN*1000))
+                           .setExpiration(new Date(System.currentTimeMillis() + EXPIRES_IN * 1000))
                            .signWith(secretKey, SignatureAlgorithm.HS512)
                            .compact();
                    ResponseCookie tokenCookie = ResponseCookie.from(TOKEN_COOKIE,tokenJwt).httpOnly(true)

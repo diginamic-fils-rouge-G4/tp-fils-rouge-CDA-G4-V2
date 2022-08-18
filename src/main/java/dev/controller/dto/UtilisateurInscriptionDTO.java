@@ -11,6 +11,8 @@ public class UtilisateurInscriptionDTO {
     String  email;
     String  password;
 
+    String role;
+
     public UtilisateurInscriptionDTO() {
 
     }
@@ -61,6 +63,14 @@ public class UtilisateurInscriptionDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
