@@ -94,7 +94,19 @@ Ajouté un topic.
   }
 }
 ```
-- [ ] DELETE /topic
+- [X] PATCH /topic
+modifi un topic.
+```
+{
+  status : 201,
+  body{
+    "id": 4,
+    "libelle": "tonton",
+    "rubrique": "1"
+  }
+}
+```
+- [ ] DELETE /topic/{id}
 Supprimer un topic.
 ```
 {
