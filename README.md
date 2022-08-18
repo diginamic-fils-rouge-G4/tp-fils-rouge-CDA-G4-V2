@@ -1,7 +1,7 @@
 # tp-fils-rouge-CDA-G4-backend
 ## Login / Signin
 ![image](https://user-images.githubusercontent.com/44068884/184831949-088e19bc-378f-4027-b929-9354f4d1f5c5.png)
-- [ ] POST /login
+- [X] POST /login
 ```
 {
   status : 201,
@@ -11,7 +11,7 @@
 ```
 ## Signup
 ![image](https://user-images.githubusercontent.com/44068884/184831992-7fe59173-5845-4a30-8e82-1923e1a7b32e.png)
-- [ ] POST /signup
+- [X] POST /signup
 ```
 {
   status : 201,
@@ -126,7 +126,7 @@ Supprimer un post.
 Gestion pour les administrateurs des utilisateurs (User) et des rubriques des forums (Rubrique).
 ### User
 ![image](https://user-images.githubusercontent.com/44068884/184852169-8f8051cc-8c51-4ec1-92de-5f74e450efed.png)
-- [ ] GET /admin/dashboard/user
+- [X] GET /utilisateur/all
 Affiche la liste des utilisateurs (users).
 ```
 {
@@ -134,15 +134,23 @@ Affiche la liste des utilisateurs (users).
   body : {"listeUtilisateur" : [...]}
 }
 ```
-- [ ] PATCH /admin/dashboard/user/changerole
+- [X] GET /utilisateur/all/{page}
+Affiche la liste des utilisateurs (users) en liste de 30.
+```
+{
+  status : 200,
+  body : {"listeUtilisateur" : [...]}
+}
+```
+- [X] PATCH /utilisateur
 Change le rôle d'un utilisateur.
 ```
 {
   status : 201,
-  body : {"idUser" : "...", "nouveauRole" : "..."}
+  body : {"id" : "...", "role" : "..."}
 }
 ```
-- [ ] DELETE /admin/dashboard/user/deleteuser
+- [x] DELETE /utilisateur/{id}
 Supprime un utilisateur.
 ```
 {
