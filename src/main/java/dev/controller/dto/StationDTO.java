@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StationDto {
+public class StationDTO {
 
     private String nom;
 
@@ -16,7 +16,7 @@ public class StationDto {
 
     private List<Polluant> polluants = new ArrayList<>();
 
-    public StationDto(String nom, Ville ville, List<Polluant> polluants) {
+    public StationDTO(String nom, Ville ville, List<Polluant> polluants) {
         this.nom = nom;
         this.ville = ville;
         this.polluants = polluants;
