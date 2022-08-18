@@ -1,6 +1,6 @@
 package dev.service;
 
-import dev.controller.dto.StationDto;
+import dev.controller.dto.StationDTO;
 import dev.entite.lieu.Departement;
 import dev.entite.lieu.Station;
 import dev.entite.lieu.Ville;
@@ -29,7 +29,7 @@ public class StationService {
         return stationRepository.findByNom(nom);
     }
 
-    public Station ajouterStationToUtilisateur(StationDto stationDto){
+    public Station ajouterStationToUtilisateur(StationDTO stationDto){
         //We have to check if this station exists in the database, if it exists then we just add this station to the Users Favorites.
         //If not, we have to create the station.
         //While creating the station, we have to check if the city exists in the database, if it exists, then we just add the station to the city.
