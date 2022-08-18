@@ -1,6 +1,6 @@
-package dev.exception.controller;
+package dev.controller;
 
-import dev.exception.controller.dto.TopicDTO;
+import dev.controller.dto.TopicDTO;
 import dev.entite.forum.Topic;
 import dev.service.TopicService;
 import org.springframework.web.bind.annotation.*;

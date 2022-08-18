@@ -1,6 +1,6 @@
 package dev.service;
 
-import dev.exception.controller.dto.RubriqueDTO;
+import dev.controller.dto.RubriqueDTO;
 import dev.entite.forum.Rubrique;
 import dev.repository.RubriqueRepository;
 import org.springframework.stereotype.Service;

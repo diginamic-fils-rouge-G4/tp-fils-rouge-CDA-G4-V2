@@ -1,6 +1,6 @@
 package dev.service;
 
-import dev.exception.controller.dto.TopicDTO;
+import dev.controller.dto.TopicDTO;
 import dev.entite.Utilisateur;
 import dev.entite.forum.Rubrique;
 import dev.entite.forum.Topic;

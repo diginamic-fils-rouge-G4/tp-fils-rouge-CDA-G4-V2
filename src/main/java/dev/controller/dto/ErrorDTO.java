@@ -1,4 +1,4 @@
-package dev.exception.controller.dto;
+package dev.controller.dto;
 
 import java.util.List;
 
