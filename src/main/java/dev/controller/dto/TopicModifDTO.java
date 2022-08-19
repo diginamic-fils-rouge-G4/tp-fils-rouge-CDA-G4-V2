@@ -1,4 +1,4 @@
 package dev.controller.dto;
 
-public class topicModifDTO {
+public class TopicModifDTO {
 }

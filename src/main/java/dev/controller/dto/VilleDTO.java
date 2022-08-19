@@ -1,4 +1,4 @@
 package dev.controller.dto;
 
-public class VilleDto {
+public class VilleDTO {
 }

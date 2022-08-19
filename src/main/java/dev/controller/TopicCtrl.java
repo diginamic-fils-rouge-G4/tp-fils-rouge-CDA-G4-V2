@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("topic")
+@RequestMapping("topics")
 public class TopicCtrl {
     private TopicService topicService;
 
@@ -18,11 +18,13 @@ public class TopicCtrl {
     }
 
     @GetMapping
+    // A FAIRE. Utilisé un ResponseEntity
     public List<Topic> getAllTopics() {
         return topicService.findAll();
     }
 
     @PostMapping
+    // A FAIRE. Utilisé un ResponseEntity
     public Topic create(@RequestBody TopicDTO topicDTO) {
         Topic topic = topicService.create(topicDTO);
         Topic newTopicDTO = new Topic();
@@ -33,10 +35,12 @@ public class TopicCtrl {
         return newTopicDTO;
     }
     @DeleteMapping("/{id}")
+    // A FAIRE. Utilisé un ResponseEntity
     public void delete(@PathVariable int id ){
         topicService.delete(id);
     }
     @PatchMapping("/{id}")
+    // A FAIRE. Utilisé un ResponseEntity
     public void patch(@RequestBody int i){
 
     }

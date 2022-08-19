@@ -1,6 +1,6 @@
 package dev.service;
 
-import dev.controller.UtilisateurController;
+import dev.controller.UtilisateurCtrl;
 import dev.controller.dto.UtilisateurInscriptionDTO;
 import dev.entite.Utilisateur;
 import dev.repository.UtilisateurRepository;
@@ -18,7 +18,7 @@ import java.util.*;
 public class UtilisateurService {
     @Autowired
     private PasswordEncoder passwordEncoder;
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurCtrl.class);
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 

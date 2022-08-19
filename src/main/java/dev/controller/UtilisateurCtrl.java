@@ -23,7 +23,7 @@ import javax.crypto.SecretKey;
 import java.util.*;
 
 @RestController
-public class UtilisateurController {
+public class UtilisateurCtrl {
     @Value("${jwt.expires_in}")
     private Integer EXPIRES_IN;
     @Value("${jwt.cookie}")
@@ -36,10 +36,11 @@ public class UtilisateurController {
     private SecretKey secretKey;
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurCtrl.class);
     @Autowired
     private UtilisateurService utilisateurService;
     @PostMapping("/signup")
+    // A FAIRE. Utilisé un ResponseEntity
     public void sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         utilisateurService.creeUtilisateur(utilisateurInscriptionDTO);
     }
@@ -67,8 +68,10 @@ public class UtilisateurController {
 
     //admin methods
     @GetMapping("/utilisateur/all")
+    // A FAIRE. Utilisé un ResponseEntity
     public List<Utilisateur> getAll(){return utilisateurService.getAll();}
     @GetMapping("/utilisateur/all/{page}")
+    // A FAIRE. Utilisé un ResponseEntity
     public Page<Utilisateur> getAllBetween(@PathVariable int page){return utilisateurService.getAll(page,30);}
 
     @PatchMapping("/utilisateur")

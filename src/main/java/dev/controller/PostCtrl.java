@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("post")
+@RequestMapping("posts")
 public class PostCtrl {
     private PostService postService;
 
@@ -26,11 +26,13 @@ public class PostCtrl {
     }
 
     @PostMapping
+    // A FAIRE. Utilisé un ResponseEntity
     public PostDTO create(@RequestBody PostDTO postDTO) {
         Post post = postService.create(postDTO);
         PostDTO newPostDTO = new PostDTO();
         newPostDTO.setContent(post.getContent());
         newPostDTO.setUtilisateur(post.getUtilisateur().getMail());
+        // A FAIRE. Plutot utilisé l'id que le libelle
         newPostDTO.setTopic(post.getTopic().getLibelle());
         return newPostDTO;
     }
