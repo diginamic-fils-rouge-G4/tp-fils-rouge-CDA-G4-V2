@@ -26,15 +26,9 @@ public class PostCtrl {
     }
 
     @PostMapping
-    // A FAIRE. Utilisé un ResponseEntity
-    public PostDTO create(@RequestBody PostDTO postDTO) {
-        Post post = postService.create(postDTO);
-        PostDTO newPostDTO = new PostDTO();
-        newPostDTO.setContent(post.getContent());
-        newPostDTO.setUtilisateur(post.getUtilisateur().getMail());
-        // A FAIRE. Plutot utilisé l'id que le libelle
-        newPostDTO.setTopic(post.getTopic().getLibelle());
-        return newPostDTO;
+    public ResponseEntity<?> create(@RequestBody PostDTO postDTO) {
+        postService.create(postDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Message envoyé");
     }
 
     @DeleteMapping("/{id}")
