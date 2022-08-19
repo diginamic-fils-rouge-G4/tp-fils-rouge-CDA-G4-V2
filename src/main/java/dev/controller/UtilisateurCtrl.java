@@ -4,9 +4,11 @@ import dev.controller.dto.UtilisateurConnexionDTO;
 import dev.controller.dto.UtilisateurInscriptionDTO;
 import dev.controller.dto.UtilisateurRoleDTO;
 import dev.entite.Utilisateur;
+import dev.entite.forum.Topic;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jdk.jshell.execution.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +41,13 @@ public class UtilisateurCtrl {
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurCtrl.class);
     @Autowired
     private UtilisateurService utilisateurService;
+
     @PostMapping("/signup")
-    // A FAIRE. Utilisé un ResponseEntity
-    public void sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
+    public ResponseEntity<?> sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         utilisateurService.creeUtilisateur(utilisateurInscriptionDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Utilisateur créé");
     }
+
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<?> login(@RequestBody UtilisateurConnexionDTO utilisateurConnexionDTO){
@@ -66,13 +70,28 @@ public class UtilisateurCtrl {
                }).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-    //admin methods
+    // Admin methods
     @GetMapping("/utilisateur/all")
-    // A FAIRE. Utilisé un ResponseEntity
-    public List<Utilisateur> getAll(){return utilisateurService.getAll();}
+    public ResponseEntity<?> getAll() {
+        List<Utilisateur> utilisateurs = utilisateurService.getAll();
+        if(!utilisateurs.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(utilisateurs);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucun utilisateur d'enregistré");
+        }
+    }
+
     @GetMapping("/utilisateur/all/{page}")
-    // A FAIRE. Utilisé un ResponseEntity
-    public Page<Utilisateur> getAllBetween(@PathVariable int page){return utilisateurService.getAll(page,30);}
+    public ResponseEntity<?> getAllBetween(@PathVariable int page) {
+        Page<Utilisateur> utilisateurPage = utilisateurService.getAll(page,30);
+        if(!utilisateurPage.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(utilisateurPage);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucun utilisateur d'enregistré");
+        }
+    }
 
     @PatchMapping("/utilisateur")
     public ResponseEntity<Utilisateur> updateRole(@RequestBody UtilisateurRoleDTO utilisateurRoleDTO){
@@ -84,6 +103,7 @@ public class UtilisateurCtrl {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
     @DeleteMapping("/utilisateur/{id}")
     public ResponseEntity<?> deleteUtilisateur(@PathVariable Integer id){
         Optional<Utilisateur> utilisateur = utilisateurService.getByid(id);
