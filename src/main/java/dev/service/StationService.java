@@ -1,6 +1,7 @@
 package dev.service;
 
 import dev.controller.dto.StationDTO;
+import dev.entite.api.ApiGeo;
 import dev.entite.api.ApiResponse;
 import dev.entite.lieu.Departement;
 import dev.entite.lieu.Station;
@@ -9,12 +10,12 @@ import dev.entite.qualite.Polluant;
 import dev.repository.StationRepository;
 import dev.repository.UtilisateurRepository;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class StationService {
@@ -23,25 +24,38 @@ public class StationService {
     private VilleService villeService;
     private DepartementService departementService;
     private UtilisateurRepository utilisateurRepository;
-
+    private APIGeoService apiGeoService;
     private APIQualiteAirService apiQualiteAirService;
+    private PolluantService polluantService;
 
-    public StationService(StationRepository stationRepository, VilleService villeService, DepartementService departementService, UtilisateurRepository utilisateurRepository, APIQualiteAirService apiQualiteAirService) {
+    public StationService(StationRepository stationRepository, VilleService villeService, DepartementService departementService, UtilisateurRepository utilisateurRepository, APIGeoService apiGeoService, APIQualiteAirService apiQualiteAirService, PolluantService polluantService) {
         this.stationRepository = stationRepository;
         this.villeService = villeService;
         this.departementService = departementService;
         this.utilisateurRepository = utilisateurRepository;
+        this.apiGeoService = apiGeoService;
         this.apiQualiteAirService = apiQualiteAirService;
+        this.polluantService = polluantService;
     }
 
     public Station obtenirStationParNom (String nom){
         return stationRepository.findByNom(nom);
+    }
+
+    public Station createStation (Station station){
+        return stationRepository.save(station);
     }
     public Station obtenirStationParID (int id){
         return stationRepository.findByIdx(String.valueOf(id));
     }
 
     public Station ajouterStationEnFavoris(String id){
+
+        //We have to check if this station exists in the database, if it exists then we just add this station to the Users Favorites.
+        //If not, we have to create the station.
+        //While creating the station, we have to check if the city exists in the database, if it exists, then we just add the station to the city.
+        //if not, we have to create the city.
+
         ApiResponse data = apiQualiteAirService.getStationById(id);
 
         Station station =obtenirStationParID(Math.round(data.getData().getIdx()));
@@ -51,8 +65,6 @@ public class StationService {
             station = new Station();
             station.setIdx(String.valueOf(data.getData().getIdx()) );
             station.setNom(data.getData().getCity().getName());
-
-            data.getData().getIaqi().getH();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -98,48 +110,35 @@ public class StationService {
 
             station.getPolluants().add(Wg);
 
-            return station;
-        }else {
-            return station;
-        }
+            ResponseEntity<ApiGeo[]> ListVille = apiGeoService.getCityByGeo(data.getData().getCity().getGeo().get(0).toString(), data.getData().getCity().getGeo().get(1).toString());
+            Ville ville = villeService.obtenirVilleParNom(ListVille.getBody()[0].getName());
 
-
-    }
-
-
-    public Station ajouterStationToUtilisateur(StationDTO stationDto){
-        //We have to check if this station exists in the database, if it exists then we just add this station to the Users Favorites.
-        //If not, we have to create the station.
-        //While creating the station, we have to check if the city exists in the database, if it exists, then we just add the station to the city.
-        //if not, we have to create the city.
-
-        if (obtenirStationParNom(stationDto.getNom()) == null){
-            Station station = new Station();
-            station.setNom(stationDto.getNom());
-
-            if (villeService.obtenirVilleParNom(stationDto.getVille().getNom()) == null){
-                Ville ville = new Ville();
-                ville.setNom(stationDto.getVille().getNom());
-                ville.setCodePostal(stationDto.getVille().getCodePostal());
-                ville.setPopulation(stationDto.getVille().getPopulation());
-
-                System.out.println( "##################  hellllooooooooo =>"  +  stationDto.getVille().getDepartement().getNom());
-
-                Departement departement = departementService.obtenirDepartementParNom(stationDto.getVille().getDepartement().getNom());
-
-                System.out.println("################## =>"  +  departement);
-
-                ville.setDepartement(departement);
-                departement.getVilles().add(ville);
-                station.setVille(ville);
-            }else {
-                Ville ville = villeService.obtenirVilleParNom(stationDto.getVille().getNom());
-                station.setVille(ville);
+            for (Polluant polluant : station.getPolluants()) {
+                polluantService.createPolluant(polluant);
             }
 
-            return station;
+            this.createStation(station);
+
+            if (ville == null){
+                ville = new Ville();
+                ville.getStations().add(station);
+                ville.setPopulation(0);
+                ville.setNom(ListVille.getBody()[0].getName());
+                villeService.createVille(ville);
+                ville.getStations().add(station);
+                return station;
+            }else {
+                ville.getStations().add(station);
+                return station;
+            }
         }else {
-            return obtenirStationParNom(stationDto.getNom());
+            return station;
         }
+    }
+    public Station ajouterStationToUtilisateur(String id){
+
+        Station station = this.ajouterStationEnFavoris(id);
+        return station;
+
     }
 }

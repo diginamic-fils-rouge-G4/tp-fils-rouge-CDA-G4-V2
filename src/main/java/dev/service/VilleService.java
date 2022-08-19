@@ -20,4 +20,8 @@ public class VilleService {
         return this.villeRepository.findByNom(nom);
     }
 
+    public Ville createVille(Ville ville){
+        return villeRepository.save(ville);
+    }
+
 }

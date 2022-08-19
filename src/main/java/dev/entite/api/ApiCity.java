@@ -1,6 +1,7 @@
 package dev.entite.api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApiCity {
 
@@ -36,6 +37,14 @@ public class ApiCity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public ArrayList<Object> getGeo() {
+        return geo;
+    }
+
+    public void setGeo(ArrayList<Object> geo) {
+        this.geo = geo;
     }
 
     @Override
