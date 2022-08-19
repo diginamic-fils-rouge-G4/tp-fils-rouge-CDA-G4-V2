@@ -1,7 +1,6 @@
 package dev.controller;
 
-import dev.controller.dto.UtilisateurInscriptionDTO;
-import dev.entite.Utilisateur;
+import dev.controller.dto.utilisateur.UtilisateurInscriptionDTO;
 import dev.service.UtilisateurService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Optional;
 
 @WebMvcTest(UtilisateurCtrl.class)
 public class UtilisateurCtrlUnitTest {

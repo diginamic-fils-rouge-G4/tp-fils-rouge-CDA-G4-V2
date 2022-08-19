@@ -1,7 +1,7 @@
 package dev.service;
 
-import dev.controller.dto.TopicDTO;
-import dev.controller.dto.TopicModifDTO;
+import dev.controller.dto.topic.TopicDTO;
+import dev.controller.dto.topic.TopicModifDTO;
 import dev.entite.Utilisateur;
 import dev.entite.forum.Rubrique;
 import dev.entite.forum.Topic;

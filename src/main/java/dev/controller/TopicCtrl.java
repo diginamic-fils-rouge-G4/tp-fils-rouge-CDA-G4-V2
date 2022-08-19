@@ -1,14 +1,11 @@
 package dev.controller;
 
-import dev.controller.dto.ErrorDTO;
-import dev.controller.dto.TopicDTO;
-import dev.controller.dto.TopicModifDTO;
+import dev.controller.dto.topic.TopicDTO;
+import dev.controller.dto.topic.TopicModifDTO;
 import dev.entite.forum.Topic;
 import dev.service.TopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

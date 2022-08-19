@@ -1,7 +1,7 @@
 package dev.service;
 
 import dev.controller.UtilisateurCtrl;
-import dev.controller.dto.UtilisateurInscriptionDTO;
+import dev.controller.dto.utilisateur.UtilisateurInscriptionDTO;
 import dev.entite.Utilisateur;
 import dev.repository.UtilisateurRepository;
 import org.slf4j.Logger;
