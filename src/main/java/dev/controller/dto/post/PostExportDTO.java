@@ -17,6 +17,10 @@ public class PostExportDTO {
     // Heure du post
     private LocalDateTime heure;
 
+    // Constructor
+    public PostExportDTO() {
+    }
+
     // Getter & Setter
     public String getUtilisateur() {
         return utilisateur;

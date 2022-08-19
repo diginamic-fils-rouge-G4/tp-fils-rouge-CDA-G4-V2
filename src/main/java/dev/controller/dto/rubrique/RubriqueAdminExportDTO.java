@@ -6,6 +6,10 @@ public class RubriqueAdminExportDTO {
     // Libelle de la rubrique
     private String libelle;
 
+    // Constructor
+    public RubriqueAdminExportDTO() {
+    }
+
     // Getter & Setter
     public String getLibelle() {
         return libelle;

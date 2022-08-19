@@ -9,6 +9,10 @@ public class RubriqueExportDTO {
     // Nombre de topic présent dans la rubrique
     private Integer nbreTopics;
 
+    // Constructor
+    public RubriqueExportDTO() {
+    }
+
     // Getter & Setter
     public String getLibelle() {
         return libelle;
