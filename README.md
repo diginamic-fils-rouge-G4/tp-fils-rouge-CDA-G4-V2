@@ -32,7 +32,7 @@ Recevoir la liste des favories de l'utilisateur (user).
 }
 ```
 
-- [ ] GET /stations/favorie/{id station}
+- [x] GET /stations/favorie/{id station}
 Recevoir un favorie de l'utilisateur (user).
 ```
 {
