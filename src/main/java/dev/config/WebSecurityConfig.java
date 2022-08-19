@@ -35,8 +35,12 @@ public class WebSecurityConfig {
                 // non utilisée dans le cadre d'une Web API
                 .csrf().disable()
                 .authorizeRequests()
-
                 .anyRequest().permitAll()
+                //                .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PUT, "/admin").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PATCH, "/admin").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/admin").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET, "/login").permitAll()
 //                .antMatchers(HttpMethod.POST, "/login").permitAll()
 //                .antMatchers(HttpMethod.GET, "/signup").permitAll()
