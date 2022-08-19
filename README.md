@@ -22,7 +22,7 @@
 
 ![image](https://user-images.githubusercontent.com/44068884/184832427-e527a2b6-3a8a-4850-a284-d1dacde6d6d9.png)
 
-- [ ] GET /map/favories/{user}/favorie
+
 - [ ] GET /map/favories
 Recevoir la liste des favories de l'utilisateur (user).
 ```
@@ -31,8 +31,8 @@ Recevoir la liste des favories de l'utilisateur (user).
   body : {"listeStation" : [...]}
 }
 ```
-- [ ] POST /map/favorie
-Envoyer un nouveau favorie de l'utilisateur.
+- [x] POST /map/favorie
+Ajouter un nouveau favorie de l'utilisateur.
 ```
 {
   status : 201,
