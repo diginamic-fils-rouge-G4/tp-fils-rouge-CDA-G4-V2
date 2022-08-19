@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("rubrique")
+@RequestMapping("rubriques")
 @Secured({"ROLE_ADMIN", "ROLE_USER"})
 public class RubriqueCtrl {
     private RubriqueService rubriqueService;
@@ -28,13 +28,13 @@ public class RubriqueCtrl {
     }
 
     @GetMapping
+    // A FAIRE. Utilisé un ResponseEntity
     public List<Rubrique> getAllRubrique() {
-        Object test = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        LOGGER.info("" + test);
         return rubriqueService.findAll();
     }
 
     @PostMapping
+    // A FAIRE. Utilisé un ResponseEntity
     public Rubrique create(@RequestBody RubriqueDTO rubriqueDTO) {
         return rubriqueService.create(rubriqueDTO);
     }
