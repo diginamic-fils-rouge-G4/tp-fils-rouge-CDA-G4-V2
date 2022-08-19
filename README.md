@@ -23,7 +23,7 @@
 ![image](https://user-images.githubusercontent.com/44068884/184832427-e527a2b6-3a8a-4850-a284-d1dacde6d6d9.png)
 
 
-- [ ] GET /map/favories
+- [x] GET /stations/favories
 Recevoir la liste des favories de l'utilisateur (user).
 ```
 {
@@ -31,7 +31,7 @@ Recevoir la liste des favories de l'utilisateur (user).
   body : {"listeStation" : [...]}
 }
 ```
-- [x] POST /map/favorie
+- [x] POST /stations/favorie/{id station}
 Ajouter un nouveau favorie de l'utilisateur.
 ```
 {
@@ -39,7 +39,7 @@ Ajouter un nouveau favorie de l'utilisateur.
   body : {"nom_station" : "..."}
 }
 ```
-- [ ] DELETE /map/favorie
+- [x] DELETE /stations/favorie/{id station}
 Retirer un favorie de l'utilisateur.
 ```
 {
