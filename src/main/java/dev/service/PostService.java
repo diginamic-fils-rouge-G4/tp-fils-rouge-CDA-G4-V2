@@ -1,6 +1,6 @@
 package dev.service;
 
-import dev.controller.dto.PostDTO;
+import dev.controller.dto.post.PostDTO;
 import dev.entite.Utilisateur;
 import dev.entite.forum.Post;
 import dev.entite.forum.Topic;

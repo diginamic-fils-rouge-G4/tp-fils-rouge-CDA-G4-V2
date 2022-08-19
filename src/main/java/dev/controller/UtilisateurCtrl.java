@@ -1,14 +1,12 @@
 package dev.controller;
 
-import dev.controller.dto.UtilisateurConnexionDTO;
-import dev.controller.dto.UtilisateurInscriptionDTO;
-import dev.controller.dto.UtilisateurRoleDTO;
+import dev.controller.dto.utilisateur.UtilisateurConnexionDTO;
+import dev.controller.dto.utilisateur.UtilisateurInscriptionDTO;
+import dev.controller.dto.utilisateur.UtilisateurRoleDTO;
 import dev.entite.Utilisateur;
-import dev.entite.forum.Topic;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jdk.jshell.execution.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

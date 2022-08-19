@@ -1,16 +1,12 @@
 package dev.service;
 
-import dev.controller.dto.StationDTO;
 import dev.entite.Utilisateur;
-import dev.entite.api.ApiGeo;
-import dev.entite.api.ApiResponse;
-import dev.entite.lieu.Departement;
+import dev.entite.donneeApiQualiteAir.ApiGeo;
+import dev.entite.donneeApiQualiteAir.ApiResponse;
 import dev.entite.lieu.Station;
 import dev.entite.lieu.Ville;
 import dev.entite.qualite.Polluant;
 import dev.repository.StationRepository;
-import dev.repository.UtilisateurRepository;
-import org.json.simple.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,9 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StationService {

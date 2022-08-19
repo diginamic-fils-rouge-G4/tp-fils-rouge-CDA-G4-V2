@@ -1,7 +1,6 @@
 package dev.service;
 
-import dev.entite.api.ApiResponse;
-import org.json.simple.JSONArray;
+import dev.entite.donneeApiQualiteAir.ApiResponse;
 import org.json.simple.JSONObject;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;

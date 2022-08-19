@@ -1,6 +1,6 @@
 package dev.controller;
 
-import dev.controller.dto.PostDTO;
+import dev.controller.dto.post.PostDTO;
 import dev.entite.forum.Post;
 import dev.service.PostService;
 import org.springframework.http.HttpStatus;
