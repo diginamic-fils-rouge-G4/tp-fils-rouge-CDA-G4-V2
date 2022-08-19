@@ -1,6 +1,7 @@
 package dev.entite.api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApiCity {
 
@@ -38,4 +39,22 @@ public class ApiCity {
         this.location = location;
     }
 
+    public ArrayList<Object> getGeo() {
+        return geo;
+    }
+
+    public void setGeo(ArrayList<Object> geo) {
+        this.geo = geo;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ApiCity{");
+        sb.append("geo=").append(geo);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", location='").append(location).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -17,4 +17,11 @@ public class ApiDebug {
         this.sync = sync;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ApiDebug{");
+        sb.append("sync='").append(sync).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

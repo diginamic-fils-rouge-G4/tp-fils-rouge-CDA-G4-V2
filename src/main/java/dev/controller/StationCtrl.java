@@ -31,7 +31,7 @@ public class StationCtrl {
     @PostMapping("metEnFavoris/{id}")
     public ResponseEntity<?> createClient( @PathVariable String id) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(stationService.ajouterStationEnFavoris(id));
+                    .body(stationService.ajouterStationToUtilisateur(id));
     }
 
 

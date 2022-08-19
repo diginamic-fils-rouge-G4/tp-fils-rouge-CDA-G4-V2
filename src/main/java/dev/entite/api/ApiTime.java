@@ -44,4 +44,15 @@ public class ApiTime {
         this.iso = iso;
     }
 
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ApiTime{");
+        sb.append("s='").append(s).append('\'');
+        sb.append(", tz='").append(tz).append('\'');
+        sb.append(", v=").append(v);
+        sb.append(", iso='").append(iso).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

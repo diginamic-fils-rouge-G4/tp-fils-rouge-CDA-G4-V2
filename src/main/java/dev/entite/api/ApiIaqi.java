@@ -4,64 +4,79 @@ import dev.entite.api.polluant.*;
 
 public class ApiIaqi {
 
-    H HObject;
-    P PObject;
-    Pm25 Pm25Object;
-    T TObject;
-    W WObject;
-    Wg WgObject;
+    H H;
+    P P;
+    Pm25 Pm25;
+    T T;
+    W W;
+    Wg Wg;
 
 
-    // Getter Methods
-
-    public H getH() {
-        return HObject;
+    public dev.entite.api.polluant.H getH() {
+        return H;
     }
 
-    public P getP() {
-        return PObject;
+    public void setH(dev.entite.api.polluant.H h) {
+        H = h;
     }
 
-    public Pm25 getPm25() {
-        return Pm25Object;
+    public dev.entite.api.polluant.P getP() {
+        return P;
     }
 
-    public T getT() {
-        return TObject;
+    public void setP(dev.entite.api.polluant.P p) {
+        P = p;
     }
 
-    public W getW() {
-        return WObject;
+    public dev.entite.api.polluant.Pm25 getPm25() {
+        return Pm25;
     }
 
-    public Wg getWg() {
-        return WgObject;
+    public void setPm25(dev.entite.api.polluant.Pm25 pm25) {
+        Pm25 = pm25;
     }
 
-    // Setter Methods
-
-    public void setH(H hObject) {
-        this.HObject = hObject;
+    public dev.entite.api.polluant.T getT() {
+        return T;
     }
 
-    public void setP(P pObject) {
-        this.PObject = pObject;
+    public void setT(dev.entite.api.polluant.T t) {
+        T = t;
     }
 
-    public void setPm25(Pm25 pm25Object) {
-        this.Pm25Object = pm25Object;
+    public dev.entite.api.polluant.W getW() {
+        return W;
     }
 
-    public void setT(T tObject) {
-        this.TObject = tObject;
+    public void setW(dev.entite.api.polluant.W w) {
+        W = w;
     }
 
-    public void setW(W wObject) {
-        this.WObject = wObject;
+    public dev.entite.api.polluant.Wg getWg() {
+        return Wg;
     }
 
-    public void setWg(Wg wgObject) {
-        this.WgObject = wgObject;
+    public void setWg(dev.entite.api.polluant.Wg wg) {
+        Wg = wg;
     }
 
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ApiIaqi{");
+        sb.append("H=").append(H);
+        sb.append(", P=").append(P);
+        sb.append(", Pm25=").append(Pm25);
+        sb.append(", T=").append(T);
+        sb.append(", W=").append(W);
+        sb.append(", Wg=").append(Wg);
+        sb.append(", h=").append(getH());
+        sb.append(", p=").append(getP());
+        sb.append(", pm25=").append(getPm25());
+        sb.append(", t=").append(getT());
+        sb.append(", w=").append(getW());
+        sb.append(", wg=").append(getWg());
+        sb.append('}');
+        return sb.toString();
+    }
 }

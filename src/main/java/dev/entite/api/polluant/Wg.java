@@ -16,5 +16,11 @@ public class Wg {
     public void setV(float v) {
         this.v = v;
     }
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("H{");
+        sb.append("v=").append(v);
+        sb.append('}');
+        return sb.toString();
+    }
 }
