@@ -71,7 +71,7 @@ public class UtilisateurCtrl {
     }
 
     // Admin methods
-    @GetMapping("/utilisateur/all")
+    @GetMapping("/utilisateurs")
     public ResponseEntity<?> getAll() {
         List<Utilisateur> utilisateurs = utilisateurService.getAll();
         if(!utilisateurs.isEmpty()) {
@@ -82,7 +82,7 @@ public class UtilisateurCtrl {
         }
     }
 
-    @GetMapping("/utilisateur/all/{page}")
+    @GetMapping("/utilisateurs/{page}")
     public ResponseEntity<?> getAllBetween(@PathVariable int page) {
         Page<Utilisateur> utilisateurPage = utilisateurService.getAll(page,30);
         if(!utilisateurPage.isEmpty()) {
@@ -93,7 +93,7 @@ public class UtilisateurCtrl {
         }
     }
 
-    @PatchMapping("/utilisateur")
+    @PatchMapping("/utilisateurs")
     public ResponseEntity<Utilisateur> updateRole(@RequestBody UtilisateurRoleDTO utilisateurRoleDTO){
         Optional<Utilisateur> utilisateur = utilisateurService.getByid(utilisateurRoleDTO.getId());
         if (utilisateur.isPresent()){
@@ -104,7 +104,7 @@ public class UtilisateurCtrl {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @DeleteMapping("/utilisateur/{id}")
+    @DeleteMapping("/utilisateurs/{id}")
     public ResponseEntity<?> deleteUtilisateur(@PathVariable Integer id){
         Optional<Utilisateur> utilisateur = utilisateurService.getByid(id);
         if (utilisateur.isPresent()){
