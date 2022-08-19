@@ -1,6 +1,7 @@
 package dev.service;
 
 import dev.controller.dto.TopicDTO;
+import dev.controller.dto.TopicModifDTO;
 import dev.entite.Utilisateur;
 import dev.entite.forum.Rubrique;
 import dev.entite.forum.Topic;
@@ -28,7 +29,7 @@ public class TopicService {
 
     public Topic create(@Valid TopicDTO topicDTO) {
         List<String> errMsg = new ArrayList<>();
-        Optional<Rubrique> rubrique = rubriqueService.findByLibelle(topicDTO.getRubrique());
+        Optional<Rubrique> rubrique = rubriqueService.getByid(topicDTO.getRubrique());
 
         if(rubrique.isEmpty()) {
             errMsg.add("La rubrique " + topicDTO.getRubrique() + " n'existe pas");
@@ -39,8 +40,6 @@ public class TopicService {
         if(utilisateur.isEmpty()) {
             errMsg.add("L'utilisateur " + topicDTO.getUtilisateur() + " n'existe pas");
         }
-
-        System.out.println(errMsg);
 
         if(!errMsg.isEmpty()) {
             throw new CreateException(errMsg);
@@ -55,5 +54,24 @@ public class TopicService {
 
     public List<Topic> findAll() {
         return topicRepository.findAll();
+    }
+    public Optional<Topic> findById(int id){
+        return topicRepository.findById(id);
+    }
+    public void delete(int id){
+        findById(id).ifPresent(topic ->topicRepository.delete(topic));
+    }
+    public Topic update(TopicModifDTO topicModifDTO){
+        Optional<Topic> optionalTopic = findById(topicModifDTO.getId());
+        Optional<Rubrique> optionalRubrique = rubriqueService.getByid(topicModifDTO.getRubrique());
+
+        if (optionalTopic.isPresent()&&optionalTopic.isPresent()){
+            Topic topic = optionalTopic.get();
+            topic.setRubrique(optionalRubrique.get());
+            topic.setLibelle(topicModifDTO.getLibelle());
+            topicRepository.save(topic);
+            return topic;
+        }
+        return null;
     }
 }

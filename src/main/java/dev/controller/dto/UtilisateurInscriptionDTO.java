@@ -2,7 +2,7 @@ package dev.controller.dto;
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class UtilisateurInscriptionDTO {
     String  nom;
     String  prenom;
@@ -10,6 +10,8 @@ public class UtilisateurInscriptionDTO {
     String  codePostal;
     String  email;
     String  password;
+
+    String role;
 
     public UtilisateurInscriptionDTO() {
 
@@ -61,6 +63,14 @@ public class UtilisateurInscriptionDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

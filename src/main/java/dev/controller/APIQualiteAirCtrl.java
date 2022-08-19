@@ -26,6 +26,7 @@ public class APIQualiteAirCtrl {
 
     @GetMapping("latlng")
     @ResponseBody
+    // A FAIRE. Utilisé un ResponseEntity
     public String getAllStations(@RequestParam String lat1,
                                  @RequestParam String lng1,
                                  @RequestParam String lat2,
@@ -35,6 +36,7 @@ public class APIQualiteAirCtrl {
 
     @GetMapping("markerClick")
     @ResponseBody
+    // A FAIRE. Utilisé un ResponseEntity
     public String getMarkerByClick(@RequestParam String lat,
                                    @RequestParam String lng) {
         return apiQualiteAirService.getMarkerByClick(lat, lng);
@@ -42,7 +44,7 @@ public class APIQualiteAirCtrl {
 
     @GetMapping("station/{station}")
     @ResponseBody
-    // !!! Le fait de return un string pose des problèmes dans le front où un JSONArray est nécessaire
+    // A FAIRE. Utilisé un ResponseEntity
     public JSONObject getStationByName(@PathVariable String station) {
         return apiQualiteAirService.getStationByName(station);
     }

@@ -3,7 +3,6 @@ package dev.controller.dto;
 import java.util.List;
 
 public class ErrorDTO {
-
     private List<String> messages;
 
     public ErrorDTO() {
@@ -20,5 +19,4 @@ public class ErrorDTO {
     public void setMessages(List<String> messages) {
         this.messages = messages;
     }
-
 }

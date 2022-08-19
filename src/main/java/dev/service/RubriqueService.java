@@ -30,4 +30,16 @@ public class RubriqueService {
     public Optional<Rubrique> findByLibelle(String libelle) {
         return rubriqueRepository.findByLibelle(libelle);
     }
+
+    public Optional<Rubrique> getByid(Integer id){
+        return rubriqueRepository.findById(id);
+    }
+
+    public void deleteRubrique(Rubrique rubrique) {
+        rubriqueRepository.delete(rubrique);
+    }
+
+    public Rubrique saveRubrique(Rubrique rubrique) {
+        return  rubriqueRepository.save(rubrique);
+    }
 }

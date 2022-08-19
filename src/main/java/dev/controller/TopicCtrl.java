@@ -1,6 +1,7 @@
 package dev.controller;
 
 import dev.controller.dto.TopicDTO;
+import dev.controller.dto.TopicModifDTO;
 import dev.entite.forum.Topic;
 import dev.service.TopicService;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("topic")
+@RequestMapping("topics")
 public class TopicCtrl {
     private TopicService topicService;
 
@@ -18,18 +19,25 @@ public class TopicCtrl {
     }
 
     @GetMapping
+    // A FAIRE. Utilisé un ResponseEntity
     public List<Topic> getAllTopics() {
         return topicService.findAll();
     }
 
     @PostMapping
-    public TopicDTO create(@RequestBody TopicDTO topicDTO) {
-        Topic topic = topicService.create(topicDTO);
-        TopicDTO newTopicDTO = new TopicDTO();
-        newTopicDTO.setLibelle(topic.getLibelle());
-        newTopicDTO.setRubrique(topic.getRubrique().getLibelle());
-        newTopicDTO.setUtilisateur(topic.getUtilisateur().getMail());
-        //Créer un topic dto pour la création et pour la réponse et enlever le json ignore
-        return newTopicDTO;
+    // A FAIRE. Utilisé un ResponseEntity
+    public Topic create(@RequestBody TopicDTO topicDTO) {
+        return topicService.create(topicDTO);
     }
+    @DeleteMapping("/{id}")
+    // A FAIRE. Utilisé un ResponseEntity
+    public void delete(@PathVariable int id ){
+        topicService.delete(id);
+    }
+
+    @PatchMapping
+    public Topic patch(@RequestBody TopicModifDTO modifDTO){
+        return topicService.update(modifDTO);
+    }
+
 }

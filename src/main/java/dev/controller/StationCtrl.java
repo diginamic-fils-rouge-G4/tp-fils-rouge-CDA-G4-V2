@@ -1,15 +1,10 @@
 package dev.controller;
 
-import dev.controller.dto.ErrorDTO;
-import dev.controller.dto.StationDTO;
+
 import dev.service.StationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -32,8 +27,6 @@ public class StationCtrl {
                     .body(stationService.ajouterStationToUtilisateur(stationDto));
         }
     }*/
-
-
 
     @PostMapping("metEnFavoris/{id}")
     public ResponseEntity<?> createClient( @PathVariable String id) {

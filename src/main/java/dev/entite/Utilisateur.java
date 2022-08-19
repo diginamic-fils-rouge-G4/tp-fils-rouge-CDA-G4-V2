@@ -17,7 +17,7 @@ public class Utilisateur extends BaseEntite {
     @Column(unique = true, nullable = false)
     private String mail;
     @Column(nullable = false)
-    private int role;
+    private String role;
     @Column(nullable = false)
     private String password;
     @ManyToMany
@@ -54,11 +54,11 @@ public class Utilisateur extends BaseEntite {
         this.mail = mail;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

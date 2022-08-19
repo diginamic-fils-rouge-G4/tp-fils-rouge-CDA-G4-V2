@@ -8,7 +8,7 @@ public class TopicDTO {
     @NotBlank
     private String utilisateur;
     @NotBlank
-    private String rubrique;
+    private Integer rubrique;
 
     public TopicDTO() {
     }
@@ -29,11 +29,11 @@ public class TopicDTO {
         this.utilisateur = utilisateur;
     }
 
-    public String getRubrique() {
+    public Integer getRubrique() {
         return rubrique;
     }
 
-    public void setRubrique(String rubrique) {
+    public void setRubrique(Integer rubrique) {
         this.rubrique = rubrique;
     }
 }
