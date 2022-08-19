@@ -18,7 +18,6 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("rubriques")
-@Secured({"ROLE_ADMIN", "ROLE_USER"})
 public class RubriqueCtrl {
     private RubriqueService rubriqueService;
     private static final Logger LOGGER = LoggerFactory.getLogger(RubriqueCtrl.class);
