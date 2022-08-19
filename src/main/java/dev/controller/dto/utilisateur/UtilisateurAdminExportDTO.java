@@ -12,6 +12,10 @@ public class UtilisateurAdminExportDTO {
     // Role de l'utilisateur
     private String role;
 
+    // Constructor
+    public UtilisateurAdminExportDTO() {
+    }
+
     // Getter & Setter
     public String getNom() {
         return nom;
