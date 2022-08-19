@@ -31,6 +31,16 @@ Recevoir la liste des favories de l'utilisateur (user).
   body : {"listeStation" : [...]}
 }
 ```
+
+- [x] GET /stations/favorie/{id station}
+Recevoir un favorie de l'utilisateur (user).
+```
+{
+  status : 200,
+  body : {"station" : [...]}
+}
+```
+
 - [x] POST /stations/favorie/{id station}
 Ajouter un nouveau favorie de l'utilisateur.
 ```
