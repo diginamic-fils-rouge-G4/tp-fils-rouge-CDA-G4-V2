@@ -87,14 +87,26 @@ Ajouté un topic.
 ```
 {
   status : 201,
-  body : {
-    "libelle": "...",
-    "rubrique": "...",
-    "utilisateur": "..."
-}
+  body{
+    "libelle": "content",
+    "rubrique": 12,
+    "utilisateur": "email @ utilisateur . com"
+  }
 }
 ```
-- [ ] DELETE /topic
+- [X] PATCH /topic
+modifi un topic.
+```
+{
+  status : 201,
+  body{
+    "id": 4,
+    "libelle": "tonton",
+    "rubrique": "1"
+  }
+}
+```
+- [X] DELETE /topic/{id}
 Supprimer un topic.
 ```
 {
