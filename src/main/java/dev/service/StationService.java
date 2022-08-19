@@ -141,19 +141,26 @@ public class StationService {
         }
     }
     @Transactional
-    public List<Station> ajouterStationToUtilisateur(String id){
-
+    public List<Station> addStationUtilisateur(String id){
         Station station = this.ajouterStationEnFavoris(id);
-
         Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
-
         utilisateur.getStations().add(station);
-
         station.getUtilisateurs().add(utilisateur);
-
-        System.out.println(utilisateur.getStations());
-
         return utilisateur.getStations();
-
     }
+
+    @Transactional
+    public List<Station> getStationUtilisateur(){
+        Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
+        return utilisateur.getStations();
+    }
+
+    @Transactional
+    public List<Station> deleteStationUtilisateur(String id){
+        Station station = this.ajouterStationEnFavoris(id);
+        Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
+        utilisateur.getStations().remove(station);
+        return utilisateur.getStations();
+    }
+
 }

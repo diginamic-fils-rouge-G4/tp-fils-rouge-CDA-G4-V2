@@ -16,24 +16,21 @@ public class StationCtrl {
         this.stationService = stationService;
     }
 
-/*    @PostMapping
-    public ResponseEntity<?> createClient(@RequestBody @Validated StationDTO stationDto, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorDTO(List.of("Les informations saisies ne sont pas valides")));
-        } else {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(stationService.ajouterStationToUtilisateur(stationDto));
-        }
-    }*/
-
-    @PostMapping("metEnFavoris/{id}")
-    public ResponseEntity<?> createClient( @PathVariable String id) {
+    @GetMapping("favories")
+    public ResponseEntity<?> getFavories() {
         return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(stationService.ajouterStationToUtilisateur(id));
+                .body(stationService.getStationUtilisateur());
+    }
+    @PostMapping("favorie/{id}")
+    public ResponseEntity<?> addFavorie( @PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(stationService.addStationUtilisateur(id));
     }
 
-
+    @DeleteMapping("favorie/{id}")
+    public ResponseEntity<?> deleteFavorie( @PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(stationService.deleteStationUtilisateur(id));
+    }
 
 }
