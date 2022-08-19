@@ -1,12 +1,13 @@
 package dev.entite.lieu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.entite.BaseEntite;
+import dev.entite.Utilisateur;
 import dev.entite.qualite.Polluant;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class Station extends BaseEntite {
     private Ville ville;
     @ManyToMany
     private List<Polluant> polluants = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "stations")
+    @JsonIgnore
+    private List<Utilisateur> utilisateurs = new ArrayList<>();
+
 
     // Constructeur
     public Station() {
@@ -57,4 +63,22 @@ public class Station extends BaseEntite {
         this.idx = idx;
     }
 
+    public List<dev.entite.Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public void setUtilisateurs(List<dev.entite.Utilisateur> utilisateur) {
+        utilisateurs = utilisateur;
+    }
+
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Station{");
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", ville=").append(ville);
+        sb.append(", polluants=").append(polluants);
+        sb.append('}');
+        return sb.toString();
+    }
 }

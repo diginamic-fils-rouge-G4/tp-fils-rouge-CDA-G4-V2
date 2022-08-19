@@ -1,5 +1,6 @@
 package dev.entite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.entite.lieu.Station;
 import dev.entite.lieu.Ville;
 
@@ -21,7 +22,12 @@ public class Utilisateur extends BaseEntite {
     @Column(nullable = false)
     private String password;
     @ManyToMany
-    private List<Station> stationFavoris = new ArrayList<>();
+    @JsonIgnore
+    @JoinTable(
+            name = "utilisateur_station",
+            joinColumns = @JoinColumn(name = "utilisateur_id"),
+            inverseJoinColumns = @JoinColumn(name = "station_id"))
+    private List<Station> stations = new ArrayList<>();
     @ManyToOne
     private Ville ville;
 
@@ -70,12 +76,12 @@ public class Utilisateur extends BaseEntite {
         this.password = password;
     }
 
-    public List<Station> getStationFavoris() {
-        return stationFavoris;
+    public List<Station> getStations() {
+        return stations;
     }
 
-    public void setStationFavoris(List<Station> stationFavoris) {
-        this.stationFavoris = stationFavoris;
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
     }
 
     public Ville getVille() {
