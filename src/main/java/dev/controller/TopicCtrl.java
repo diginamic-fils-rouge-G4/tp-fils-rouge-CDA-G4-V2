@@ -37,7 +37,6 @@ public class TopicCtrl {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody TopicDTO topicDTO) {
-        // L'on ne doit pas retourner d'erreur sinon ça risque de planter
         Topic topic = topicService.create(topicDTO);
         return ResponseEntity.status(HttpStatus.OK).body(topic);
     }

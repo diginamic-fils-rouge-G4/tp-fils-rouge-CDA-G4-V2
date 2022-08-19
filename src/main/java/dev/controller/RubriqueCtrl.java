@@ -43,7 +43,7 @@ public class RubriqueCtrl {
     public ResponseEntity<?> create(@RequestBody RubriqueDTO rubriqueDTO) {
         Rubrique rubrique = rubriqueService.create(rubriqueDTO);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(rubrique);
     }
     @DeleteMapping("{id}")
