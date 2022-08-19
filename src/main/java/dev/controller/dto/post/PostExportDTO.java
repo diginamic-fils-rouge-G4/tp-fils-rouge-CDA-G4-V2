@@ -6,16 +6,16 @@ import java.time.LocalDateTime;
 public class PostExportDTO {
 
     // Nom de l'utilisateur qui effectué le post
-    String utilisateur;
+    private String utilisateur;
 
     // Contenue du post
-    String content;
+    private String content;
 
     // Date du post
-    LocalDateTime date;
+    private LocalDateTime date;
 
     // Heure du post
-    LocalDateTime heure;
+    private LocalDateTime heure;
 
     // Getter & Setter
     public String getUtilisateur() {
