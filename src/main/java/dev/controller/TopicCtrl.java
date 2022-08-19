@@ -36,14 +36,10 @@ public class TopicCtrl {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Validated TopicDTO topicDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorDTO(List.of("Les informations saisies ne sont pas valides")));
-        } else {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(topicService.create(topicDTO));
-        }
+    public ResponseEntity<?> create(@RequestBody TopicDTO topicDTO) {
+        // L'on ne doit pas retourner d'erreur sinon ça risque de planter
+        Topic topic = topicService.create(topicDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(topic);
     }
 
     @DeleteMapping("/{id}")
