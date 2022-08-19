@@ -3,6 +3,7 @@ package dev.controller;
 import dev.controller.dto.RubriqueDTO;
 import dev.controller.dto.RubriqueLibelleDTO;
 import dev.entite.forum.Rubrique;
+import dev.exception.CreateException;
 import dev.service.RubriqueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,19 +26,26 @@ public class RubriqueCtrl {
     public RubriqueCtrl(RubriqueService rubriqueService) {
         this.rubriqueService = rubriqueService;
     }
-
     @GetMapping
-    // A FAIRE. Utilisé un ResponseEntity
-    public List<Rubrique> getAllRubrique() {
-        return rubriqueService.findAll();
+    public ResponseEntity<?> getAllRubrique() {
+        List<Rubrique> rubriques = rubriqueService.findAll();
+        if(!rubriques.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(rubriques);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucune rubrique d'enregistré");
+        }
     }
-
     @PostMapping
-    // A FAIRE. Utilisé un ResponseEntity
-    public Rubrique create(@RequestBody RubriqueDTO rubriqueDTO) {
-        return rubriqueService.create(rubriqueDTO);
+    public ResponseEntity<?> create(@RequestBody RubriqueDTO rubriqueDTO) {
+        Rubrique rubrique = rubriqueService.create(rubriqueDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(rubrique);
     }
-
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteRubrique(@PathVariable Integer id) {
         Optional<Rubrique> rubrique = rubriqueService.getByid(id);
@@ -48,7 +56,6 @@ public class RubriqueCtrl {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-
     @PatchMapping
     public ResponseEntity<Rubrique> updateRubrique(@RequestBody RubriqueLibelleDTO rubriqueLibelleDTO) {
         Optional<Rubrique> rubrique = rubriqueService.getByid(rubriqueLibelleDTO.getId());
