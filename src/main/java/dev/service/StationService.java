@@ -150,6 +150,19 @@ public class StationService {
     }
 
     @Transactional
+    public Station getStationUtilisateurById(String id){
+        Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
+
+        for (Station station : utilisateur.getStations()) {
+            if (station.getIdx() == id){
+                return station;
+            }
+        }
+
+        return null;
+    }
+
+    @Transactional
     public List<Station> deleteStationUtilisateur(String id){
         Station station = this.ajouterStationEnFavoris(id);
         Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
