@@ -1,6 +1,7 @@
 package dev.service;
 
 import dev.controller.dto.StationDTO;
+import dev.entite.Utilisateur;
 import dev.entite.api.ApiGeo;
 import dev.entite.api.ApiResponse;
 import dev.entite.lieu.Departement;
@@ -11,11 +12,15 @@ import dev.repository.StationRepository;
 import dev.repository.UtilisateurRepository;
 import org.json.simple.JSONArray;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StationService {
@@ -23,16 +28,16 @@ public class StationService {
     private StationRepository stationRepository;
     private VilleService villeService;
     private DepartementService departementService;
-    private UtilisateurRepository utilisateurRepository;
+    private UtilisateurService utilisateurService;
     private APIGeoService apiGeoService;
     private APIQualiteAirService apiQualiteAirService;
     private PolluantService polluantService;
 
-    public StationService(StationRepository stationRepository, VilleService villeService, DepartementService departementService, UtilisateurRepository utilisateurRepository, APIGeoService apiGeoService, APIQualiteAirService apiQualiteAirService, PolluantService polluantService) {
+    public StationService(StationRepository stationRepository, VilleService villeService, DepartementService departementService, UtilisateurService utilisateurService, APIGeoService apiGeoService, APIQualiteAirService apiQualiteAirService, PolluantService polluantService) {
         this.stationRepository = stationRepository;
         this.villeService = villeService;
         this.departementService = departementService;
-        this.utilisateurRepository = utilisateurRepository;
+        this.utilisateurService = utilisateurService;
         this.apiGeoService = apiGeoService;
         this.apiQualiteAirService = apiQualiteAirService;
         this.polluantService = polluantService;
@@ -45,10 +50,10 @@ public class StationService {
     public Station createStation (Station station){
         return stationRepository.save(station);
     }
-    public Station obtenirStationParID (int id){
-        return stationRepository.findByIdx(String.valueOf(id));
+    public Station obtenirStationParIDX (String idx){
+        return stationRepository.findByIdx(idx);
     }
-
+    @Transactional
     public Station ajouterStationEnFavoris(String id){
 
         //We have to check if this station exists in the database, if it exists then we just add this station to the Users Favorites.
@@ -58,7 +63,7 @@ public class StationService {
 
         ApiResponse data = apiQualiteAirService.getStationById(id);
 
-        Station station =obtenirStationParID(Math.round(data.getData().getIdx()));
+        Station station =obtenirStationParIDX(String.valueOf(data.getData().getIdx()));
 
         if (station == null){
 
@@ -135,10 +140,20 @@ public class StationService {
             return station;
         }
     }
-    public Station ajouterStationToUtilisateur(String id){
+    @Transactional
+    public List<Station> ajouterStationToUtilisateur(String id){
 
         Station station = this.ajouterStationEnFavoris(id);
-        return station;
+
+        Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
+
+        utilisateur.getStations().add(station);
+
+        station.getUtilisateurs().add(utilisateur);
+
+        System.out.println(utilisateur.getStations());
+
+        return utilisateur.getStations();
 
     }
 }
