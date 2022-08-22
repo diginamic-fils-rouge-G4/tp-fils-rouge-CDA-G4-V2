@@ -1,43 +1,29 @@
 package dev.controller.dto.utilisateur;
 
+import dev.entite.Utilisateur;
+
 // Objet reçu par le front
-public class UtilisateurAdminExportDTO {
+public class UtilisateurAdminExportDTO extends UtilisateurExportDTO{
 
-    // Nom de l'utilisateur
-    private String nom;
+   private String Role;
 
-    // Prenom de l'utilisateur
-    private String prenom;
-
-    // Role de l'utilisateur
-    private String role;
-
-    // Constructor
-    public UtilisateurAdminExportDTO() {
+    public UtilisateurAdminExportDTO(String role) {
+        Role = role;
     }
 
-    // Getter & Setter
-    public String getNom() {
-        return nom;
+    public UtilisateurAdminExportDTO(Utilisateur utilisateur) {
+        super(utilisateur);
+        Role = utilisateur.getRole();
     }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public UtilisateurAdminExportDTO(){
+        super();
     }
 
     public String getRole() {
-        return role;
+        return Role;
     }
 
     public void setRole(String role) {
-        this.role = role;
+        Role = role;
     }
 }
