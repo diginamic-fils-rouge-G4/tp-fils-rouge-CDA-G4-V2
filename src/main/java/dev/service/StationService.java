@@ -56,7 +56,7 @@ public class StationService {
         //We have to check if this station exists in the database, if it exists then we just add this station to the Users Favorites.
         //If not, we have to create the station.
         //While creating the station, we have to check if the city exists in the database, if it exists, then we just add the station to the city.
-        //if not, we have to create the city.
+        //If not, we have to create the city.
 
         ApiResponse data = apiQualiteAirService.getStationById(id);
 
@@ -70,47 +70,55 @@ public class StationService {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-            Polluant H = new Polluant();
-            H.setType("H");
-            H.setQualite(String.valueOf(data.getData().getIaqi().getH().getV()));
-            H.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            if (data.getData().getIaqi().getH() != null){
+                Polluant H = new Polluant();
+                H.setType("H");
+                H.setQualite(String.valueOf(data.getData().getIaqi().getH().getV()));
+                H.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+                station.getPolluants().add(H);
+            }
 
-            station.getPolluants().add(H);
 
-            Polluant P = new Polluant();
-            P.setType("P");
-            P.setQualite(String.valueOf(data.getData().getIaqi().getP().getV()));
-            P.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            if (data.getData().getIaqi().getP() != null){
+                Polluant P = new Polluant();
+                P.setType("P");
+                P.setQualite(String.valueOf(data.getData().getIaqi().getP().getV()));
+                P.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+                station.getPolluants().add(P);
+            }
 
-            station.getPolluants().add(P);
+            if (data.getData().getIaqi().getPm25() != null){
+                Polluant Pm25 = new Polluant();
+                Pm25.setType("Pm25");
+                Pm25.setQualite(String.valueOf(data.getData().getIaqi().getPm25().getV()));
+                Pm25.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+                station.getPolluants().add(Pm25);
+            }
 
-            Polluant Pm25 = new Polluant();
-            Pm25.setType("Pm25");
-            Pm25.setQualite(String.valueOf(data.getData().getIaqi().getPm25().getV()));
-            Pm25.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            if (data.getData().getIaqi().getT() != null){
+                Polluant T = new Polluant();
+                T.setType("T");
+                T.setQualite(String.valueOf(data.getData().getIaqi().getT().getV()));
+                T.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+                station.getPolluants().add(T);
+            }
 
-            station.getPolluants().add(Pm25);
+            if (data.getData().getIaqi().getW() != null){
+                Polluant W = new Polluant();
+                W.setType("W");
+                W.setQualite(String.valueOf(data.getData().getIaqi().getW().getV()));
+                W.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+                station.getPolluants().add(W);
+            }
 
-            Polluant T = new Polluant();
-            T.setType("T");
-            T.setQualite(String.valueOf(data.getData().getIaqi().getT().getV()));
-            T.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            if (data.getData().getIaqi().getWg() != null){
+                Polluant Wg = new Polluant();
+                Wg.setType("Wg");
+                Wg.setQualite(String.valueOf(data.getData().getIaqi().getWg().getV()));
+                Wg.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+                station.getPolluants().add(Wg);
+            }
 
-            station.getPolluants().add(T);
-
-            Polluant W = new Polluant();
-            W.setType("W");
-            W.setQualite(String.valueOf(data.getData().getIaqi().getW().getV()));
-            W.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
-
-            station.getPolluants().add(W);
-
-            Polluant Wg = new Polluant();
-            Wg.setType("Wg");
-            Wg.setQualite(String.valueOf(data.getData().getIaqi().getWg().getV()));
-            Wg.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
-
-            station.getPolluants().add(Wg);
 
             ResponseEntity<ApiGeo[]> ListVille = apiGeoService.getCityByGeo(data.getData().getCity().getGeo().get(0).toString(), data.getData().getCity().getGeo().get(1).toString());
 
@@ -123,6 +131,8 @@ public class StationService {
 
             Ville ville = villeService.obtenirVilleParNom(ListVille.getBody()[0].getName());
 
+            System.out.println(ville);
+
             if (ville == null){
                 ville = new Ville();
                 ville.getStations().add(station);
@@ -130,9 +140,13 @@ public class StationService {
                 ville.setNom(ListVille.getBody()[0].getName());
                 villeService.createVille(ville);
                 ville.getStations().add(station);
+                station.setVille(ville);
                 return station;
             }else {
-                ville.getStations().add(station);
+                if (!ville.getStations().contains(station)){
+                    ville.getStations().add(station);
+                    station.setVille(ville);
+                }
                 return station;
             }
         }else {
@@ -140,36 +154,53 @@ public class StationService {
         }
     }
     @Transactional
-    public List<Station> addStationUtilisateur(String id){
+    public List<StationDTO> addStationUtilisateur(String id){
         Station station = this.ajouterStationEnFavoris(id);
         Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
-        utilisateur.getStations().add(station);
-        station.getUtilisateurs().add(utilisateur);
-        return utilisateur.getStations();
+
+        if (!utilisateur.getStations().contains(station)){
+            utilisateur.getStations().add(station);
+            if (!station.getUtilisateurs().contains(utilisateur)){
+                station.getUtilisateurs().add(utilisateur);
+            }
+        }
+        List<StationDTO> stationDTOList = new ArrayList<>();
+        for (Station utilisateurStation : utilisateur.getStations()) {
+            StationDTO stationDTO = new StationDTO();
+            stationDTO.setNom(utilisateurStation.getNom());
+            stationDTO.setIdx(utilisateurStation.getIdx());
+            stationDTOList.add(stationDTO);
+        }
+        return stationDTOList;
     }
 
     @Transactional
     public List<VilleDTO> getStationUtilisateur(){
         Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
-        List<String> nomVilles = new ArrayList<>();
-        List<VilleDTO> villeDTOList = new ArrayList<>();
+        List<VilleDTO> list = new ArrayList<>();
         for (Station station : utilisateur.getStations()) {
-            StationDTO stationDTO = new StationDTO();
-            stationDTO.setIdx(station.getIdx());
-            stationDTO.setNom(station.getNom());
+            VilleDTO villeDTO = new VilleDTO();
+            villeDTO.setName(station.getVille().getNom());
+            if (list.contains(villeDTO)){
+
+                StationDTO stationDTO = new StationDTO();
+                stationDTO.setNom(station.getNom());
+                stationDTO.setIdx(station.getIdx());
+                villeDTO.getStations().add(stationDTO);
+            }else {
+                list.add(villeDTO);
+                StationDTO stationDTO = new StationDTO();
+                stationDTO.setNom(station.getNom());
+                stationDTO.setIdx(station.getIdx());
+                villeDTO.getStations().add(stationDTO);
+            }
         }
-        return villeDTOList;
+        return list;
     }
 
     @Transactional
     public Station getStationUtilisateurById(String id){
-        Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
-        for (Station station : utilisateur.getStations()) {
-            if (station.getIdx() == id){
-                return station;
-            }
-        }
-        return null;
+        return stationRepository.findByIdxAAndUtilisateurEmail(id,SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
     }
 
     @Transactional
@@ -179,5 +210,4 @@ public class StationService {
         utilisateur.getStations().remove(station);
         return utilisateur.getStations();
     }
-
 }
