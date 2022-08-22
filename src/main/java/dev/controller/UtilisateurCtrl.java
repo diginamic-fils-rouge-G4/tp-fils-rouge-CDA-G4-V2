@@ -1,6 +1,7 @@
 package dev.controller;
 
 import dev.controller.dto.utilisateur.UtilisateurConnexionDTO;
+import dev.controller.dto.utilisateur.UtilisateurExportDTO;
 import dev.controller.dto.utilisateur.UtilisateurInscriptionDTO;
 import dev.controller.dto.utilisateur.UtilisateurRoleDTO;
 import dev.entite.Utilisateur;
@@ -71,7 +72,7 @@ public class UtilisateurCtrl {
     // Admin methods
     @GetMapping("/utilisateurs")
     public ResponseEntity<?> getAll() {
-        List<Utilisateur> utilisateurs = utilisateurService.getAll();
+        List<UtilisateurExportDTO> utilisateurs = utilisateurService.getAll().stream().map(UtilisateurExportDTO::new).toList();
         if(!utilisateurs.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(utilisateurs);
         } else {
@@ -79,10 +80,22 @@ public class UtilisateurCtrl {
                     .body("Il n'y a aucun utilisateur d'enregistré");
         }
     }
+    @GetMapping("/utilisateurs/{id}")
+    public ResponseEntity<?> getById(@PathVariable int id) {
 
-    @GetMapping("/utilisateurs/{page}")
+        Optional<Utilisateur> utilisateur = utilisateurService.getByid(id);
+        if(utilisateur.isPresent()) {
+
+            return ResponseEntity.status(HttpStatus.OK).body(new UtilisateurExportDTO(utilisateur.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucun utilisateur d'enregistré");
+        }
+    }
+
+    @GetMapping("/utilisateurs/pages/{page}")
     public ResponseEntity<?> getAllBetween(@PathVariable int page) {
-        Page<Utilisateur> utilisateurPage = utilisateurService.getAll(page,30);
+        List<UtilisateurExportDTO> utilisateurPage = utilisateurService.getAll(page,30).stream().map(UtilisateurExportDTO::new).toList();
         if(!utilisateurPage.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(utilisateurPage);
         } else {
