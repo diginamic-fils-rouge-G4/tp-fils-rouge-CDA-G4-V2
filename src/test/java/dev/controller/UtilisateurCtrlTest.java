@@ -49,5 +49,6 @@ class UtilisateurCtrlTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/utilisateurs"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        Mockito.verify(utilisateurService).getAll();
     }
 }
