@@ -1,5 +1,7 @@
 package dev.service;
 
+import dev.controller.dto.station.StationDTO;
+import dev.controller.dto.ville.VilleDTO;
 import dev.entite.Utilisateur;
 import dev.entite.donneeApiQualiteAir.ApiGeo;
 import dev.entite.donneeApiQualiteAir.ApiResponse;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -110,13 +113,15 @@ public class StationService {
             station.getPolluants().add(Wg);
 
             ResponseEntity<ApiGeo[]> ListVille = apiGeoService.getCityByGeo(data.getData().getCity().getGeo().get(0).toString(), data.getData().getCity().getGeo().get(1).toString());
-            Ville ville = villeService.obtenirVilleParNom(ListVille.getBody()[0].getName());
+
 
             for (Polluant polluant : station.getPolluants()) {
                 polluantService.createPolluant(polluant);
             }
 
             this.createStation(station);
+
+            Ville ville = villeService.obtenirVilleParNom(ListVille.getBody()[0].getName());
 
             if (ville == null){
                 ville = new Ville();
@@ -144,21 +149,26 @@ public class StationService {
     }
 
     @Transactional
-    public List<Station> getStationUtilisateur(){
+    public List<VilleDTO> getStationUtilisateur(){
         Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
-        return utilisateur.getStations();
+        List<String> nomVilles = new ArrayList<>();
+        List<VilleDTO> villeDTOList = new ArrayList<>();
+        for (Station station : utilisateur.getStations()) {
+            StationDTO stationDTO = new StationDTO();
+            stationDTO.setIdx(station.getIdx());
+            stationDTO.setNom(station.getNom());
+        }
+        return villeDTOList;
     }
 
     @Transactional
     public Station getStationUtilisateurById(String id){
         Utilisateur utilisateur = utilisateurService.getByMail(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).get();
-
         for (Station station : utilisateur.getStations()) {
             if (station.getIdx() == id){
                 return station;
             }
         }
-
         return null;
     }
 

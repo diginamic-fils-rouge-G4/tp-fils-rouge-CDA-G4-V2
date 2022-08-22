@@ -6,6 +6,7 @@ import dev.entite.Utilisateur;
 import dev.entite.qualite.Polluant;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Station extends BaseEntite {
     private String idx;
     private String nom;
     @ManyToOne
+    @JoinColumn(name="ville_id")
     private Ville ville;
     @ManyToMany
     private List<Polluant> polluants = new ArrayList<>();
