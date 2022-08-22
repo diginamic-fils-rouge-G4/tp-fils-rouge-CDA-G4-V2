@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.entite.BaseEntite;
 import dev.entite.Utilisateur;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Post extends BaseEntite {
@@ -22,7 +19,7 @@ public class Post extends BaseEntite {
     @ManyToOne
     @JsonIgnore
     private Utilisateur utilisateur;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JsonIgnore
     private Topic topic;
 

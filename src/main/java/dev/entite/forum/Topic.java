@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.entite.BaseEntite;
 import dev.entite.Utilisateur;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class Topic extends BaseEntite {
     @ManyToOne
     @JsonIgnore
     private Utilisateur utilisateur;
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", cascade = {CascadeType.ALL})
     private List<Post> posts = new ArrayList<>();
     @ManyToOne
     @JsonIgnore

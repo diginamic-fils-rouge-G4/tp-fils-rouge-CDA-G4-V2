@@ -2,6 +2,7 @@ package dev.controller.dto.topic;
 
 import dev.controller.dto.post.PostExportDTO;
 import dev.controller.dto.utilisateur.UtilisateurExportDTO;
+import dev.entite.forum.Topic;
 
 import javax.validation.constraints.NotBlank;
 
@@ -17,6 +18,12 @@ public class TopicExportDTO {
     public PostExportDTO post;
 
     public TopicExportDTO() {
+    }
+    public TopicExportDTO(Topic topic) {
+        this.id = topic.getId();
+        this.libelle = topic.getLibelle();
+        this.utilisateur = new UtilisateurExportDTO(topic.getUtilisateur());
+        this.post = new PostExportDTO(topic.getPosts().get(topic.getPosts().size()-1));
     }
 
     public Integer getId() {
