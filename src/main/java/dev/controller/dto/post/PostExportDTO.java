@@ -1,12 +1,15 @@
 package dev.controller.dto.post;
 
+import dev.controller.dto.topic.TopicExportDTO;
+import dev.controller.dto.utilisateur.UtilisateurExportDTO;
+
 import java.time.LocalDateTime;
 
 // DTO utilisé pour les informations affichées au FRONT
 public class PostExportDTO {
 
     // Nom de l'utilisateur qui effectué le post
-    private String utilisateur;
+    private UtilisateurExportDTO utilisateur;
 
     // Contenue du post
     private String content;
@@ -22,11 +25,11 @@ public class PostExportDTO {
     }
 
     // Getter & Setter
-    public String getUtilisateur() {
+    public UtilisateurExportDTO getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(String utilisateur) {
+    public void setUtilisateur(UtilisateurExportDTO utilisateur) {
         this.utilisateur = utilisateur;
     }
 
