@@ -1,6 +1,7 @@
 package dev.controller;
 
 import dev.controller.dto.rubrique.RubriqueDTO;
+import dev.controller.dto.rubrique.RubriqueExportDTO;
 import dev.controller.dto.rubrique.RubriqueLibelleDTO;
 import dev.entite.forum.Rubrique;
 import dev.service.RubriqueService;
@@ -27,9 +28,24 @@ public class RubriqueCtrl {
     public ResponseEntity<?> getAllRubrique() {
         List<Rubrique> rubriques = rubriqueService.findAll();
         if(!rubriques.isEmpty()) {
+            List<RubriqueExportDTO> rubriqueExportDTOS=rubriques.stream().map(RubriqueExportDTO::new).toList();
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(rubriques);
+                    .body(rubriqueExportDTOS);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucune rubrique d'enregistré");
+        }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRubrique(@PathVariable Integer id) {
+        Optional<Rubrique> rubriques = rubriqueService.getByid(id);
+        if(rubriques.isPresent()) {
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new RubriqueExportDTO(rubriques.get()));
         } else {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
