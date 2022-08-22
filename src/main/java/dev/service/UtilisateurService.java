@@ -16,14 +16,21 @@ import java.util.*;
 
 @Service
 public class UtilisateurService {
-    @Autowired
     private PasswordEncoder passwordEncoder;
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurCtrl.class);
-    @Autowired
     private UtilisateurRepository utilisateurRepository;
 
+    public UtilisateurService(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
+    }
 
+    public UtilisateurService(PasswordEncoder passwordEncoder, UtilisateurRepository utilisateurRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.utilisateurRepository = utilisateurRepository;
+    }
 
+    public UtilisateurService() {
+    }
 
     public void creeUtilisateur(UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         Utilisateur utilisateur = new Utilisateur();
