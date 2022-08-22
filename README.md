@@ -160,7 +160,7 @@ Affiche la liste des utilisateurs (users).
   body : {"listeUtilisateur" : [...]}
 }
 ```
-- [X] GET /utilisateurs/{id}
+- [X] GET admin/utilisateurs/{id}
 Affiche l'utilisateur.
 ```
 {
@@ -176,7 +176,7 @@ Affiche l'utilisateur avec role.
   body : { utilisateur: {...}}
 }
 ```
-- [X] GET /utilisateurs/page/{page}
+- [X] GET admin/utilisateurs/page/{page}
 Affiche la liste des utilisateurs (users) en liste de 30.
 ```
 {
@@ -184,7 +184,7 @@ Affiche la liste des utilisateurs (users) en liste de 30.
   body : {"listeUtilisateur" : [...]}
 }
 ```
-- [X] PATCH /utilisateurs
+- [X] PATCH admin/utilisateurs
 Change le rôle d'un utilisateur.
 ```
 {
@@ -192,7 +192,7 @@ Change le rôle d'un utilisateur.
   body : {"id" : "...", "role" : "..."}
 }
 ```
-- [x] DELETE /utilisateurs/{id}
+- [x] DELETE admin/utilisateurs/{id}
 Supprime un utilisateur.
 ```
 {
@@ -201,7 +201,7 @@ Supprime un utilisateur.
 ```
 ### Rubrique
 ![image](https://user-images.githubusercontent.com/44068884/184852115-893617d5-45dc-4ecc-980e-30e64cc8903a.png)
-- [x] GET /admin/dashboard/rubrique
+- [x] GET /admin/rubrique
 Affiche la liste des rubriques (rubrique).
 ```
 {
@@ -209,7 +209,7 @@ Affiche la liste des rubriques (rubrique).
   body : {"listeRubrique" : [...]}
 }
 ```
-- [x] PATCH /admin/dashboard/rubriques
+- [x] PATCH /admin/rubriques
 Change le nom d'une rubrique.
 ```
 {
@@ -217,7 +217,7 @@ Change le nom d'une rubrique.
   body : {"nom_rubrique" : "...", "nouveauNom" : "..."}
 }
 ```
-- [x] DELETE /admin/dashboard/rubriques
+- [x] DELETE /admin/rubriques
 Supprime une rubrique.
 ```
 {
