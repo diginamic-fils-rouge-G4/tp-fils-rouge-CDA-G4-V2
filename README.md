@@ -23,8 +23,8 @@
 ![image](https://user-images.githubusercontent.com/44068884/184832427-e527a2b6-3a8a-4850-a284-d1dacde6d6d9.png)
 
 
-- [x] GET /stations/favories
-Recevoir la liste des favories de l'utilisateur (user).
+- [x] GET /stations/favoris
+Recevoir la liste des favoris de l'utilisateur (user).
 ```
 {
   status : 200,
@@ -32,8 +32,8 @@ Recevoir la liste des favories de l'utilisateur (user).
 }
 ```
 
-- [x] GET /stations/favorie/{id station}
-Recevoir un favorie de l'utilisateur (user).
+- [x] GET /stations/favoris/{id station}
+Recevoir un favoris de l'utilisateur (user).
 ```
 {
   status : 200,
@@ -41,16 +41,16 @@ Recevoir un favorie de l'utilisateur (user).
 }
 ```
 
-- [x] POST /stations/favorie/{id station}
-Ajouter un nouveau favorie de l'utilisateur.
+- [x] POST /stations/favoris/{id station}
+Ajouter un nouveau favoris de l'utilisateur.
 ```
 {
   status : 201,
   body : {"nom_station" : "..."}
 }
 ```
-- [x] DELETE /stations/favorie/{id station}
-Retirer un favorie de l'utilisateur.
+- [x] DELETE /stations/favoris/{id station}
+Retirer un favoris de l'utilisateur.
 ```
 {
   status : 204
@@ -59,7 +59,7 @@ Retirer un favorie de l'utilisateur.
 ## Forum
 ### Rubrique
 ![image](https://user-images.githubusercontent.com/44068884/184851837-ff9dc027-077a-4cf4-8217-c8481092d0bd.png)
-- [X] GET /rubrique
+- [X] GET /rubriques
 Recevoir la liste des rubriques du forum.
 ```
 {
@@ -67,15 +67,15 @@ Recevoir la liste des rubriques du forum.
   body : {"listeRubrique" : [...]}
 }
 ```
-- [X] POST /rubrique
-Ajouté une rubrique.
+- [X] POST /rubriques
+Ajouter une rubrique.
 ```
 {
   status : 201,
   body : {"nomRubrique" : "..."}
 }
 ```
-- [x] DELETE /rubrique
+- [x] DELETE /rubriques
 Supprimer une rubrique.
 ```
 {
@@ -84,7 +84,7 @@ Supprimer une rubrique.
 ```
 ### Topic
 ![image](https://user-images.githubusercontent.com/44068884/184851889-691e7add-af31-4832-b305-f720cb03f0c0.png)
-- [X] GET /topic
+- [X] GET /topics
 Recevoir la liste des topics de la rubrique.
 ```
 {
@@ -92,8 +92,8 @@ Recevoir la liste des topics de la rubrique.
   body : {"listeTopic" : [...]}
 }
 ```
-- [X] POST /topic
-Ajouté un topic.
+- [X] POST /topics
+Ajouter un topic.
 ```
 {
   status : 201,
@@ -104,8 +104,8 @@ Ajouté un topic.
   }
 }
 ```
-- [X] PATCH /topic
-modifi un topic.
+- [X] PATCH /topics
+modifie un topic.
 ```
 {
   status : 201,
@@ -116,7 +116,7 @@ modifi un topic.
   }
 }
 ```
-- [X] DELETE /topic/{id}
+- [X] DELETE /topics/{id}
 Supprimer un topic.
 ```
 {
@@ -125,7 +125,7 @@ Supprimer un topic.
 ```
 ### Post
 ![image](https://user-images.githubusercontent.com/44068884/184852047-2f44b85d-1d85-4d8e-9761-f52f681d6933.png)
-- [X] GET /post
+- [X] GET /posts
 Recevoir la liste des posts du topic.
 ```
 {
@@ -133,15 +133,15 @@ Recevoir la liste des posts du topic.
   body : {"listePost" : [...]}
 }
 ```
-- [X] POST /post
-Ajouté un post.
+- [X] POST /posts
+Ajouter un post.
 ```
 {
   status : 201,
   body : {"user_id" : "...", "content" : {"sitation": post_id, "body":"..."}, "date" : "...", "heure" : "..."}
 }
 ```
-- [X] DELETE /post
+- [X] DELETE /posts
 Supprimer un post.
 ```
 {
@@ -184,7 +184,7 @@ Affiche la liste des utilisateurs (users) en liste de 30.
   body : {"listeUtilisateur" : [...]}
 }
 ```
-- [X] PATCH /utilisateur
+- [X] PATCH /utilisateurs
 Change le rôle d'un utilisateur.
 ```
 {
@@ -192,7 +192,7 @@ Change le rôle d'un utilisateur.
   body : {"id" : "...", "role" : "..."}
 }
 ```
-- [x] DELETE /utilisateur/{id}
+- [x] DELETE /utilisateurs/{id}
 Supprime un utilisateur.
 ```
 {
@@ -209,7 +209,7 @@ Affiche la liste des rubriques (rubrique).
   body : {"listeRubrique" : [...]}
 }
 ```
-- [x] PATCH /admin/dashboard/rubrique/changerubrique
+- [x] PATCH /admin/dashboard/rubriques
 Change le nom d'une rubrique.
 ```
 {
@@ -217,7 +217,7 @@ Change le nom d'une rubrique.
   body : {"nom_rubrique" : "...", "nouveauNom" : "..."}
 }
 ```
-- [x] DELETE /admin/dashboard/rubrique/deleterubrique
+- [x] DELETE /admin/dashboard/rubriques
 Supprime une rubrique.
 ```
 {
