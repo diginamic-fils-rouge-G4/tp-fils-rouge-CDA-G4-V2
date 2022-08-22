@@ -1,5 +1,6 @@
 package dev.controller.dto.post;
 
+import dev.controller.dto.topic.TopicExportDTO;
 import dev.controller.dto.utilisateur.UtilisateurExportDTO;
 import dev.entite.forum.Post;
 
