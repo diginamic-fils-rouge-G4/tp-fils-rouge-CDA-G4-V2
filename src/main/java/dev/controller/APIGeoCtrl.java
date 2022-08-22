@@ -1,6 +1,8 @@
 package dev.controller;
 
 import dev.service.APIGeoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -18,9 +20,10 @@ public class APIGeoCtrl {
     //example de request
     @GetMapping("latlng")
     @ResponseBody
-    public Object getAllStations(@RequestParam String lat,
-                                  @RequestParam String lon) {
-        return apiGeoService.getCityByGeo(lat, lon);
+    public ResponseEntity<?> getAllStations(@RequestParam String lat,
+                                            @RequestParam String lon) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(apiGeoService.getCityByGeo(lat, lon));
     }
 
 }

@@ -41,4 +41,21 @@ public class StationCtrlTest {
         Mockito.when(stationService.getStationUtilisateur()).thenReturn(List.of(villeDTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/stations/favories")).andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+
+    @Test
+    @WithMockUser(value = "spring")
+    void getStationbyId() throws Exception{
+
+        StationDTO stationDTO = new StationDTO();
+        stationDTO.setIdx("1");
+        stationDTO.setNom("tutu");
+        VilleDTO villeDTO = new VilleDTO();
+        villeDTO.setName("tete");
+        villeDTO.getStations().add(stationDTO);
+
+        Mockito.when(stationService.getStationUtilisateur()).thenReturn(List.of(villeDTO));
+        mockMvc.perform(MockMvcRequestBuilders.get("/stations/favories")).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
 }
