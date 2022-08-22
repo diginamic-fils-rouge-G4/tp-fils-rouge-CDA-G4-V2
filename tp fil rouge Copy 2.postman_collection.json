@@ -1,0 +1,691 @@
+{
+	"info": {
+		"_postman_id": "b17efc0b-37b4-4028-8389-d5c281288d9f",
+		"name": "pour rossi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sinup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nom\" : \"tom\", \"prenom\" : \"artur\", \"ville\" : \"lyon\", \"codePostal\" : \"15646541\", \"email\" : \"email@email2.com\", \"password\" : \"motDePasse\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/signup",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\" : \"email@email2.com\", \"password\" : \"motDePasse\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "---------------------------------------------------------------------",
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "utilisateurs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/utilisateurs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"utilisateurs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "utilisateur par id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/utilisateurs/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"utilisateurs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "--------------------------------------------------------------------- Copy 3",
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rubriques",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"libelle\" : \"test\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/rubriques",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"rubriques"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rubriques",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/rubriques/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"rubriques",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rubriques",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":1,\"libelle\" : \"text\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/rubriques",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"rubriques"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rubriques",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/rubriques/3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"rubriques",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "---------------------------------------------------------------------",
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topics",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"content\":\"poire\",\"utilisateur\":\"1\",\"topic\":2}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/topics",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/topics",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topics Copy",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"libelle\": \"poire\",\r\n    \"rubrique\": \"1\",\r\n    \"id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/topics",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topics",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/topics/3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"topics",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "---------------------------------------------------------------------",
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"contenyu\",\r\n    \"utilisateur\": \"1\",\r\n    \"topic\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/posts",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/posts",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/posts/4",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "--------------------------------------------------------------------- Copy",
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favories",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/stations/favorie/7397",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"stations",
+						"favorie",
+						"7397"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/stations/favories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"stations",
+						"favories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favories",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/stations/favorie/7397",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"stations",
+						"favorie",
+						"7397"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "--------------------------------------------------------------------- Copy 2",
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stations par ville",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/station/Air Now - US EPA",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"station",
+						"Air Now - US EPA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stations par coordonnées gps",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/geo/latlng?lat=51.5098&lon=-0.1180",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"geo",
+						"latlng"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "51.5098"
+						},
+						{
+							"key": "lon",
+							"value": "-0.1180"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://yourairquality-app.herokuapp.com"
+		}
+	]
+}
