@@ -168,6 +168,14 @@ Affiche l'utilisateur.
   body : { utilisateur: {...}}
 }
 ```
+- [X] GET admin/utilisateurs/{id}
+Affiche l'utilisateur avec role.
+```
+{
+  status : 200,
+  body : { utilisateur: {...}}
+}
+```
 - [X] GET /utilisateurs/page/{page}
 Affiche la liste des utilisateurs (users) en liste de 30.
 ```
