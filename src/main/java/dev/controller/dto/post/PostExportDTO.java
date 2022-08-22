@@ -2,6 +2,7 @@ package dev.controller.dto.post;
 
 import dev.controller.dto.topic.TopicExportDTO;
 import dev.controller.dto.utilisateur.UtilisateurExportDTO;
+import dev.entite.forum.Post;
 
 import java.time.LocalDateTime;
 
@@ -14,14 +15,13 @@ public class PostExportDTO {
     // Contenue du post
     private String content;
 
-    // Date du post
-    private LocalDateTime date;
-
-    // Heure du post
-    private LocalDateTime heure;
-
     // Constructor
     public PostExportDTO() {
+    }
+
+    public PostExportDTO(Post post) {
+        this.utilisateur = new UtilisateurExportDTO(post.getUtilisateur());
+        this.content = post.getContent();
     }
 
     // Getter & Setter
@@ -39,21 +39,5 @@ public class PostExportDTO {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public LocalDateTime getHeure() {
-        return heure;
-    }
-
-    public void setHeure(LocalDateTime heure) {
-        this.heure = heure;
     }
 }

@@ -152,7 +152,7 @@ Supprimer un post.
 Gestion pour les administrateurs des utilisateurs (User) et des rubriques des forums (Rubrique).
 ### User
 ![image](https://user-images.githubusercontent.com/44068884/184852169-8f8051cc-8c51-4ec1-92de-5f74e450efed.png)
-- [X] GET /utilisateur/all
+- [X] GET /utilisateurs
 Affiche la liste des utilisateurs (users).
 ```
 {
@@ -160,7 +160,15 @@ Affiche la liste des utilisateurs (users).
   body : {"listeUtilisateur" : [...]}
 }
 ```
-- [X] GET /utilisateur/all/{page}
+- [X] GET /utilisateurs/{id}
+Affiche l'utilisateur.
+```
+{
+  status : 200,
+  body : { utilisateur: {...}}
+}
+```
+- [X] GET /utilisateurs/page/{page}
 Affiche la liste des utilisateurs (users) en liste de 30.
 ```
 {
