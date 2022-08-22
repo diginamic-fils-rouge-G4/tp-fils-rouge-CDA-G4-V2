@@ -1,9 +1,6 @@
 package dev.controller;
 
-import dev.controller.dto.utilisateur.UtilisateurConnexionDTO;
-import dev.controller.dto.utilisateur.UtilisateurExportDTO;
-import dev.controller.dto.utilisateur.UtilisateurInscriptionDTO;
-import dev.controller.dto.utilisateur.UtilisateurRoleDTO;
+import dev.controller.dto.utilisateur.*;
 import dev.entite.Utilisateur;
 import dev.service.UtilisateurService;
 import io.jsonwebtoken.Jwts;
@@ -73,6 +70,17 @@ public class UtilisateurCtrl {
     @GetMapping("/utilisateurs")
     public ResponseEntity<?> getAll() {
         List<UtilisateurExportDTO> utilisateurs = utilisateurService.getAll().stream().map(UtilisateurExportDTO::new).toList();
+        if(!utilisateurs.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(utilisateurs);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucun utilisateur d'enregistré");
+        }
+    }
+    @GetMapping("/admin/utilisateurs")
+    public ResponseEntity<?> adminGetAll() {
+        List<UtilisateurAdminExportDTO> utilisateurs = utilisateurService.getAll().stream().map(UtilisateurAdminExportDTO::new).toList();
+        System.out.println();
         if(!utilisateurs.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(utilisateurs);
         } else {
