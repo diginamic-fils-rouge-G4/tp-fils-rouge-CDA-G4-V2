@@ -1,7 +1,13 @@
 package dev.controller.dto.rubrique;
 
+import dev.entite.BaseEntite;
+import dev.entite.forum.Rubrique;
+
+import java.util.List;
+
 // DTO utilisé pour les informations affichées au FRONT
 public class RubriqueExportDTO {
+    private Integer id;
 
     // Libelle de la rubrique
     private String libelle;
@@ -11,6 +17,12 @@ public class RubriqueExportDTO {
 
     // Constructor
     public RubriqueExportDTO() {
+    }
+
+    public RubriqueExportDTO(Rubrique rubrique) {
+        this.id = rubrique.getId();
+        this.libelle = rubrique.getLibelle();
+        this.nbreTopics = rubrique.getTopics().size();
     }
 
     // Getter & Setter
@@ -28,5 +40,13 @@ public class RubriqueExportDTO {
 
     public void setNbreTopics(Integer nbreTopics) {
         this.nbreTopics = nbreTopics;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
