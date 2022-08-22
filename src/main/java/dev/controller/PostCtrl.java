@@ -1,6 +1,7 @@
 package dev.controller;
 
 import dev.controller.dto.post.PostDTO;
+import dev.controller.dto.post.PostExportDTO;
 import dev.entite.forum.Post;
 import dev.service.PostService;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,15 @@ public class PostCtrl {
     }
 
     @GetMapping
-    public List<Post> getAllPosts() {
-        return postService.findAll();
+    public ResponseEntity<?> getAllPosts() {
+        List<PostExportDTO> posts = postService.findAll().stream().map(PostExportDTO::new).toList();
+        if(posts.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("Il n'y a aucun POST enregistré dans ce TOPIC");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(posts);
+        }
     }
 
     @PostMapping
