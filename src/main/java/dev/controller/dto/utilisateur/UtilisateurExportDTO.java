@@ -4,7 +4,6 @@ import dev.entite.Utilisateur;
 
 // Objet reçu par le front
 public class UtilisateurExportDTO {
-
     private Integer id;
     private String nom;
     private String prenom;

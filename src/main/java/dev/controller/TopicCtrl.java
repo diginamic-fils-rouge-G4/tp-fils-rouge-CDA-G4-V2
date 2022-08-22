@@ -38,6 +38,7 @@ public class TopicCtrl {
                 post = new PostExportDTO();
                 post.setContent(topicPost.getContent());
                 UtilisateurExportDTO utilisateurExportDTO = new UtilisateurExportDTO();
+                utilisateurExportDTO.setId(topicPost.getUtilisateur().getId());
                 utilisateurExportDTO.setPrenom(topicPost.getUtilisateur().getPrenom());
                 utilisateurExportDTO.setNom(topicPost.getUtilisateur().getNom());
                 post.setUtilisateur(utilisateurExportDTO);
@@ -47,6 +48,7 @@ public class TopicCtrl {
             topicExportDTO.setId(topic.getId());
             topicExportDTO.setLibelle(topic.getLibelle());
             UtilisateurExportDTO utilisateur = new UtilisateurExportDTO();
+            utilisateur.setId(topic.getUtilisateur().getId());
             utilisateur.setNom(topic.getUtilisateur().getNom());
             utilisateur.setPrenom(topic.getUtilisateur().getPrenom());
             topicExportDTO.setUtilisateur(utilisateur);
@@ -71,7 +73,7 @@ public class TopicCtrl {
         Topic topic = topicService.create(topicDTO);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(topic);
+                .body("Topic correctement crée");
     }
 
     @DeleteMapping("/{id}")
@@ -90,8 +92,9 @@ public class TopicCtrl {
     }
 
     @PatchMapping
-    public Topic patch(@RequestBody TopicModifDTO modifDTO){
-        return topicService.update(modifDTO);
+    public TopicExportDTO patch(@RequestBody TopicModifDTO modifDTO){
+
+        return new TopicExportDTO(topicService.update(modifDTO));
     }
 
 }

@@ -12,6 +12,8 @@ public class PostExportDTO {
     // Nom de l'utilisateur qui effectué le post
     private UtilisateurExportDTO utilisateur;
 
+    private Integer id;
+
     // Contenue du post
     private String content;
 
@@ -20,6 +22,7 @@ public class PostExportDTO {
     }
 
     public PostExportDTO(Post post) {
+        this.id = post.getId();
         this.utilisateur = new UtilisateurExportDTO(post.getUtilisateur());
         this.content = post.getContent();
     }
@@ -39,5 +42,13 @@ public class PostExportDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
