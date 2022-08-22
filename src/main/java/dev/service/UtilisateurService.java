@@ -16,8 +16,10 @@ import java.util.*;
 
 @Service
 public class UtilisateurService {
+    @Autowired
     private PasswordEncoder passwordEncoder;
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurCtrl.class);
+    @Autowired
     private UtilisateurRepository utilisateurRepository;
 
     public UtilisateurService(UtilisateurRepository utilisateurRepository) {

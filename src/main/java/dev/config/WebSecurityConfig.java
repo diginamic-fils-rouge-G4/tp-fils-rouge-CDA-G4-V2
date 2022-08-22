@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .anyRequest().permitAll()
-                //                .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/admin").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PATCH, "/admin").hasRole("ADMIN")
