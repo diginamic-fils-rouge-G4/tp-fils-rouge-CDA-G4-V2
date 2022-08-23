@@ -8,24 +8,32 @@ import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  DTO utilisé pour la création de "Station"
+ */
 public class StationDTO {
 
     private String idx;
     private String nom;
 
+    // Constructor
     public StationDTO() {
     }
+
+    // Getter & Setter
     public String getIdx() {
         return idx;
     }
+
     public void setIdx(String idx) {
         this.idx = idx;
     }
+
     public String getNom() {
         return nom;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
-
 }

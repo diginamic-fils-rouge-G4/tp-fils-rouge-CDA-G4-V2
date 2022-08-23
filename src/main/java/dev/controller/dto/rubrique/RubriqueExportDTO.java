@@ -5,7 +5,10 @@ import dev.entite.forum.Rubrique;
 
 import java.util.List;
 
-// DTO utilisé pour les informations affichées au FRONT
+/**
+ *  DTO utilisé pour afficher les données de "Rubrique" au FRONT <br/>
+ *  Cette DTO est utilisé en place de RubriqueAdminExport
+ */
 public class RubriqueExportDTO {
     private Integer id;
 

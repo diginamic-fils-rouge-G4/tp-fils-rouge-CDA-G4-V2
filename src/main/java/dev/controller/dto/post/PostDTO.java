@@ -2,6 +2,9 @@ package dev.controller.dto.post;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ *  DTO utilisé pour la création de "Post"
+ */
 public class PostDTO {
     @NotBlank
     private String content;
@@ -10,9 +13,11 @@ public class PostDTO {
     @NotBlank
     private String topic;
 
+    // Constructor
     public PostDTO() {
     }
 
+    // Getter & Setter
     public String getContent() {
         return content;
     }

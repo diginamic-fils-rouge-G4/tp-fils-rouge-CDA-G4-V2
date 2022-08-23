@@ -6,7 +6,9 @@ import dev.entite.forum.Post;
 
 import java.time.LocalDateTime;
 
-// DTO utilisé pour les informations affichées au FRONT
+/**
+ * DTO utilisé pour envoyer les données de "Post" qui seront afficher au FRONT
+ */
 public class PostExportDTO {
 
     // Nom de l'utilisateur qui effectué le post

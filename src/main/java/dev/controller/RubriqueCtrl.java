@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *  Controller utilisé pour la gestion des Rubriques <br/>
+ *  Utilise le service : {@link dev.service.APIQualiteAirService}
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("rubriques")
@@ -24,6 +28,11 @@ public class RubriqueCtrl {
     public RubriqueCtrl(RubriqueService rubriqueService) {
         this.rubriqueService = rubriqueService;
     }
+
+    /**
+     * Récupère la totalité des Rubriques
+     * @return
+     */
     @GetMapping
     public ResponseEntity<?> getAllRubrique() {
         List<Rubrique> rubriques = rubriqueService.findAll();
@@ -38,6 +47,12 @@ public class RubriqueCtrl {
                     .body("Il n'y a aucune rubrique d'enregistré");
         }
     }
+
+    /**
+     * Récupère une rubrique à l'aide de son id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getRubrique(@PathVariable Integer id) {
         Optional<Rubrique> rubriques = rubriqueService.getByid(id);
@@ -52,6 +67,12 @@ public class RubriqueCtrl {
                     .body("Il n'y a aucune rubrique d'enregistré");
         }
     }
+
+    /**
+     * Créé une rubrique
+     * @param rubriqueDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RubriqueDTO rubriqueDTO) {
         Rubrique rubrique = rubriqueService.create(rubriqueDTO);
@@ -59,6 +80,12 @@ public class RubriqueCtrl {
                 .status(HttpStatus.CREATED)
                 .body(rubrique);
     }
+
+    /**
+     * Supprime une rubrique à l'aide de son id
+     * @param id
+     * @return
+     */
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteRubrique(@PathVariable Integer id) {
         Optional<Rubrique> rubrique = rubriqueService.getByid(id);
@@ -69,6 +96,12 @@ public class RubriqueCtrl {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    /**
+     * Met à jour le libelle d'une rubrique
+     * @param rubriqueLibelleDTO
+     * @return
+     */
     @PatchMapping
     public ResponseEntity<Rubrique> updateRubrique(@RequestBody RubriqueLibelleDTO rubriqueLibelleDTO) {
         Optional<Rubrique> rubrique = rubriqueService.getByid(rubriqueLibelleDTO.getId());

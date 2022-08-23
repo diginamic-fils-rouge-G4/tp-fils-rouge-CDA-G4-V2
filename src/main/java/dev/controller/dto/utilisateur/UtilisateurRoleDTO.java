@@ -1,9 +1,17 @@
 package dev.controller.dto.utilisateur;
 
+/**
+ * DTO d'utilisateur utilisé pour changer le rôle d'un utilisateur
+ */
 public class UtilisateurRoleDTO {
     private Integer id;
     private String role;
 
+    // Constructor
+    public UtilisateurRoleDTO() {
+    }
+
+    // Getter & Setter
     public Integer getId() {
         return id;
     }
@@ -20,8 +28,7 @@ public class UtilisateurRoleDTO {
         this.role = role;
     }
 
-    public UtilisateurRoleDTO() {
-    }
+
 
     @Override
     public String toString() {

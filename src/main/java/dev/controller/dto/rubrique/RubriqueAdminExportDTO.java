@@ -1,6 +1,9 @@
 package dev.controller.dto.rubrique;
 
-// DTO utilisé pour les informations affichées au FRONT (au niveau du Dashboard)
+/**
+ * DTO utilisé pour afficher les données de "Rubrique" au FRONT au niveau du Dashboard, <br/>
+ * actuellement RubriqueExportDTO est utilisé à la place
+ */
 public class RubriqueAdminExportDTO {
 
     // Libelle de la rubrique

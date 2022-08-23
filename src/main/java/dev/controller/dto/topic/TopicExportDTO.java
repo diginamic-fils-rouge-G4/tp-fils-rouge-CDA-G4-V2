@@ -6,7 +6,9 @@ import dev.entite.forum.Topic;
 
 import javax.validation.constraints.NotBlank;
 
-// Objet reçu par le front
+/**
+ *  DTO utilisé pour afficher les données de "Topic" au FRONT
+ */
 public class TopicExportDTO {
     @NotBlank
     private Integer id;
