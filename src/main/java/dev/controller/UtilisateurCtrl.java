@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -18,7 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.SecretKey;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class UtilisateurCtrl {
@@ -39,9 +42,11 @@ public class UtilisateurCtrl {
     private UtilisateurService utilisateurService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
+    public ResponseEntity<?> signup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO, HttpServletRequest req ){
         utilisateurService.creeUtilisateur(utilisateurInscriptionDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("Utilisateur créé");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Utilisateur créé");
     }
 
     @PostMapping("/login")

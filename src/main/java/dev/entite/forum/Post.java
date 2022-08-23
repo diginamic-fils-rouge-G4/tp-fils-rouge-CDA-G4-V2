@@ -5,22 +5,34 @@ import dev.entite.BaseEntite;
 import dev.entite.Utilisateur;
 
 import javax.persistence.*;
-
+/**
+ * Classe pour la définition des posts <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Post extends BaseEntite {
 
     /**
-     * @Lob permet de changer le String "content" de simple "varchar" en "longtext",
-     * columnDefinition permet de le changer en "text"
+     * Le contenu du post
+     * Lob permet de changer le String "content" de simple "varchar" en "longtext",
+     * columnDefinition permet de le changer en "text" <br/>
      */
     @Lob
     @Column(columnDefinition = "TEXT", length = 2048)
     private String content;
+    /**
+     * Relation many to one avec les utilisateurs <br/>
+     * Id dans table post = utilisateur_id<br/>
+     * Voir {@link dev.entite.Utilisateur}
+     */
     @ManyToOne
-    @JsonIgnore
     private Utilisateur utilisateur;
+    /**
+     * Relation many to one avec les topics<br/>
+     * Id dans table post = topic_id <br/>
+     * Voir {@link dev.entite.forum.Topic}
+     */
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JsonIgnore
     private Topic topic;
 
     // Constructeur

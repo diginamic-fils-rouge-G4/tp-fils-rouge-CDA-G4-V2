@@ -8,13 +8,29 @@ import javax.persistence.ManyToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe pour la définition des données météo <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Meteo extends BaseEntite {
-
+    /**
+     * La mesure des données météo
+     */
     private String mesure;
+    /**
+     * La date des données météo
+     */
     private LocalDateTime date;
+    /**
+     * L'heure des données météo
+     */
     private LocalDateTime heure;
+    /**
+     * Relation many to many avec les villes <br/>
+     * Jointure bdd = meteo_villes <br/>
+     * Voir {@link dev.entite.lieu.Ville}
+     */
     @ManyToMany
     private List<Ville> villes = new ArrayList<>();
 

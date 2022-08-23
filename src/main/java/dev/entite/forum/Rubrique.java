@@ -8,10 +8,21 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe pour la définition des rubriques <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Rubrique extends BaseEntite {
-
+    /**
+     * Le titre de la rubrique
+     */
     private String libelle;
+    /**
+     * Relation one to many avec les topics associés à une rubrique <br/>
+     * Id dans table topic = rubrique_id <br/>
+     * Voir {@link dev.entite.forum.Rubrique}
+     */
     @OneToMany(mappedBy = "rubrique")
     private List<Topic> topics = new ArrayList<>();
 

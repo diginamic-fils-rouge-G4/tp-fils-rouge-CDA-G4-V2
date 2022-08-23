@@ -7,14 +7,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe pour la définition des départements <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Departement extends BaseEntite {
-
+    /**
+     * Le nom du département
+     */
     private String nom;
+    /**
+     * Le code du département
+     */
     private String code;
+    /**
+     * Relation one to many avec les villes associés à un département <br/>
+     * Id dans table ville = departement_id <br/>
+     * Voir {@link dev.entite.lieu.Ville}
+     */
     @OneToMany(mappedBy = "departement")
     private List<Ville> villes = new ArrayList<>();
+    /**
+     * Relation many to one avec les régions <br/>
+     * Id dans table departement = region_id <br/>
+     * Voir {@link dev.entite.lieu.Region}
+     */
     @ManyToOne
     private Region region;
 

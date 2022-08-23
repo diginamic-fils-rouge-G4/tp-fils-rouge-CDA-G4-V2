@@ -10,18 +10,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe pour la définition des topics <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Topic extends BaseEntite {
-
+    /**
+     * Le titre du topic
+     */
     private String libelle;
+    /**
+     * Relation many to one avec les utilisateurs <br/>
+     * Id dans table topic = utilisateur_id <br/>
+     * Voir {@link dev.entite.Utilisateur}
+     */
     @ManyToOne
-    @JsonIgnore
     private Utilisateur utilisateur;
+    /**
+     * Relation one to many avec les posts associés à un topic <br/>
+     * Id dans table post = topic_id <br/>
+     * Voir {@link dev.entite.forum.Post}
+     */
     @OneToMany(mappedBy = "topic", cascade = {CascadeType.ALL})
     private List<Post> posts = new ArrayList<>();
+    /**
+     * Relation many to one avec les rubrique <br/>
+     * Id dans table topic = rubrique_id <br/>
+     * Voir {@link dev.entite.forum.Rubrique}
+     */
     @ManyToOne
-    @JsonIgnore
     private Rubrique rubrique;
 
     // Constructeur

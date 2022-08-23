@@ -34,7 +34,7 @@ public class WebSecurityConfig {
                 // désactivation de la protection CSRF
                 // non utilisée dans le cadre d'une Web API
                 .csrf().disable()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .anyRequest().permitAll()
 //                .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN")

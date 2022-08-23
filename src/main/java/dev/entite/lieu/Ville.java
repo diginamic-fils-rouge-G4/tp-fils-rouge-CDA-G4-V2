@@ -9,17 +9,43 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe pour la définition des villes <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Ville extends BaseEntite {
-
+    /**
+     * Le code postal de la ville
+     */
     private String codePostal;
+    /**
+     * Le nom de la ville
+     */
     private String nom;
+    /**
+     * La population de la ville
+     */
     private Integer population;
+    /**
+     * Relation many to one avec les departements <br/>
+     * Id dans table ville = departement_id <br/>
+     * Voir {@link dev.entite.lieu.Departement}
+     */
     @ManyToOne
     private Departement departement;
+    /**
+     * Relation one to many avec les stations associés à une ville <br/>
+     * Id dans table station = ville_id <br/>
+     * Voir {@link dev.entite.lieu.Station}
+     */
     @OneToMany(mappedBy = "ville")
     private List<Station> stations = new ArrayList<>();
+    /**
+     * Relation one to many avec les utilisateurs associés à une ville <br/>
+     * Id dans table utilisateur = ville_id <br/>
+     * Voir {@link dev.entite.Utilisateur}
+     */
     @OneToMany(mappedBy = "ville")
     private List<Utilisateur> utilisateurs = new ArrayList<>();
 

@@ -8,13 +8,27 @@ import javax.persistence.ManyToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe pour la définition des données des polluants <br/>
+ * Se référer à {@link dev.entite.BaseEntite} pour les identifiants générés
+ */
 @Entity
 public class Polluant extends BaseEntite {
-
+    /**
+     * La mesure qualité des données polluants
+     */
     private String qualite;
+    /**
+     * Le type de polluant
+     */
     private String type;
+    /**
+     * La date des données polluants
+     */
     private LocalDateTime date;
+    /**
+     * L'heure des données météo
+     */
     private LocalDateTime heure;
 
     // Constructeur
