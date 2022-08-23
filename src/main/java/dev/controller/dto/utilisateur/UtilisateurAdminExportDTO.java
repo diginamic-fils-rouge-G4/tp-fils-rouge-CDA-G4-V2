@@ -2,11 +2,15 @@ package dev.controller.dto.utilisateur;
 
 import dev.entite.Utilisateur;
 
-// Objet reçu par le front
+/**
+ * DTO utilisé pour afficher les données de "Utilisateur" au FRONT au niveau du Dashboard, <br/>
+ * actuellement UtilisateurExportDTO est utilisé à la place
+ */
 public class UtilisateurAdminExportDTO extends UtilisateurExportDTO{
 
    private String Role;
 
+   // Constructor
     public UtilisateurAdminExportDTO(String role) {
         Role = role;
     }
@@ -15,10 +19,12 @@ public class UtilisateurAdminExportDTO extends UtilisateurExportDTO{
         super(utilisateur);
         Role = utilisateur.getRole();
     }
+
     public UtilisateurAdminExportDTO(){
         super();
     }
 
+    // Getter & Setter
     public String getRole() {
         return Role;
     }

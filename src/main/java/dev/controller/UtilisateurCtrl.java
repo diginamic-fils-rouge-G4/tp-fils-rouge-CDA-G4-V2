@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.SecretKey;
 import java.util.*;
 
+/**
+ * Controller utilisé pour la gestion des Utilisateurs, leurs connexions et  <br/>
+ * Utilise le service : {@link dev.service.UtilisateurService}
+ */
 @RestController
 public class UtilisateurCtrl {
     @Value("${jwt.expires_in}")
@@ -38,12 +42,22 @@ public class UtilisateurCtrl {
     @Autowired
     private UtilisateurService utilisateurService;
 
+    /**
+     * Permet d'inscription d'un nouveau utilisateur
+     * @param utilisateurInscriptionDTO
+     * @return
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> sinup(@RequestBody UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         utilisateurService.creeUtilisateur(utilisateurInscriptionDTO);
         return ResponseEntity.status(HttpStatus.OK).body("Utilisateur créé");
     }
 
+    /**
+     * Permet la connexion d'un utilisateur
+     * @param utilisateurConnexionDTO
+     * @return
+     */
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<?> login(@RequestBody UtilisateurConnexionDTO utilisateurConnexionDTO){
@@ -67,6 +81,11 @@ public class UtilisateurCtrl {
     }
 
     // Admin methods
+
+    /**
+     * Récupère la totalité des utilisateurs
+     * @return
+     */
     @GetMapping("/utilisateurs")
     public ResponseEntity<?> getAll() {
         List<UtilisateurExportDTO> utilisateurs = utilisateurService.getAll().stream().map(UtilisateurExportDTO::new).toList();
@@ -77,6 +96,11 @@ public class UtilisateurCtrl {
                     .body("Il n'y a aucun utilisateur d'enregistré");
         }
     }
+
+    /**
+     * Récupère la totalité des utilisateurs du coté de l'admin
+     * @return
+     */
     @GetMapping("/admin/utilisateurs")
     public ResponseEntity<?> adminGetAll() {
         List<UtilisateurAdminExportDTO> utilisateurs = utilisateurService.getAll().stream().map(UtilisateurAdminExportDTO::new).toList();
@@ -88,6 +112,12 @@ public class UtilisateurCtrl {
                     .body("Il n'y a aucun utilisateur d'enregistré");
         }
     }
+
+    /**
+     * Récupère un utilisateur en fonction de son id
+     * @param id
+     * @return
+     */
     @GetMapping("/utilisateurs/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
 
@@ -101,6 +131,11 @@ public class UtilisateurCtrl {
         }
     }
 
+    /**
+     * Récupère les utilisateurs et les affiches en multiple page de 30 utilisateurs
+     * @param page
+     * @return
+     */
     @GetMapping("/utilisateurs/pages/{page}")
     public ResponseEntity<?> getAllBetween(@PathVariable int page) {
         List<UtilisateurExportDTO> utilisateurPage = utilisateurService.getAll(page,30).stream().map(UtilisateurExportDTO::new).toList();
@@ -112,6 +147,11 @@ public class UtilisateurCtrl {
         }
     }
 
+    /**
+     * Met à jour le rôle d'un utilisateur
+     * @param utilisateurRoleDTO
+     * @return
+     */
     @PatchMapping("/utilisateurs")
     public ResponseEntity<Utilisateur> updateRole(@RequestBody UtilisateurRoleDTO utilisateurRoleDTO){
         Optional<Utilisateur> utilisateur = utilisateurService.getByid(utilisateurRoleDTO.getId());
@@ -123,6 +163,11 @@ public class UtilisateurCtrl {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    /**
+     * Supprime un utilisateur en fonction de son id
+     * @param id
+     * @return
+     */
     @DeleteMapping("/utilisateurs/{id}")
     public ResponseEntity<?> deleteUtilisateur(@PathVariable Integer id){
         Optional<Utilisateur> utilisateur = utilisateurService.getByid(id);

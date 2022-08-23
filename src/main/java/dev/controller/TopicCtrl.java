@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller utilisé pour la gestion des Topics <br/>
+ * Utilise le service : {@link dev.service.TopicService}
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("topics")
@@ -26,6 +30,10 @@ public class TopicCtrl {
         this.topicService = topicService;
     }
 
+    /**
+     * Récupères la totalité des topics
+     * @return
+     */
     @GetMapping
     public ResponseEntity<?> getAllTopics() {
         List<Topic> topics = topicService.findAll();
@@ -68,6 +76,11 @@ public class TopicCtrl {
         }
     }
 
+    /**
+     * Créé un topic
+     * @param topicDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<?> create(@RequestBody TopicDTO topicDTO) {
         Topic topic = topicService.create(topicDTO);
@@ -76,6 +89,11 @@ public class TopicCtrl {
                 .body("Topic correctement crée");
     }
 
+    /**
+     * Supprime un
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         Optional<Topic> topic = topicService.findById(id);

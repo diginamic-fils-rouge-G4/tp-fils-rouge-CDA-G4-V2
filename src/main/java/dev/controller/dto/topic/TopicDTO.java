@@ -2,6 +2,9 @@ package dev.controller.dto.topic;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ *  DTO utilisé pour la création de "Topic"
+ */
 public class TopicDTO {
     @NotBlank
     private String libelle;
@@ -10,9 +13,11 @@ public class TopicDTO {
     @NotBlank
     private Integer rubrique;
 
+    // Constructor
     public TopicDTO() {
     }
 
+    // Getter & Setter
     public String getLibelle() {
         return libelle;
     }

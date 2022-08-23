@@ -3,7 +3,7 @@ package dev.controller.dto.rubrique;
 import javax.validation.constraints.NotBlank;
 
 /**
- * DTO de rubrique utilisé pour le changement de libelle
+ * DTO de rubrique utilisée pour le changement de libelle
  */
 public class RubriqueLibelleDTO {
 

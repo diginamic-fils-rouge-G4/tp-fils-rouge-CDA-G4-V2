@@ -2,6 +2,9 @@ package dev.controller.dto;
 
 import java.util.List;
 
+/**
+ * DTO utilisé pour la gestion des erreurs
+ */
 public class ErrorDTO {
     private List<String> messages;
 
