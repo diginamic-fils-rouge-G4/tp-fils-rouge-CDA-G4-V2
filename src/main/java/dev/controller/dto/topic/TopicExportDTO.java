@@ -9,13 +9,13 @@ import javax.validation.constraints.NotBlank;
 // Objet reçu par le front
 public class TopicExportDTO {
     @NotBlank
-    public Integer id;
+    private Integer id;
     @NotBlank
-    public String libelle;
+    private String libelle;
     @NotBlank
-    public UtilisateurExportDTO utilisateur;
+    private UtilisateurExportDTO utilisateur;
     @NotBlank
-    public PostExportDTO post;
+    private PostExportDTO post;
 
     public TopicExportDTO() {
     }
