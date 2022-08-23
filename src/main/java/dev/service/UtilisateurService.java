@@ -13,11 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
+/**
+ * Service pour les topics
+ * Voir {@link dev.controller.UtilisateurCtrl} pour utilisation
+ */
 @Service
 public class UtilisateurService {
     private PasswordEncoder passwordEncoder;
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurCtrl.class);
+    /**
+     * Voir {@link dev.repository.UtilisateurRepository}
+     */
     private UtilisateurRepository utilisateurRepository;
 
     public UtilisateurService(PasswordEncoder passwordEncoder, UtilisateurRepository utilisateurRepository) {
@@ -25,6 +30,10 @@ public class UtilisateurService {
         this.utilisateurRepository = utilisateurRepository;
     }
 
+    /**
+     * Création d'un utilisateur
+     * @param utilisateurInscriptionDTO
+     */
     public void creeUtilisateur(UtilisateurInscriptionDTO utilisateurInscriptionDTO){
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setMail(utilisateurInscriptionDTO.getEmail());
@@ -32,26 +41,53 @@ public class UtilisateurService {
         utilisateur.setPrenom(utilisateurInscriptionDTO.getPrenom());
         utilisateur.setRole("ROLE_USER");
         utilisateur.setPassword(passwordEncoder.encode(utilisateurInscriptionDTO.getPassword()));
-        LOGGER.info(utilisateur.toString());
         saveUtilisateur(utilisateur);
     }
-    public Optional<Utilisateur> getByName(String nom){
-        return utilisateurRepository.findByNom(nom);
-    }
+    /**
+     * Récupère un utilisateur en fonction de son ID
+     * @param id
+     * @return l'utilisateur correspondant
+     */
     public Optional<Utilisateur> getByid(Integer id){return utilisateurRepository.findById(id);}
+    /**
+     * Récupère un utilisateur en fonction de son email
+     * @param mail
+     * @return l'utilisateur correspondant
+     */
     public Optional<Utilisateur> getByMail(String mail){
         return utilisateurRepository.findByMail(mail);}
+    /**
+     * Création d'un utilisateur
+     * @param utilisateur
+     * @return le nouvel utilisateur
+     */
     public Utilisateur saveUtilisateur(Utilisateur utilisateur){
         return utilisateurRepository.save(utilisateur);
     }
 
 //    admin methods
+    /**
+     * Recupère tous les utilisateurs
+     * @return liste des utilisateurs
+     */
     public List<Utilisateur> getAll(){
         return utilisateurRepository.findAll();
     }
+
+    /**
+     * Récupère tous les utilisateurs avec une pagination
+     * @param page
+     * @param size
+     * @return liste des utilisateurs
+     */
     public Page<Utilisateur> getAll(int page, int size){
         return utilisateurRepository.findAll(PageRequest.of(page,size));
     }
+
+    /**
+     * Supprimer un utilisateur
+     * @param utilisateur
+     */
     public void deleteUtilisateur(Utilisateur utilisateur){
         utilisateurRepository.delete(utilisateur);
     }
