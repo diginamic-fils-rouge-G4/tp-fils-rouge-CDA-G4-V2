@@ -72,7 +72,7 @@ public class TopicCtrl {
     public ResponseEntity<?> create(@RequestBody TopicDTO topicDTO) {
         Topic topic = topicService.create(topicDTO);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body("Topic correctement crée");
     }
 

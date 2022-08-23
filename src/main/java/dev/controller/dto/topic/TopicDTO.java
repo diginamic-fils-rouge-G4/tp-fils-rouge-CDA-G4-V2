@@ -1,8 +1,11 @@
 package dev.controller.dto.topic;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 public class TopicDTO {
+
+
     @NotBlank
     private String libelle;
     @NotBlank
@@ -35,5 +38,16 @@ public class TopicDTO {
 
     public void setRubrique(Integer rubrique) {
         this.rubrique = rubrique;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TopicDTO topicDTO = (TopicDTO) o;
+        return Objects.equals(libelle, topicDTO.libelle) && Objects.equals(utilisateur, topicDTO.utilisateur) && Objects.equals(rubrique, topicDTO.rubrique);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(libelle, utilisateur, rubrique);
     }
 }
