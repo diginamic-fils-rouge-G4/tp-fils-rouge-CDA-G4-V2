@@ -50,6 +50,72 @@ public class StationService {
     public Station obtenirStationParIDX (String idx){
         return stationRepository.findByIdx(idx);
     }
+
+    @Transactional
+    public void GetStationStats(String id){
+
+        ApiResponse data = apiQualiteAirService.getStationById(id);
+
+        Station station =obtenirStationParIDX(String.valueOf(Math.round(data.getData().getIdx())));
+
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        if (data.getData().getIaqi().getH() != null){
+            Polluant H = new Polluant();
+            H.setType("H");
+            H.setQualite(String.valueOf(data.getData().getIaqi().getH().getV()));
+            H.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            station.getPolluants().add(H);
+        }
+
+        if (data.getData().getIaqi().getP() != null){
+            Polluant P = new Polluant();
+            P.setType("P");
+            P.setQualite(String.valueOf(data.getData().getIaqi().getP().getV()));
+            P.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            station.getPolluants().add(P);
+        }
+
+        if (data.getData().getIaqi().getPm25() != null){
+            Polluant Pm25 = new Polluant();
+            Pm25.setType("Pm25");
+            Pm25.setQualite(String.valueOf(data.getData().getIaqi().getPm25().getV()));
+            Pm25.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            station.getPolluants().add(Pm25);
+        }
+
+        if (data.getData().getIaqi().getT() != null){
+            Polluant T = new Polluant();
+            T.setType("T");
+            T.setQualite(String.valueOf(data.getData().getIaqi().getT().getV()));
+            T.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            station.getPolluants().add(T);
+        }
+
+        if (data.getData().getIaqi().getW() != null){
+            Polluant W = new Polluant();
+            W.setType("W");
+            W.setQualite(String.valueOf(data.getData().getIaqi().getW().getV()));
+            W.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            station.getPolluants().add(W);
+        }
+
+        if (data.getData().getIaqi().getWg() != null){
+            Polluant Wg = new Polluant();
+            Wg.setType("Wg");
+            Wg.setQualite(String.valueOf(data.getData().getIaqi().getWg().getV()));
+            Wg.setDate(LocalDateTime.parse(data.getData().getTime().getS() , formatter));
+            station.getPolluants().add(Wg);
+        }
+
+        for (Polluant polluant : station.getPolluants()) {
+            polluantService.createPolluant(polluant);
+        }
+
+    }
+
     @Transactional
     public Station ajouterStationEnFavoris(String id){
 
@@ -60,12 +126,12 @@ public class StationService {
 
         ApiResponse data = apiQualiteAirService.getStationById(id);
 
-        Station station =obtenirStationParIDX(String.valueOf(data.getData().getIdx()));
+        Station station =obtenirStationParIDX(String.valueOf(Math.round(data.getData().getIdx())));
 
         if (station == null){
 
             station = new Station();
-            station.setIdx(String.valueOf(data.getData().getIdx()) );
+            station.setIdx(String.valueOf(Math.round(data.getData().getIdx())) );
             station.setNom(data.getData().getCity().getName());
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
