@@ -24,7 +24,7 @@ public class StationCtrl {
     @GetMapping("favorie/{id}")
     public ResponseEntity<?> getFavorie( @PathVariable String id) {
         return ResponseEntity.status(HttpStatus.FOUND)
-                .body(stationService.addStationUtilisateur(id));
+                .body(stationService.getStationUtilisateurById(id));
     }
     @DeleteMapping("favorie/{id}")
     public ResponseEntity<?> deleteFavorie( @PathVariable String id) {
