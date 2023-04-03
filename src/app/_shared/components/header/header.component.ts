@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AccountDto} from "../../dto/account-dto";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,7 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   formLogin = new FormGroup({
     mail: new FormControl('',
       [
-        Validators.required, 
+        Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
       ]
     ),
@@ -28,14 +30,16 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
     )
   });
 
+  formDtoSignup : AccountDto = {}
+
   formsignup = new FormGroup({
-    name: new FormControl('', 
+    name: new FormControl('',
       [
         Validators.required,
         Validators.minLength(2)
       ]
     ),
-    firstname: new FormControl('', 
+    firstname: new FormControl('',
       [
         Validators.required,
         Validators.minLength(2)
@@ -43,22 +47,22 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
     ),
     mail: new FormControl('',
       [
-        Validators.required, 
+        Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
       ]
     ),
-    city: new FormControl('', 
+    city: new FormControl('',
       [
         Validators.required,
         Validators.minLength(3)
       ]
     ),
-    cp: new FormControl('', 
+    cp: new FormControl('',
       [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(5),
-        Validators.pattern("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{12,}$")
+        Validators.pattern("^\\d{5}$")
       ]
     ),
     password: new FormControl('',
@@ -75,7 +79,9 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
     )
   })
 
-  constructor(private elementRef: ElementRef) { }
+  url_auth_api: string = "http://localhost:8080/"
+
+  constructor(private elementRef: ElementRef,private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -118,7 +124,23 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
     console.log(this.formsignup)
     this.passwordConfirmValid()
 
+    if (this.formsignup.valid){
+      this.formDtoSignup.name = this.formsignup.value.name;
+      this.formDtoSignup.firstname = this.formsignup.value.firstname;
+      this.formDtoSignup.ville = this.formsignup.value.ville;
+      this.formDtoSignup.mail = this.formsignup.value.mail;
+      this.formDtoSignup.password = this.formsignup.value.password;
+      this.formDtoSignup.cp = this.formsignup.value.cp;
+
+      const authHeaders = {
+        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*',
+          'content-type': 'application/json'})
+      }
+      this.http.post<AccountDto>(this.url_auth_api+"signup" , this.formDtoSignup , authHeaders ).subscribe();
+    }
+
   }
+
 
   // function pour reset les valeurs et errors des forms
   // resetForm(){
