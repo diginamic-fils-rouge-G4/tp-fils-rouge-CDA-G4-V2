@@ -80,7 +80,7 @@ a {
     bottom: -60px;
     // margin: 0 2%;
     z-index: 2;
-    
+
     .nav-center {
         padding: 1em;
     }
@@ -123,7 +123,7 @@ a {
 }
 
 /*
-=============== 
+===============
 Modal
 ===============
 */
@@ -163,9 +163,11 @@ Modal
     justify-content: center;
     flex-direction: column;
     position: relative;
+    div {
+      margin-bottom: 3%;
+    }
 
     input {
-        margin-bottom: 3%;
         padding-left: 1%;
         border: 1px solid rgb(133, 133, 133);
         border-radius: 5px;
@@ -201,4 +203,8 @@ Modal
   .annuler-btn:hover {
     background: rgb(37, 37, 37);
   }
+.err {
+  font-size: 12px;
+  color: lightcoral;
+}
 
