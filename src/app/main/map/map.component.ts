@@ -66,23 +66,20 @@ export class MapComponent implements AfterViewInit {
   currentData:any
   constructor(public api_map: ApiMapService, private elRef: ElementRef) {}
 
-  favoritData :any =[
-    {name:"Nantes",stations:[{name:"Bouteillerie",status:true},{name:"Bouteillerie",status:false}]},
-  ]
   testCurentData:any
 
   formSubmitted: boolean = false
   sousList: boolean = true
   listID: number = 0
   ngOnInit():void{
-    
+
 
   }
 
   formMapSearch = new FormGroup({
     name: new FormControl('',
       [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(2)
       ]
     ),
@@ -111,10 +108,10 @@ export class MapComponent implements AfterViewInit {
   }
   test(i:any){
     console.log(this.listID);
-    
+
     if (this.listID != i) {
       this.listID = i
-    }else{ 
+    }else{
       this.listID = NaN
     }
     console.log(this.listID);
