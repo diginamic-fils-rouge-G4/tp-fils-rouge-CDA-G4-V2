@@ -5,6 +5,7 @@ import {AccountDto} from "../../dto/account-dto";
 import {LoginDto} from "../../dto/login-dto";
 import jwt_decode from 'jwt-decode';
 import {JwtTokenService} from "../../services/jwt-token.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -97,6 +98,7 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   url_auth_api: string = "http://localhost:8080/"
 
   constructor(private elementRef: ElementRef,private http: HttpClient,private jwtTokenService :JwtTokenService) { }
+
 
   ngOnInit(): void {
 
@@ -231,6 +233,7 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
           'content-type': 'application/json'})
       }
       this.http.post<AccountDto>(this.url_auth_api+"signup" , this.formDtoSignup , authHeaders ).subscribe();
+
     }
 
 

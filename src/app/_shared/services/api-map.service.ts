@@ -68,7 +68,10 @@ export class ApiMapService {
   markerMap: any;
   allMarkerMap = L.layerGroup([]);
   favoritData :any =[
-    {name:"Nantes",stations:[{name:"Bouteillerie",status:true},{name:"Bouteillerie",status:false}]},
+    // TODO DELETE
+    // {name:"Nantes",stations: [{name:"Bouteillerie",status:true},{name:"Bouteillerie",status:false}]},
+    {id:"1",name:"Bouteillerie",station:"Bouteillerie nom complet",status:true},
+    {id:"2",name:"Bouteillerie",station:"Bouteillerie nom complet",status:false},
   ]
   icon = {
     icon: L.icon({
@@ -250,78 +253,45 @@ export class ApiMapService {
   }
 
   /**
-   * NE PAS DELETE
-   * Une erreur ! Empêche d'ajouter aux favoris !
-   * L'erreur car un JSONArray n'est pas renvoyer par le back mais un String
+   * montre les stations par leurs noms fonctionne avec l'id de la station et son nom
+   * @param id String : id ou nom de la station, la gestion de si le nom ou la station est faite dans le back
    */
   showStationsByName(id:string){
     this.http.get(`http://localhost:8080/api/station/${id}`)
       .subscribe((data:any)=>{
-        console.log(data.data);
 
-        let cityStations:any=[]
-        data.data.forEach((infostation:any) => {
-          console.log(infostation.station.name.split(',')[0]);
-          const city = {
-            name: infostation.station.name.split(',')[0],
-            status: true
-          }
-          cityStations.push(city)
-        });
+        // let cityStations:any=[]
+        //
+        // const city = {
+        //   name: data.data.city.name.split(',')[0],
+        //   status: true
+        // }
+        //
+        // cityStations.push(city);
+        // let obj={
+        //   id:id,
+        //   stations:cityStations
+        // }
+
         let obj={
           id:id,
-          stations:cityStations
+          name:data.data.city.name.split(',')[0],
+          station:data.data.city.name,
+          status: true
         }
-        console.log(obj);
 
+        console.log(obj)
         this.favoritData.push(obj)
-        console.log(this.favoritData)
 
       })
     // A enlever quand on va faire le back
     const test:any = document.querySelector('.fa-heart')
     test.style.color = 'red'
   }
-  // vvv A REMPLACER vvv
-  /**
-   *
-   * @param nomVille string
-   * @param target string
-   * @returns toute les station dans la ville
-   */
-  //  showStationsByName(nom:string){
-  //   let nomVille = nom.split(',')[1]
-  //   this.http.get(`https://api.waqi.info/search/?keyword=${nomVille}&token=${this.token_api}`)
-  //   .subscribe((data:any)=>{
-  //     console.log(data.data);
-  //
-  //     let cityStations:any=[]
-  //     data.data.forEach((infostation:any) => {
-  //       console.log(infostation.station.name.split(',')[0]);
-  //       const city = {
-  //         name: infostation.station.name.split(',')[0],
-  //         status: true
-  //       }
-  //       cityStations.push(city)
-  //     });
-  //     let obj={
-  //       name:nomVille,
-  //       stations:cityStations
-  //     }
-  //     console.log(obj);
-  //
-  //     this.favoritData.push(obj)
-  //     console.log(this.favoritData)
-  //
-  //   })
-  //   //A enlever quand on va faire le back
-  //   const test:any = document.querySelector('.fa-heart')
-  //   test.style.color = 'red'
-  //   //
-  // }
 
   /**
-   * NE PAS DELETE
+   * Montre les stations favorites
+   * @param stations String
    */
   showStationsFavoris( stations:string) {
     // Utilise la même méthode que "showStationsByName", j'ignore si c'est normal
@@ -337,28 +307,6 @@ export class ApiMapService {
         this.markerClick(obj)
       })
   }
-  // vvv A REMPLACER vvv
-  // showStationsFavoris( stations:string) {
-  //
-  //   this.http.get(`https://api.waqi.info/search/?keyword=${stations}&token=${this.token_api}`)
-  //     .subscribe((data: any) => {
-  //       if(data.data.length < 1) {
-  //         const errMsg: any = document.querySelector('.err')
-  //         errMsg.innerHTML = `Nous n'avons aucune informations sur la station de ${stations}`
-  //       } else {
-  //         console.log(data)
-  //         let obj = {
-  //           latlng:{
-  //             lat:data.data[0].station.geo[0],
-  //             lng:data.data[0].station.geo[1]
-  //           }
-  //         }
-  //         this.markerClick(obj)
-  //       }
-  //
-  //
-  //     })
-  // }
 
   onSubmit(form: any) {
     if(form.value.name === ""){
@@ -402,8 +350,12 @@ export class ApiMapService {
     const maxPM25 = []
     const minPM10 = []
     const maxPM10 = []
-    console.log(arrUv[0])
-    for (let i = 0; i < arrUv[0].length; i++) {
+    /*
+      "arrUv[0].length" cause une erreur et a été retiré
+      La valeur est constamment non définie
+     */
+    // console.log(arrUv[0])
+    for (let i = 0; i < arrUv[0]; i++) {
       arrDate.push(arrUv[0][i].day);
       avgUIV.push(arrUv[0][i].avg)
       minUV.push(arrUv[0][i].min)

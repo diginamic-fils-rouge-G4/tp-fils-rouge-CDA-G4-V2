@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '', component: RubriqueComponent
   },
   {
-    path: ':idtopic', loadChildren: () => import('./topic/topic.module')
+    path: ':id', loadChildren: () => import('./topic/topic.module')
       .then(m => m.TopicModule)
   }
 ];
