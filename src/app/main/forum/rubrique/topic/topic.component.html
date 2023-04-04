@@ -2,19 +2,19 @@
 
 <div class="forum">
   <div class="forumHeader">
-    <h2 class="forumHeaderText">Topic 1</h2>
+    <h2 class="forumHeaderText">Topics</h2>
     <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
   </div>
   <div class="forumFilAriane">
-    <p class="forumFilArianeText">Accueil > Forum > Rubrique 1 > Topic 1</p>
+    <p class="forumFilArianeText">Accueil > Forum > {{rubrique.libelle}}</p>
   </div>
-  <div class="formUtility">
+  <div class="formUtility" *ngIf="topics != null">
       <form class="rechercheTopic">
           <input type="text" id="name" placeholder="topic ..">
           <button type="submit">Rechercher</button>
       </form>
 
-      <div class="container">  
+      <div class="container">
         <ul class="page">
             <li class="page__btn"><i class="fa-solid fa-angle-left"></i></li>
             <li class="page__numbers active"> 1</li>
@@ -34,19 +34,24 @@
 
 
   <div class="forumBody">
+    <div *ngIf="topics == null">
+      <div class="forumBodyItem">
+        <h3>Il n'y a aucun topic pour le moment :(</h3>
+      </div>
+    </div>
     <div *ngFor="let topic of topics">
       <div class="forumBodyItem">
         <div class="forumItemText">
-          <h3>{{ topic.nom }}</h3>
-          <p>Started by: {{ topic.startedby }}</p>
+          <h3>{{ topic.libelle }}</h3>
+          <p>Started by: {{ topic.utilisateur.prenom }}</p>
         </div>
         <div class="replays" >
-          <span>Replies : {{ topic.replays }}</span>
+          <span>Replies : </span>
         </div>
         <div class="forumItemInfoText">
           <div class="replayinfo">
-            <p>Last Replay by : {{ topic.lastReplayUser }}</p>
-            <p>Last Reply : {{ topic.lastReplayDate }}</p>
+<!--            <p>Last Replay by : {{ topic.lastReplayUser }}</p>-->
+<!--            <p>Last Reply : {{ topic.lastReplayDate }}</p>-->
           </div>
           <div class="forumItemIcon">
             <i
@@ -61,8 +66,8 @@
             ></i>
             <nav id="nav">
               <ul id="top" class="nav-rubrique d-none">
-                  <li><a href="">Modifier Topic</a></li>
-                  <li><a href="">Supprimer Topic</a></li>
+                  <li><a>Modifier Topic</a></li>
+                  <li><a (click)="deleteTopic(topic.id)">Supprimer Topic</a></li>
               </ul>
             </nav>
           </div>
@@ -71,7 +76,7 @@
     </div>
   </div>
 
-  <div class="container">  
+  <div class="container" *ngIf="topics != null">
     <ul class="page">
         <li class="page__btn"><i class="fa-solid fa-angle-left"></i></li>
         <li class="page__numbers active"> 1</li>
@@ -94,15 +99,25 @@
         <h2>Ajouter Topic</h2>
       </div>
       <div [formGroup]="form">
-        <input 
-        type="text" 
-        formControlName="name"  
+        <input
+        type="text"
+        formControlName="libelle"
         placeholder="Nom de Topic"
+        required
+        minlength="3"
         />
+        <div *ngIf="form.status === 'INVALID'">
+          <div *ngIf="form.controls['libelle'].errors?.['required']" class="err">
+            Le libellé est requis
+          </div>
+          <div *ngIf="form.controls['libelle'].errors?.['minlength']" class="err">
+            Le libellé doit faire 3 caractères au minimum
+          </div>
+        </div>
       </div>
       <div>
         <button class="annuler-btn">Annuler</button>
-        <button class="valider-btn" type="submit">Valider</button>
+        <button class="valider-btn" type="submit" (click)="createTopic()">Valider</button>
       </div>
     </div>
   </div>

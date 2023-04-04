@@ -25,8 +25,8 @@
                     <span>Plups: Posté le 12/10/2022 à 15h00</span>
                 </div>
                 <div class="iconsPost">
-                    <i class="fa-solid fa-reply"></i>
-                    <i class="fa-solid fa-circle-exclamation"></i>
+                  <i class="fa-solid fa-reply"></i>
+                  <i class="fa-solid fa-circle-exclamation"></i>
                 </div>
             </div>
             <div class="post">
@@ -63,9 +63,24 @@
                 <p>Le commentaire super cool</p>
             </div>
         </div>
-        <div class="forumBodyItem">
-            <textarea name="" id="" cols="30" rows="10" placeholder="Votre message..."></textarea>
-            <button class="replyPost">Répondre</button>
-        </div>
+        <form class="forumBodyItem" [formGroup]="form">
+            <textarea
+              formControlName="content"
+              cols="30"
+              rows="10"
+              placeholder="Votre message..."
+              required
+              minlength="3"
+            ></textarea>
+          <div *ngIf="form.status === 'INVALID'">
+            <div *ngIf="form.controls['content'].errors?.['required']" class="err">
+              Le message ne peut pas être vide
+            </div>
+            <div *ngIf="form.controls['content'].errors?.['minlength']" class="err">
+              Le message doit faire 3 caractères au minimum
+            </div>
+          </div>
+            <button class="replyPost" id="btn-answer" (click)="createPost()">Répondre</button>
+        </form>
     </div>
 </div>
