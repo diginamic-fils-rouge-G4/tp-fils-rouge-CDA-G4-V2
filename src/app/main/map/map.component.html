@@ -38,13 +38,15 @@
           <span class="spanContenuFav">
             <div class="buttonSeeFavUnFav">
               <h4 class="nomVilleStation">{{ favoris.name }}  </h4>
-              <i *ngIf="favoris.status" style="color: lightcoral" class="fa-solid fa-heart iconFavoriStation"></i>
+              <i *ngIf="favoris.status"
+                 class="fa-solid fa-heart iconFavoriStation"
+                 (click)="api_map.deleteStationsByName(this.favoris.id)">
+              </i>
               <i *ngIf="!favoris.status" class="fa-regular fa-heart iconFavoriStation"></i>
             </div>
             <p class="linkStationFavori" (click)="api_map.showStationsFavoris(favoris.name)"> {{ favoris.station }}</p>
           </span>
         </li>
-
     </ul>
     </div>
     <!-- end list favoris -->
@@ -52,7 +54,8 @@
     <div class="printData" *ngIf="api_map.showFavoris == false">
       <div class="buttonAddFav">
         <i class="fa-solid fa-arrow-left" (click)="api_map.showFavori(this.formMapSearch)"></i>
-        <i class="fa-regular fa-heart" (click)="api_map.showStationsByName(api_map.currentData.idx)">
+        <i class="fa-solid fa-heart"
+           (click)="api_map.showStationsByName(api_map.currentData.idx)">
           <span class="tooltiptext">Ajouter aux favoris</span>
         </i>
       </div>

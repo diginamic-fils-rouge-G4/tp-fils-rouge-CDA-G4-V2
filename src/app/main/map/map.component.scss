@@ -88,23 +88,6 @@
                     }
                 }
             }
-            // TODO inutilisé à suprime
-            //li{
-            //    width: 95%;
-            //    margin: auto;
-            //    cursor: pointer;
-            //    .sousList {
-            //        padding: 0;
-            //        .sousListStation{
-            //            transition: .3s;
-            //            .stationBtn{
-            //                display: flex;
-            //                justify-content: space-between;
-            //                padding:0 5% ;
-            //            }
-            //        }
-            //    }
-            //}
         }
 
     }
@@ -164,6 +147,17 @@
   .iconFavoriStation {
     width: 10%;
     display: flex;
+    color: lightcoral;
+
+    cursor: pointer;
+    transition: .5s;
+    position: relative;
+    align-self: center;
+  }
+
+  .iconFavoriStation:hover {
+    color: black;
+    transition: .5s;
   }
 
   .fa-heart::before {
@@ -172,7 +166,8 @@
 }
 
 .linkStationFavori:hover {
-  color: lightblue;
+  color: lightskyblue;
+  text-underline-style: single;
 }
 
 .buttonAddFav {
@@ -190,7 +185,6 @@
         transition: .5s;
         position: relative;
         align-self: center;
-        transition: .5s;
 
         .tooltiptext {
           visibility: hidden;
