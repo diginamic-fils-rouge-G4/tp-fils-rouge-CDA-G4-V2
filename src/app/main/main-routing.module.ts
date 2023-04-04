@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { MapComponent } from './map/map.component';
+import {AdminGuard} from "../_guard/admin.guard";
+import {UserGuard} from "../_guard/user.guard";
+import {LoggedGuard} from "../_guard/logged.guard";
 
 const routes: Routes = [
   {
@@ -14,7 +17,7 @@ const routes: Routes = [
           .then(m => m.AuthModule)
       },
       {
-        path: 'map', component: MapComponent
+        path: 'map', component: MapComponent, canActivate: [LoggedGuard]
       },
       {
         path: 'forum', loadChildren: () => import('./forum/forum.module')

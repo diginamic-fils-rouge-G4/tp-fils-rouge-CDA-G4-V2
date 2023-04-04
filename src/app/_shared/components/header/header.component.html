@@ -8,13 +8,13 @@
         <li class="navLink">
           <a routerLink="/accueil">Accueil</a>
         </li>
-        <li class="navLink">
+        <li class="navLink" [class.forceDisplayNone]="connected == false">
           <a routerLink="/home/map">Map</a>
         </li>
         <li class="navLink">
           <a routerLink="/home/forum">Forum</a>
         </li>
-        <li [class.forceDisplayNone]="UserAdmin == false"  class="navLink deroulant" >
+        <li [class.forceDisplayNone]="isAdmin == false" class="navLink deroulant" >
           <a  class="linkDeroulant" routerLink="/admin/dashboard">Dashboard</a>
           <ul   class="sousderoulant">
             <li   ><a routerLink="/admin/dashboard/user">User</a></li>
