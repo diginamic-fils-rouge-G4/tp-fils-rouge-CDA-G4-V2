@@ -16,27 +16,36 @@
       <div class="forumBodyItem">
         <h3 class="forumItemText" [routerLink]="rubrique.id.toString()">{{rubrique.libelle}}</h3>
         <span>15 topics</span>
-        <i
-          (click)="openVerticale($event, rubrique.id)"
-          id="icon"
-          class="fa-solid fa-ellipsis-vertical ellipse"
-        ></i>
-        <i
-          (click)="closeVerticale($event)"
-          id="Xicon"
-          class="fa-solid fa-xmark d-none"
-        ></i>
-        <nav id="nav">
-            <ul id="rub" class="nav-rubrique d-none">
-                <li><a>Modifier la rubrique</a></li>
-                <li><a (click)="deleteRubrique(rubrique.id)">Supprimer la rubrique</a></li>
-            </ul>
-        </nav>
+        <div>
+          <i
+            (click)="openVerticale($event, rubrique.id)"
+            [id]="'icon'+rubrique.id"
+            class="fa-solid fa-ellipsis-vertical ellipse"
+          ></i>
+
+          <nav id="nav">
+            <div class="d-none nav-rubrique " [id]="'rub'+rubrique.id">
+              <div>
+                <ul >
+                  <li [id]="'edit'+rubrique.id" ><a>Modifier la rubrique</a></li>
+                  <li [id]="'delete'+rubrique.id"><a (click)="deleteRubrique(rubrique.id)">Supprimer la rubrique</a></li>
+                </ul>
+              </div>
+              <div class="xContainer">
+                <i
+                  (click)="closeVerticale(rubrique.id)"
+                  [id]="'Xicon'+rubrique.id"
+                  class="fa-solid fa-xmark d-none "
+                ></i>
+              </div>
+            </div>
+          </nav>
+        </div>
+
       </div>
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" [class.open-modal]="addClass">
   <div class="modal-container">
     <div>

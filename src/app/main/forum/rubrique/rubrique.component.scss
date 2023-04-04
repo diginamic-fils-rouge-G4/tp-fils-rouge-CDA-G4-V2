@@ -226,3 +226,16 @@ Modal
   color: lightcoral;
 }
 
+.nav-rubrique{
+  justify-content: space-between;
+  padding: 0.2em!important;
+}
+
+.nav-rubrique-visible {
+  display: flex;
+
+}
+.nav-rubrique .xContainer{
+  display: flex;
+  justify-content: end;
+}

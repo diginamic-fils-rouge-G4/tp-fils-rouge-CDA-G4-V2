@@ -36,7 +36,7 @@ export class RubriqueComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    this.elementRef.nativeElement.addEventListener('click',(e:Event)=>this.closeVerticale(e))
+    //this.elementRef.nativeElement.addEventListener('click',(e:Event)=>this.closeVerticale(e))
     this.elementRef.nativeElement.querySelector('.forumHeaderIcon').addEventListener('click', this.onClick.bind(this));
     if(this.form.valid) {
       this.elementRef.nativeElement.querySelector('.valider-btn').addEventListener('click', this.onClick.bind(this));
@@ -47,47 +47,69 @@ export class RubriqueComponent implements OnInit {
   }
 
   openVerticale(e:Event,id:number){
-    this.closeVerticale(e)
-
-    e.stopPropagation()
+    this.closeAllVerticaleButGivenId(id);
 
     console.log(id);
 
-
     this.selectedId = id
-    const navRubrique: any = document.querySelectorAll("#rub");
-    const icon: any = document.querySelectorAll("#icon");
-    const xicon: any = document.querySelectorAll("#Xicon");
+    const navRubrique: any = document.getElementById("rub"+id);
+    const icon: any = document.getElementById("icon"+id);
+    const xicon: any = document.getElementById("Xicon"+id);
 
-    xicon[id].classList.remove('d-none')
-    navRubrique[id].classList.toggle('d-none')
-    icon[id].classList.toggle('fa-ellipsis-vertical')
-    icon[id].classList.toggle('d-none')
+    console.log(navRubrique);
+
+    xicon.classList.remove('d-none')
+    navRubrique.classList.toggle('d-none')
+    navRubrique.classList.toggle('nav-rubrique-visible')
+    icon.classList.toggle('fa-ellipsis-vertical')
+    icon.classList.toggle('invisible')
 
   }
-/**
- *
- * @param e event
- * @param id
- */
-  closeVerticale(e:Event){
-    e.stopPropagation()
 
-    const navRubriques: any = document.querySelectorAll("#rub");
-    const icons: any = document.querySelectorAll("#icon");
-    const xicons: any = document.querySelectorAll("#Xicon");
+  closeAllVerticaleButGivenId(id:number){
+    for (let index = 0; index < this.rubriques.length; index++) {
+      if (this.rubriques[index].id != id){
+        const navRubrique: any = document.getElementById("rub"+this.rubriques[index].id);
+        const icon: any = document.getElementById("icon"+this.rubriques[index].id);
+        const xicon: any = document.getElementById("Xicon"+this.rubriques[index].id);
 
-
-    for (let index = 0; index < navRubriques.length; index++) {
-      const navRubrique = navRubriques[index];
-      const icon = icons[index];
-      const xicon = xicons[index];
-
-      navRubrique.classList.add('d-none')
-      icon.classList.add('fa-ellipsis-vertical')
-      icon.classList.remove('d-none')
-      xicon.classList.add('d-none')
+        xicon.classList.add('d-none')
+        navRubrique.classList.add('d-none')
+        navRubrique.classList.remove('nav-rubrique-visible')
+        icon.classList.add('fa-ellipsis-vertical')
+        icon.classList.remove('invisible')
+      }
     }
+  }
+
+  closeVerticale(id:number){
+
+    console.log(id);
+
+    this.selectedId = id
+    const navRubrique: any = document.getElementById("rub"+id);
+    const icon: any = document.getElementById("icon"+id);
+    const xicon: any = document.getElementById("Xicon"+id);
+
+    navRubrique.classList.add('d-none')
+    navRubrique.classList.toggle('nav-rubrique-visible')
+    icon.classList.add('fa-ellipsis-vertical')
+    icon.classList.remove('d-none')
+    xicon.classList.add('d-none')
+
+
+
+
+    // for (let index = 0; index < navRubriques.length; index++) {
+    //   const navRubrique = navRubriques[index];
+    //   const icon = icons[index];
+    //   const xicon = xicons[index];
+    //
+    //   navRubrique.classList.add('d-none')
+    //   icon.classList.add('fa-ellipsis-vertical')
+    //   icon.classList.remove('d-none')
+    //   xicon.classList.add('d-none')
+    // }
   }
 
   onClick() {
