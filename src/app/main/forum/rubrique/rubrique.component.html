@@ -7,9 +7,14 @@
     <p class="forumFilArianeText">Accueil > Forum</p>
   </div>
   <div class="forumBody">
+    <div *ngIf="rubriques == null">
+      <div class="forumBodyItem">
+        <h3 class="forumItemText">Il n'y a pas de rubrique pour le moment :(</h3>
+      </div>
+    </div>
     <div *ngFor="let rubrique of rubriques">
       <div class="forumBodyItem">
-        <h3 class="forumItemText">rubrique 1</h3>
+        <h3 class="forumItemText">{{rubrique.libelle}}</h3>
         <span>15 topics</span>
         <i
           (click)="openVerticale($event, rubrique.id)"
@@ -24,7 +29,7 @@
         <nav id="nav">
             <ul id="rub" class="nav-rubrique d-none">
                 <li><a>Modifier la rubrique</a></li>
-                <li><a>Supprimer la rubrique</a></li>
+                <li><a (click)="deleteRubrique(rubrique.id)">Supprimer la rubrique</a></li>
             </ul>
         </nav>
       </div>
@@ -38,16 +43,28 @@
       <div>
         <h2>Ajouter Rubrique</h2>
       </div>
-      <div [formGroup]="form">
+      <form
+        [formGroup]="form"
+      >
         <input
           type="text"
-          formControlName="name"
+          formControlName="libelle"
           placeholder="Nom de la rubrique"
+          required
+          minlength="3"
         />
-      </div>
+        <div *ngIf="form.status === 'INVALID'">
+          <div *ngIf="form.controls['libelle'].errors?.['required']" class="err">
+            Le libellé est requis
+          </div>
+          <div *ngIf="form.controls['libelle'].errors?.['minlength']" class="err">
+            Le libellé doit faire 3 caractères au minimum
+          </div>
+        </div>
+      </form>
       <div>
         <button class="annuler-btn">Annuler</button>
-        <button class="valider-btn" type="submit">Valider</button>
+        <button class="valider-btn" type="submit" (click)="createRubrique()">Valider</button>
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AccountDto} from "../../dto/account-dto";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -81,7 +82,7 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
 
   url_auth_api: string = "http://localhost:8080/"
 
-  constructor(private elementRef: ElementRef,private http: HttpClient) { }
+  constructor(private elementRef: ElementRef,private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -127,16 +128,11 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
     if (this.formsignup.valid){
       this.formDtoSignup.name = this.formsignup.value.name;
       this.formDtoSignup.firstname = this.formsignup.value.firstname;
-      this.formDtoSignup.ville = this.formsignup.value.ville;
+      this.formDtoSignup.ville = this.formsignup.value.city;
       this.formDtoSignup.mail = this.formsignup.value.mail;
       this.formDtoSignup.password = this.formsignup.value.password;
       this.formDtoSignup.cp = this.formsignup.value.cp;
-
-      const authHeaders = {
-        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*',
-          'content-type': 'application/json'})
-      }
-      this.http.post<AccountDto>(this.url_auth_api+"signup" , this.formDtoSignup , authHeaders ).subscribe();
+      this.authService.createAccount(this.formDtoSignup)
     }
 
   }
