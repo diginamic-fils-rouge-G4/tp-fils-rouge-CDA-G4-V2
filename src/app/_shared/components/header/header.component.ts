@@ -24,14 +24,12 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   isUser:boolean = false;
 
   token !:any;
-
   loginVisible:boolean =false;
   SignupVisible:boolean =false;
   logoutVisible:boolean =false;
 
   formSubmittedLogin: boolean = false
   formSubmittedSignup: boolean = false
-
   formDtoLogin: LoginDto = {}
 
   formLogin = new FormGroup({

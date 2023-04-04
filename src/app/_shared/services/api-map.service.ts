@@ -62,17 +62,21 @@ const shadowUrl = './leaflet/marker-shadow.png';
 })
 export class ApiMapService {
   showFavoris:boolean = true
+  isFavorite:boolean = false
   currentData:any
   map: any;
   stations: any[] = []
   markerMap: any;
   allMarkerMap = L.layerGroup([]);
-  favoritData :any =[
-    // TODO DELETE
-    // {name:"Nantes",stations: [{name:"Bouteillerie",status:true},{name:"Bouteillerie",status:false}]},
+  /*
+    Forme de favoritData
     {id:"1",name:"Bouteillerie",station:"Bouteillerie nom complet",status:true},
-    {id:"2",name:"Bouteillerie",station:"Bouteillerie nom complet",status:false},
-  ]
+    id : id de la station
+    name : nom de la zone/ville de la station
+    station : le nom complet de la station
+    status : si en favori ou non
+   */
+  favoritData :any =[]
   icon = {
     icon: L.icon({
       iconSize: [ 25, 41 ],
@@ -118,11 +122,9 @@ export class ApiMapService {
       })
   }
 
-
   /**
    * NE PAS DELETE
    */
-
   initApi(city: string) {
     return this.http.get(`http://localhost:8080/api/ville/${city}`)
       .subscribe((data: any) => {
@@ -134,23 +136,11 @@ export class ApiMapService {
         }
       })
   }
-  // vvv A REMPLACER vvv
-  // initApi(city: string) {
-  //   return this.http.get(`https://api.waqi.info/feed/${city}/?token=${this.token_api}`)
-  //     .subscribe((data: any) => {
-  //       if (data.status === "error") {
-  //         const errMsg: any = document.querySelector('.err')
-  //         errMsg.innerHTML = `Nous n'avons aucune informations sur la ville de ${city}`
-  //       } else {
-  //         this.afficheDonneVille(data)
-  //       }
-  //     })
-  // }
 
   /**
-     * affiche les données de la ville
-     * @param data retour de l'api
-  */
+   * affiche les données de la ville
+   * @param data retour de l'api
+   */
   afficheDonneVille(data:any){
 
     const errMsg: any = document.querySelector('.err')
@@ -253,25 +243,12 @@ export class ApiMapService {
   }
 
   /**
-   * montre les stations par leurs noms fonctionne avec l'id de la station et son nom
+   * Montre les stations par leurs noms fonctionne avec l'id de la station et son nom
    * @param id String : id ou nom de la station, la gestion de si le nom ou la station est faite dans le back
    */
   showStationsByName(id:string){
     this.http.get(`http://localhost:8080/api/station/${id}`)
       .subscribe((data:any)=>{
-
-        // let cityStations:any=[]
-        //
-        // const city = {
-        //   name: data.data.city.name.split(',')[0],
-        //   status: true
-        // }
-        //
-        // cityStations.push(city);
-        // let obj={
-        //   id:id,
-        //   stations:cityStations
-        // }
 
         let obj={
           id:id,
@@ -280,13 +257,73 @@ export class ApiMapService {
           status: true
         }
 
-        console.log(obj)
-        this.favoritData.push(obj)
+        // Vérification que la donnée n'est pas déjà en favori
+        let push = true;
+        for (let i = 0; i < this.favoritData.length; i++) {
+          if (this.favoritData[i].station == obj.station) {
+            push = false;
+          }
+        }
 
+        if (push) {
+          this.favoritData.push(obj)
+        }
       })
     // A enlever quand on va faire le back
     const test:any = document.querySelector('.fa-heart')
-    test.style.color = 'red'
+    test.style.color = 'lightcoral'
+  }
+
+  // TODO a delete si on trouve pas un moyen de le faire fonctionner
+  // /**
+  //  * Vérifie si la station est en favorite
+  //  * @param id String : id ou nom de la station, la gestion de si le nom ou la station est faite dans le back
+  //  */
+  // isItFavorite(id:string):boolean {
+  //   this.http.get(`http://localhost:8080/api/station/${id}`)
+  //     .subscribe((data:any)=>{
+  //
+  //       let obj={
+  //         id:id,
+  //         name:data.data.city.name.split(',')[0],
+  //         station:data.data.city.name,
+  //         status: true
+  //       }
+  //       // Vérification que la donnée est en favori
+  //       for (let i = 0; i < this.favoritData.length; i++) {
+  //         if (this.favoritData[i].station == obj.station) {
+  //           return true;
+  //         }
+  //       }
+  //       return false;
+  //     })
+  //   return false;
+  // }
+
+  /**
+   * Supprime une station d'une liste de favori
+   * @param id String : id ou nom de la station, la gestion de si le nom ou la station est faite dans le back
+   */
+  deleteStationsByName(id:string){
+    this.http.get(`http://localhost:8080/api/station/${id}`)
+      .subscribe((data:any)=>{
+
+        let obj={
+          id:id,
+          name:data.data.city.name.split(',')[0],
+          station:data.data.city.name,
+          status: true
+        }
+
+        let nonDeleteFavorit: any = [];
+        // Vérification que la donnée n'est pas déjà en favori
+        for (let i = 0; i < this.favoritData.length; i++) {
+          if (this.favoritData[i].station != obj.station) {
+            nonDeleteFavorit.push(this.favoritData[i])
+          }
+        }
+        this.favoritData = nonDeleteFavorit;
+      })
   }
 
   /**
