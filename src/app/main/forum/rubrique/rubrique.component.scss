@@ -117,6 +117,8 @@ a {
 
 .forumItemText {
   padding: 2%;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .forumHeaderIcon {
@@ -220,6 +222,7 @@ Modal
 
 .err {
   font-size: 12px;
+  font-weight: bold;
   color: lightcoral;
 }
 

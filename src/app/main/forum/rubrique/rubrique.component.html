@@ -13,8 +13,8 @@
       </div>
     </div>
     <div *ngFor="let rubrique of rubriques">
-      <div class="forumBodyItem" >
-        <h3 class="forumItemText">{{rubrique.libelle}}</h3>
+      <div class="forumBodyItem">
+        <h3 class="forumItemText" [routerLink]="rubrique.id.toString()">{{rubrique.libelle}}</h3>
         <span>15 topics</span>
         <div>
           <i
