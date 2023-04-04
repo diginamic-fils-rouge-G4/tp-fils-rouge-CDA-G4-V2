@@ -12,10 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-
   createAccount(dtoAccount: AccountDto){
     this.http.post(this.url_auth_api+"signup" , dtoAccount).subscribe();
-
-
   }
 }
