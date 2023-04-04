@@ -95,18 +95,29 @@ export class RubriqueComponent implements OnInit {
   }
 
   getAllRubriques() {
-    this.rubriqueService.getAllRubrique().subscribe(res => {
+    this.rubriqueService.getAll().subscribe(res => {
       this.rubriques = res
     })
   }
   createRubrique() {
     if(this.form.valid) {
-      console.log(this.form)
       this.rubrique.libelle = this.form.value.libelle
-      this.rubriqueService.createRubrique(this.rubrique).subscribe(() => {
+      this.rubriqueService.create(this.rubrique).subscribe(() => {
         this.ngOnInit()
       })
     }
+  }
+
+  deleteRubrique(id: number) {
+    this.rubriqueService.delete(id).subscribe(() => {
+      this.ngOnInit()
+    })
+  }
+
+  updateRubrique(rubrique: Rubrique) {
+    this.rubriqueService.update(rubrique).subscribe(() => {
+      this.ngOnInit()
+    })
   }
 
 }

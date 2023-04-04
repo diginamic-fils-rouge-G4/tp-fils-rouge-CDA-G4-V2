@@ -11,19 +11,23 @@ export class RubriqueService {
   BASE_URL: string = "http://localhost:8080/"
   constructor(private http: HttpClient) { }
 
-  getAllRubrique(): Observable<Rubrique[]> {
+  getAll(): Observable<Rubrique[]> {
     return this.http.get<Rubrique[]>(this.BASE_URL + "rubriques")
   }
 
-  createRubrique(rubrique: RubriqueDTO): Observable<void> {
+  create(rubrique: RubriqueDTO): Observable<void> {
     return this.http.post<void>(this.BASE_URL + "rubriques", rubrique)
   }
 
-  getOneRubrique(id: number): Observable<Rubrique> {
+  getOne(id: number): Observable<Rubrique> {
     return this.http.get<Rubrique>(this.BASE_URL + "rubriques/" + id)
   }
 
-  deleteOneRubrique(id: number): Observable<void> {
+  update(rubrique: RubriqueDTO): Observable<void> {
+    return this.http.patch<void>(this.BASE_URL, rubrique)
+  }
+
+  delete(id: number): Observable<void> {
     return this.http.delete<void>(this.BASE_URL + "rubriques/" + id)
   }
 }

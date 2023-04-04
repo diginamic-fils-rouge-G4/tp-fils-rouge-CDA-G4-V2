@@ -1,125 +1,129 @@
 @import "../../../_shared/assets/variable.scss";
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
-    color: $black-color;
+  text-decoration: none;
+  color: $black-color;
 }
 
-.forum{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2%;
+.forum {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2%;
 }
 
-.forumHeader{
-    display: flex;
-    justify-content: space-between;
-    background-color: $black-color;
-    width: 100%;
+.forumHeader {
+  display: flex;
+  justify-content: space-between;
+  background-color: $black-color;
+  width: 100%;
 }
 
-.forumHeaderText{
-    padding-left: 2%;
-    color:$bcg-txt-color;
+.forumHeaderText {
+  padding-left: 2%;
+  color: $bcg-txt-color;
 }
 
-.forumFilAriane{
-    background-color: $filAriane-color;
-    width: 100%;
-    opacity: $filAriane-opacity;
+.forumFilAriane {
+  background-color: $filAriane-color;
+  width: 100%;
+  opacity: $filAriane-opacity;
 }
 
-.forumFilArianeText{
-    padding-left: 2%;
-    color: white;
+.forumFilArianeText {
+  padding-left: 2%;
+  color: white;
 }
 
-.forumBody{
+.forumBody {
+  background-color: $secondary-bcg-body-color;
+  width: 100%;
+
+}
+
+.forumBodyItem {
+  margin: 2%;
+  padding: 1%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $rubrique-bcg-color;
+  height: 4em;
+
+  i {
+    cursor: pointer;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    padding: .5%;
+    transition: .5s;
+    border-radius: 50%;
+  }
+
+  i:hover {
+    color: $filAriane-color;
+    transition: .5s;
     background-color: $secondary-bcg-body-color;
-    width: 100%;
-
-}
-
-.forumBodyItem{
-    margin: 2%;
-    padding: 1%;
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    align-items: center;
-    background-color:$rubrique-bcg-color ;
-    height: 4em;
-
-    i {
-        cursor: pointer;
-        text-align: center;
-        width: 20px;
-        height: 20px;
-        padding: .5%;
-        transition: .5s;
-        border-radius: 50%;
-    }
-
-    i:hover {
-        color: $filAriane-color;
-        transition: .5s;
-        background-color: $secondary-bcg-body-color;
-    }
+  }
 }
 
 #nav {
-    display: flex;
-    position: absolute;
-    justify-content: flex-end;
-    right: 5px;
-    bottom: -60px;
-    // margin: 0 2%;
-    z-index: 2;
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  right: 5px;
+  bottom: -60px;
+  // margin: 0 2%;
+  z-index: 2;
 
-    .nav-center {
-        padding: 1em;
+  .nav-center {
+    padding: 1em;
+  }
+
+  .nav-rubrique {
+    border-radius: 5px;
+    width: auto;
+    height: auto;
+    padding: 1.5em 1em 1.5em 1em;
+    background-color: $bcg-txt-color;
+    font-size: 1rem;
+    box-shadow: 1px 1px 5px 2px rgba(105, 105, 105, 0.75);
+
+    a:hover {
+      // color: $bcg-txt-color-hover;
+      text-decoration: underline;
+      cursor: pointer;
     }
-    .nav-rubrique {
-        border-radius: 5px;
-        width: auto;
-        height: auto;
-        padding: 1.5em 1em 1.5em 1em;
-        background-color: $bcg-txt-color;
-        font-size: 1rem;
-        box-shadow: 1px 1px 5px 2px rgba(105, 105, 105, 0.75);
-        a:hover {
-            // color: $bcg-txt-color-hover;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        ul {
-            padding: 0;
-            li {
-                margin: 15px 0 0 0;
-            }
-        }
+
+    ul {
+      padding: 0;
+
+      li {
+        margin: 15px 0 0 0;
+      }
     }
+  }
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 
-.forumItemText{
-    padding: 2%;
+.forumItemText {
+  padding: 2%;
 }
 
-.forumHeaderIcon{
-    padding-right: 2%;
-    display: flex;
-    align-self: center;
-    color: $bcg-txt-color;
+.forumHeaderIcon {
+  padding-right: 2%;
+  display: flex;
+  align-self: center;
+  color: $bcg-txt-color;
 }
 
 /*
@@ -128,81 +132,92 @@ Modal
 ===============
 */
 
-.forumHeaderIcon{
-    cursor: pointer;
+.forumHeaderIcon {
+  cursor: pointer;
 }
-  .forumHeaderIcon:hover {
-    background: transparent;
-    color: $bcg-txt-color-hover;
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);;
-    display: grid;
-    place-items: center;
-    visibility: hidden;
-    z-index: -10;
-  }
-  /* OPEN/CLOSE MODAL */
-  .open-modal {
-    visibility: visible;
-    z-index: 10;
-  }
-  .modal-container {
-    background: $rubrique-bcg-color;
-    width: 90vw;
-    height: 30vh;
-    max-width: 1000px;
-    border-radius: 5px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    div {
-      margin-bottom: 3%;
-    }
 
-    input {
-        padding-left: 1%;
-        border: 1px solid rgb(133, 133, 133);
-        border-radius: 5px;
-        height: 30px;
-        width: 200px;
-    }
+.forumHeaderIcon:hover {
+  background: transparent;
+  color: $bcg-txt-color-hover;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  z-index: -10;
+}
+
+/* OPEN/CLOSE MODAL */
+.open-modal {
+  visibility: visible;
+  z-index: 10;
+}
+
+.modal-container {
+  background: $rubrique-bcg-color;
+  width: 90vw;
+  height: 30vh;
+  max-width: 1000px;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+
+  div {
+    margin-bottom: 3%;
   }
-  .valider-btn{
-    width: 100px;
-    height: 25px;
-    background: $green-color;
-    color: white;
-    border: none;
+
+  input {
+    padding-left: 1%;
+    margin-bottom: 1%;
+    border: 1px solid rgb(133, 133, 133);
     border-radius: 5px;
-    margin-left: 5px;
-    cursor: pointer;
-    transition: .5s;
+    height: 30px;
+    width: 200px;
   }
-  .valider-btn:hover {
-    background: rgb(26, 197, 20);
-  }
-  .annuler-btn {
-    width: 100px;
-    height: 25px;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-right: 5px;
-    cursor: pointer;
-    transition: .5s;
-  }
-  .annuler-btn:hover {
-    background: rgb(37, 37, 37);
-  }
+}
+
+.valider-btn {
+  width: 100px;
+  height: 25px;
+  background: $green-color;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.valider-btn:hover {
+  background: rgb(26, 197, 20);
+}
+
+.annuler-btn {
+  width: 100px;
+  height: 25px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.annuler-btn:hover {
+  background: rgb(37, 37, 37);
+}
+
 .err {
   font-size: 12px;
   color: lightcoral;
