@@ -69,7 +69,9 @@ export class ApiMapService {
   allMarkerMap = L.layerGroup([]);
   favoritData :any =[
     // TODO DELETE
-    {name:"Nantes",stations: [{name:"Bouteillerie",status:true},{name:"Bouteillerie",status:false}]},
+    // {name:"Nantes",stations: [{name:"Bouteillerie",status:true},{name:"Bouteillerie",status:false}]},
+    {id:"1",name:"Bouteillerie",station:"Bouteillerie nom complet",status:true},
+    {id:"2",name:"Bouteillerie",station:"Bouteillerie nom complet",status:false},
   ]
   icon = {
     icon: L.icon({
@@ -258,19 +260,27 @@ export class ApiMapService {
     this.http.get(`http://localhost:8080/api/station/${id}`)
       .subscribe((data:any)=>{
 
-        let cityStations:any=[]
+        // let cityStations:any=[]
+        //
+        // const city = {
+        //   name: data.data.city.name.split(',')[0],
+        //   status: true
+        // }
+        //
+        // cityStations.push(city);
+        // let obj={
+        //   id:id,
+        //   stations:cityStations
+        // }
 
-        const city = {
-          name: data.data.city.name.split(',')[0],
+        let obj={
+          id:id,
+          name:data.data.city.name.split(',')[0],
+          station:data.data.city.name,
           status: true
         }
 
-        cityStations.push(city);
-        let obj={
-          id:id,
-          stations:cityStations
-        }
-
+        console.log(obj)
         this.favoritData.push(obj)
 
       })
