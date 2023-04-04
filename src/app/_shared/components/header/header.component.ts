@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AccountDto} from "../../dto/account-dto";
+import {LoginDto} from "../../dto/login-dto";
+import jwt_decode from 'jwt-decode';
+import {JwtTokenService} from "../../services/jwt-token.service";
 import {AuthService} from "../../services/auth.service";
 
 @Component({
@@ -11,11 +14,23 @@ import {AuthService} from "../../services/auth.service";
 })
 export class HeaderComponent implements OnInit ,AfterViewInit{
 
+
+
+  connected!:boolean ;
+
+  UserAdmin:boolean = false;
+
+  token !:any;
+
   loginVisible:boolean =false;
   SignupVisible:boolean =false;
+  logoutVisible:boolean =false;
 
   formSubmittedLogin: boolean = false
   formSubmittedSignup: boolean = false
+
+  formDtoLogin: LoginDto = {}
+
   formLogin = new FormGroup({
     mail: new FormControl('',
       [
@@ -52,7 +67,7 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
       ]
     ),
-    city: new FormControl('',
+    ville: new FormControl('',
       [
         Validators.required,
         Validators.minLength(3)
@@ -82,19 +97,45 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
 
   url_auth_api: string = "http://localhost:8080/"
 
-  constructor(private elementRef: ElementRef,private authService: AuthService) { }
+  constructor(private elementRef: ElementRef,private http: HttpClient,private jwtTokenService :JwtTokenService) { }
+
 
   ngOnInit(): void {
+
+    this.connected = this.checkForCookie();
+    this.logoutVisible = this.connected;
+
+    console.log(this.UserAdmin);
+
+  }
+
+  deleteCookieByName(): void{
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith("user_token" + '=')) {
+        document.cookie = "user_token" + "=" + "" + ";" + "expires=Thu, 2 Aug 2001 20:47:11 UTC" + ";path=/";
+
+      }
+    }
+  }
+
+  checkForCookie(){
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith("user_token" + '=')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   ngAfterViewInit(){
 
     this.elementRef.nativeElement.querySelector('.Connexion').addEventListener('click', this.onClickLogin.bind(this));
-
     this.elementRef.nativeElement.querySelector('.Inscription').addEventListener('click', this.onClickSignup.bind(this));
-
     this.elementRef.nativeElement.querySelector('#closeCon').addEventListener('click', this.onClickLogin.bind(this),);
-
     this.elementRef.nativeElement.querySelector('#closeIns').addEventListener('click', this.onClickSignup.bind(this));
 
     // reset les forms avec le X
@@ -113,10 +154,60 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
 
   }
 
+
+
   onSubmitLogin(): void {
     this.formSubmittedLogin = true
     this.formSubmittedSignup = false
     console.log(this.formLogin)
+
+    if (this.formLogin.valid){
+
+      this.formDtoLogin.password = this.formLogin.value.password;
+
+      this.formDtoLogin.email = this.formLogin.value.mail;
+
+      console.log(this.formDtoLogin);
+
+      const authHeaders = {
+        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*',
+          'content-type': 'application/json'}),
+        observe:'response' as 'response'
+      }
+      this.http.post(this.url_auth_api+"login" , this.formDtoLogin , authHeaders ).subscribe((response: any) => {
+        this.token = jwt_decode(response.body.token)
+        console.log(this.token);
+        if (this.token.roles == "ROLE_USER"){
+          console.log("ROLE_USER");
+
+          document.cookie = "user_token" + "=" + response.body.token + ";" + this.token.exp + ";path=/";
+
+          //this.jwtTokenService.saveTokenUser(this.token);
+
+        }else if (this.token.roles == "ROLE_ADMIN"){
+          console.log("ROLE_ADMIN");
+
+          document.cookie = "user_token" + "=" + response.body.token + ";" + this.token.exp + ";path=/";
+
+          this.UserAdmin = true;
+
+          //this.jwtTokenService.saveTokenAdmin(this.token);
+        }
+        this.connected = true;
+        this.logoutVisible = this.connected;
+      });
+    }
+  }
+
+  onClickLogout(): void {
+    this.connected = false;
+    this.logoutVisible = this.connected;
+    this.UserAdmin = false;
+    this.deleteCookieByName();
+
+    this.loginVisible = false;
+    this.SignupVisible = false;
+
   }
 
   onSubmitSignup(): void {
@@ -126,17 +217,27 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
     this.passwordConfirmValid()
 
     if (this.formsignup.valid){
-      this.formDtoSignup.name = this.formsignup.value.name;
-      this.formDtoSignup.firstname = this.formsignup.value.firstname;
-      this.formDtoSignup.ville = this.formsignup.value.city;
+
+      this.formDtoSignup.nom = this.formsignup.value.name;
+      this.formDtoSignup.prenom = this.formsignup.value.firstname;
+      this.formDtoSignup.ville = this.formsignup.value.ville;
+
       this.formDtoSignup.mail = this.formsignup.value.mail;
       this.formDtoSignup.password = this.formsignup.value.password;
-      this.formDtoSignup.cp = this.formsignup.value.cp;
-      this.authService.createAccount(this.formDtoSignup)
+      this.formDtoSignup.codePostal = this.formsignup.value.cp;
+
+      console.log(this.formDtoSignup);
+
+      const authHeaders = {
+        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*',
+          'content-type': 'application/json'})
+      }
+      this.http.post<AccountDto>(this.url_auth_api+"signup" , this.formDtoSignup , authHeaders ).subscribe();
+
     }
 
-  }
 
+  }
 
   // function pour reset les valeurs et errors des forms
   // resetForm(){
@@ -146,12 +247,10 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   //   this.formSubmittedSignup = false
   // }
 
-
   passwordConfirmValid(): any {
     return this.formsignup.controls['password'].value === this.formsignup.controls['confirmPassword'].value
       ? null : {'mismatch': true};
   }
-
 
   onClickLogin() {
     this.loginVisible = !this.loginVisible;

@@ -3,8 +3,8 @@
     <img class="img logo" src="assets/logo.png" alt="logo" />
   </div>
   <div class="util">
-    <nav class="navbar">
-      <ul class="navlist">
+    <nav class="navbar" >
+      <ul class="navlist"  >
         <li class="navLink">
           <a routerLink="/accueil">Accueil</a>
         </li>
@@ -14,19 +14,32 @@
         <li class="navLink">
           <a routerLink="/home/forum">Forum</a>
         </li>
-        <li class="navLink deroulant"><a class="linkDeroulant" routerLink="/admin/dashboard">Dashboard</a>
-          <ul class="sousderoulant">
-            <li><a routerLink="/admin/dashboard/user">User</a></li>
-            <li><a routerLink="/admin/dashboard/rubrique">Rubrique</a></li>
+        <li [class.forceDisplayNone]="UserAdmin == false"  class="navLink deroulant" >
+          <a  class="linkDeroulant" routerLink="/admin/dashboard">Dashboard</a>
+          <ul   class="sousderoulant">
+            <li   ><a routerLink="/admin/dashboard/user">User</a></li>
+            <li  ><a routerLink="/admin/dashboard/rubrique">Rubrique</a></li>
           </ul>
         </li>
       </ul>
     </nav>
   </div>
 
+  <!-- PARTIE LogOut -->
+
+  <div class="connexionInscription" [class.d-none]="logoutVisible == false" >
+    <ul class="navlist">
+      <li class="navLink" >
+        <a class="deconnecter" style="width: auto" (click)="onClickLogout()" >
+          Se déconnecter
+        </a>
+      </li>
+    </ul>
+  </div>
+
   <!-- PARTIE CONNEXION -->
 
-  <div class="connexionInscription">
+  <div class="connexionInscription" [class.d-none]="connected == true">
     <ul class="navlist">
       <li class="navLink">
         <a class="Connexion" style="width: auto">
@@ -35,7 +48,7 @@
 
         <div id="id01" class="modal" [class.d-none]="loginVisible == false" >
           <div id="containerCon" class="container">
-            <div id="wrapperCon" class="wrapperCon">
+            <div  id="wrapperCon" class="wrapperCon">
               <div class="modalHeader">
                 <div class="divVide"></div>
                 <div>
@@ -136,12 +149,12 @@
                 </div>
                 <div class="formcouple">
                   <div class="forminput">
-                    <input type="text" formControlName="city" name="ville" placeholder="Votre Ville" />
+                    <input type="text" formControlName="ville" name="ville" placeholder="Votre Ville" />
                     <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
-                      <div *ngIf="formsignup.controls['city'].errors?.['required']" class="err">
+                      <div *ngIf="formsignup.controls['ville'].errors?.['required']" class="err">
                         La ville est requise
                       </div>
-                      <div *ngIf="formsignup.controls['city'].errors?.['minlength']" class="err">
+                      <div *ngIf="formsignup.controls['ville'].errors?.['minlength']" class="err">
                         La ville doit faire au minimum 3 caractères
                       </div>
                     </div>

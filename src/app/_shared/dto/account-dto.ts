@@ -1,8 +1,8 @@
 export interface AccountDto {
-  name?: string,
-  firstname?: string,
+  nom?: string,
+  prenom?: string,
   ville?: string,
-  cp?: number,
+  codePostal?: number,
   mail?: string,
   password?:string
 }

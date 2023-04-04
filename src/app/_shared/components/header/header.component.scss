@@ -283,6 +283,10 @@ a {
 
 }
 
+.forceDisplayNone{
+  display: none!important;
+}
+
 .deroulant::after {
     font-size: 12px;
     content:" ▼";
