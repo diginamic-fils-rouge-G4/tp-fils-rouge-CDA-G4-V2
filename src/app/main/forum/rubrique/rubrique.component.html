@@ -1,7 +1,7 @@
 <div class="forum">
   <div class="forumHeader">
     <h2 class="forumHeaderText">Forum</h2>
-    <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
+    <i class="fa-solid fa-plus forumHeaderIcon modal-btn" (click)="onClickChangeAddModalVisibility()"></i>
   </div>
   <div class="forumFilAriane">
     <p class="forumFilArianeText">Accueil > Forum</p>
@@ -27,8 +27,8 @@
             <div class="d-none nav-rubrique " [id]="'rub'+rubrique.id">
               <div>
                 <ul >
-                  <li [id]="'edit'+rubrique.id" ><a>Modifier la rubrique</a></li>
-                  <li [id]="'delete'+rubrique.id"><a (click)="deleteRubrique(rubrique.id)">Supprimer la rubrique</a></li>
+                  <li ><a class="editRubriqueButton" (click)="openChangeEditModalVisibility(rubrique.id)" >Modifier la rubrique</a></li>
+                  <li><a (click)="deleteRubrique(rubrique.id)">Supprimer la rubrique</a></li>
                 </ul>
               </div>
               <div class="xContainer">
@@ -72,8 +72,42 @@
         </div>
       </form>
       <div>
-        <button class="annuler-btn">Annuler</button>
+        <button class="annuler-btn" (click)="onClickChangeAddModalVisibility()">Annuler</button>
         <button class="valider-btn" type="submit" (click)="createRubrique()">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" id="editModalOverlay" [class.open-modal]="editModal">
+  <div class="modal-container" id="editModalContainer">
+    <div>
+      <div>
+        <h2>Edit Rubrique</h2>
+      </div>
+      <form
+        [formGroup]="form"
+      >
+        <input
+          [placeholder]="modifiedrebriqueName"
+          type="text"
+          formControlName="libelle"
+          required
+          minlength="3"
+        />
+        <div *ngIf="form.status === 'INVALID'">
+          <div *ngIf="form.controls['libelle'].errors?.['required']" class="err">
+            Le libellé est requis
+          </div>
+          <div *ngIf="form.controls['libelle'].errors?.['minlength']" class="err">
+            Le libellé doit faire 3 caractères au minimum
+          </div>
+        </div>
+      </form>
+      <div>
+        <button class="annuler-btn"  (click)="closeChangeEditModalVisibility()">Annuler</button>
+        <button class="valider-btn" [id]="modifiedrebriqueId" type="submit" (click)="updateRubrique()" >Valider</button>
       </div>
     </div>
   </div>

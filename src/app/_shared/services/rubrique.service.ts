@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
-import {RubriqueDTO} from "../dto/forum-dto";
+import {RubriqueDTO, RubriqueUpdateDTO} from "../dto/forum-dto";
 import {Rubrique} from "../entities/Rubrique";
 
 @Injectable({
@@ -23,8 +23,8 @@ export class RubriqueService {
     return this.http.get<Rubrique>(this.BASE_URL + "rubriques/" + id)
   }
 
-  update(rubrique: RubriqueDTO): Observable<void> {
-    return this.http.patch<void>(this.BASE_URL, rubrique)
+  update(rubrique: RubriqueUpdateDTO): Observable<void> {
+    return this.http.patch<void>(this.BASE_URL + "rubriques", rubrique)
   }
 
   delete(id: number): Observable<void> {

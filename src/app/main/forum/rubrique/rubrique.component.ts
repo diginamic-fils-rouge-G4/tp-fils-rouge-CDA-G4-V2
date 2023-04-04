@@ -3,7 +3,8 @@ import { Component, OnInit ,ElementRef ,AfterViewInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {RubriqueService} from "../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../_shared/entities/Rubrique";
-import {RubriqueDTO} from "../../../_shared/dto/forum-dto";
+import {RubriqueDTO, RubriqueUpdateDTO} from "../../../_shared/dto/forum-dto";
+
 @Component({
   selector: 'app-rubrique',
   templateUrl: './rubrique.component.html',
@@ -15,7 +16,11 @@ export class RubriqueComponent implements OnInit {
 
   rubriques: Rubrique[] =[]
 
-  addClass: boolean = false
+  addClass: boolean = false;
+  editModal: boolean = false;
+
+  modifiedrebriqueId!:number;
+  modifiedrebriqueName!:string;
 
   form = new FormGroup({
     libelle: new FormControl('',Validators.minLength(2))
@@ -31,32 +36,32 @@ export class RubriqueComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllRubriques()
+
+    this.addClass = false;
+    this.editModal = false;
+
   };
 
 
 
   ngAfterViewInit() {
-    //this.elementRef.nativeElement.addEventListener('click',(e:Event)=>this.closeVerticale(e))
-    this.elementRef.nativeElement.querySelector('.forumHeaderIcon').addEventListener('click', this.onClick.bind(this));
-    if(this.form.valid) {
-      this.elementRef.nativeElement.querySelector('.valider-btn').addEventListener('click', this.onClick.bind(this));
-    }
-    this.elementRef.nativeElement.querySelector('.annuler-btn').addEventListener('click', this.onClick.bind(this));
-    this.elementRef.nativeElement.querySelector('.modal-overlay').addEventListener('click', this.onClick.bind(this));
-    this.elementRef.nativeElement.querySelector('.modal-container').addEventListener('click', this.onClick.bind(this));
+
+    // this.elementRef.nativeElement.querySelector('.forumHeaderIcon').addEventListener('click', this.onClick.bind(this));
+    // if(this.form.valid) {
+    //   this.elementRef.nativeElement.querySelector('.valider-btn').addEventListener('click', this.onClick.bind(this));
+    // }
+    // this.elementRef.nativeElement.querySelector('.annuler-btn').addEventListener('click', this.onClick.bind(this));
+    // this.elementRef.nativeElement.querySelector('.modal-overlay').addEventListener('click', this.onClick.bind(this));
+    // this.elementRef.nativeElement.querySelector('.modal-container').addEventListener('click', this.onClick.bind(this));
+
   }
 
   openVerticale(e:Event,id:number){
     this.closeAllVerticaleButGivenId(id);
-
-    console.log(id);
-
     this.selectedId = id
     const navRubrique: any = document.getElementById("rub"+id);
     const icon: any = document.getElementById("icon"+id);
     const xicon: any = document.getElementById("Xicon"+id);
-
-    console.log(navRubrique);
 
     xicon.classList.remove('d-none')
     navRubrique.classList.toggle('d-none')
@@ -112,9 +117,33 @@ export class RubriqueComponent implements OnInit {
     // }
   }
 
-  onClick() {
+  onClickChangeAddModalVisibility() {
     this.addClass = !this.addClass;
   }
+
+  closeChangeEditModalVisibility() {
+    this.editModal = false;
+  }
+
+
+
+  openChangeEditModalVisibility(id:number) {
+    this.editModal = true;
+
+    for (let index = 0; index < this.rubriques.length; index++) {
+      if (this.rubriques[index].id == id){
+        this.modifiedrebriqueId = this.rubriques[index].id ;
+        this.modifiedrebriqueName = this.rubriques[index].libelle;
+      }
+    }
+
+    console.log(this.modifiedrebriqueId);
+    console.log(this.modifiedrebriqueName);
+
+
+  }
+
+
 
   getAllRubriques() {
     this.rubriqueService.getAll().subscribe(res => {
@@ -136,10 +165,19 @@ export class RubriqueComponent implements OnInit {
     })
   }
 
-  updateRubrique(rubrique: Rubrique) {
-    this.rubriqueService.update(rubrique).subscribe(() => {
-      this.ngOnInit()
-    })
-  }
+  updateRubrique() {
 
+    if(this.form.valid) {
+
+      let rubriqueToEdit: RubriqueUpdateDTO = {}
+
+      rubriqueToEdit.id = this.modifiedrebriqueId
+      rubriqueToEdit.libelle = this.form.value.libelle
+
+      this.rubriqueService.update(rubriqueToEdit).subscribe(() => {
+        this.ngOnInit()
+      })
+    }
+    this.closeChangeEditModalVisibility()
+  }
 }

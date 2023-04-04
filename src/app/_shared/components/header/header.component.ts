@@ -2,10 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AccountDto} from "../../dto/account-dto";
-import {LoginDto} from "../../dto/login-dto";
 import jwt_decode from 'jwt-decode';
 import {JwtTokenService} from "../../services/jwt-token.service";
 import {AuthService} from "../../services/auth.service";
+import {LoginDto} from "../../dto/login-dto";
 
 @Component({
   selector: 'app-header',
@@ -21,14 +21,12 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   UserAdmin:boolean = false;
 
   token !:any;
-
   loginVisible:boolean =false;
   SignupVisible:boolean =false;
   logoutVisible:boolean =false;
 
   formSubmittedLogin: boolean = false
   formSubmittedSignup: boolean = false
-
   formDtoLogin: LoginDto = {}
 
   formLogin = new FormGroup({
