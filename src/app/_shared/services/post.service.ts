@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {PostDTO, TopicDTO} from "../dto/forum-dto";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
+import {Post} from "../entities/Post";
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,17 @@ import {Subscription} from "rxjs";
 export class PostService {
   BASE_URL: string = "http://localhost:8080/"
   constructor(private http: HttpClient) { }
-  getAllTopics(): Subscription {
-    return this.http.get(this.BASE_URL + "posts").subscribe()
+  getAll(id: number): Observable<Post[]> {
+    return this.http.get<Post[]>(this.BASE_URL + "posts/" + id)
   }
-  createPost(post: PostDTO): void {
-    this.http.post(this.BASE_URL + "posts", post).subscribe()
+  create(post: PostDTO): Observable<Post> {
+    return this.http.post<Post>(this.BASE_URL + "posts", post)
   }
-  deleteOnePost(id: number): void {
-    this.http.delete(this.BASE_URL + "posts/" + id).subscribe()
+  deleteOne(id: number): Observable<Post> {
+    return this.http.delete<Post>(this.BASE_URL + "posts/" + id)
+  }
+
+  updateOne(post: PostDTO): Observable<Post> {
+    return this.http.patch<Post>(this.BASE_URL + "posts", post)
   }
 }

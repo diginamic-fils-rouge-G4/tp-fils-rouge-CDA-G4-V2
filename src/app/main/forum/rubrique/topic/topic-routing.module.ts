@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '', component: TopicComponent
   },
   {
-    path: ':idpost', loadChildren: () => import('./post/post.module')
+    path: ':id', loadChildren: () => import('./post/post.module')
       .then(m => m.PostModule)
   }
 ];

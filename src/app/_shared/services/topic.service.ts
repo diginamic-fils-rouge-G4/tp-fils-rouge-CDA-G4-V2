@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {TopicDTO} from "../dto/forum-dto";
+import {Topic} from "../entities/Topic";
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +11,22 @@ export class TopicService {
   BASE_URL: string = "http://localhost:8080/"
   constructor(private http: HttpClient) { }
 
-  getAllTopics(): Subscription {
-    return this.http.get(this.BASE_URL + "topics").subscribe()
+  getAll(id: number): Observable<Topic[]> {
+    return this.http.get<Topic[]>(this.BASE_URL + "topics/" + id)
   }
 
-  createTopic(topic: TopicDTO): void {
-    this.http.post(this.BASE_URL + "topics", topic).subscribe()
+  create(topic: TopicDTO): Observable<Topic> {
+    return this.http.post<Topic>(this.BASE_URL + "topics", topic)
   }
-  getOneTopic(id: number): Subscription {
-    return this.http.get(this.BASE_URL + "topics/" + id).subscribe()
-  }
-
-  updateOneTopic(topic: TopicDTO): void {
-    this.http.patch(this.BASE_URL + "topics", topic).subscribe()
+  getOne(id: number): Observable<Topic> {
+    return this.http.get<Topic>(this.BASE_URL + "topics/" + id)
   }
 
-  deleteOneTopic(id: number): void {
-    this.http.delete(this.BASE_URL + "topics/" + id).subscribe()
+  updateOne(topic: TopicDTO): Observable<Topic> {
+    return this.http.patch<Topic>(this.BASE_URL + "topics", topic)
+  }
+
+  deleteOne(id: number): Observable<Topic> {
+    return this.http.delete<Topic>(this.BASE_URL + "topics/" + id)
   }
 }
