@@ -5,6 +5,11 @@ export interface RubriqueDTO {
   libelle?: string
 }
 
+export interface RubriqueUpdateDTO {
+  id?:number,
+  libelle?: string
+}
+
 export interface TopicDTO {
   libelle?: string
   rubrique?: Rubrique
@@ -18,3 +23,4 @@ export interface PostDTO {
   createdDate?: Date
   updatedDate?: Date
 }
+
