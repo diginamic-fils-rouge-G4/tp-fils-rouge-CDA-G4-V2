@@ -2,10 +2,12 @@ import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AccountDto} from "../../dto/account-dto";
-import jwt_decode from 'jwt-decode';
+import {LoginDto} from "../../dto/login-dto";
+
 import {JwtTokenService} from "../../services/jwt-token.service";
 import {AuthService} from "../../services/auth.service";
-import {LoginDto} from "../../dto/login-dto";
+import jwtDecode from "jwt-decode";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -18,7 +20,8 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
 
   connected!:boolean ;
 
-  UserAdmin:boolean = false;
+  isAdmin:boolean = false;
+  isUser:boolean = false;
 
   token !:any;
   loginVisible:boolean =false;
@@ -95,38 +98,19 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
 
   url_auth_api: string = "http://localhost:8080/"
 
-  constructor(private elementRef: ElementRef,private http: HttpClient,private jwtTokenService :JwtTokenService) { }
+  constructor(
+    private elementRef: ElementRef,
+    private http: HttpClient,
+    private jwtTokenService :JwtTokenService,
+    private router: Router
+  ) { }
 
 
   ngOnInit(): void {
 
-    this.connected = this.checkForCookie();
+    this.connected = this.jwtTokenService.getToken() !== null
     this.logoutVisible = this.connected;
 
-    console.log(this.UserAdmin);
-
-  }
-
-  deleteCookieByName(): void{
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith("user_token" + '=')) {
-        document.cookie = "user_token" + "=" + "" + ";" + "expires=Thu, 2 Aug 2001 20:47:11 UTC" + ";path=/";
-
-      }
-    }
-  }
-
-  checkForCookie(){
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith("user_token" + '=')) {
-        return true;
-      }
-    }
-    return false;
   }
 
   ngAfterViewInit(){
@@ -157,40 +141,19 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   onSubmitLogin(): void {
     this.formSubmittedLogin = true
     this.formSubmittedSignup = false
-    console.log(this.formLogin)
 
     if (this.formLogin.valid){
-
       this.formDtoLogin.password = this.formLogin.value.password;
-
       this.formDtoLogin.email = this.formLogin.value.mail;
-
-      console.log(this.formDtoLogin);
-
       const authHeaders = {
         headers: new HttpHeaders({'Access-Control-Allow-Origin': '*',
           'content-type': 'application/json'}),
         observe:'response' as 'response'
       }
       this.http.post(this.url_auth_api+"login" , this.formDtoLogin , authHeaders ).subscribe((response: any) => {
-        this.token = jwt_decode(response.body.token)
-        console.log(this.token);
-        if (this.token.roles == "ROLE_USER"){
-          console.log("ROLE_USER");
-
-          document.cookie = "user_token" + "=" + response.body.token + ";" + this.token.exp + ";path=/";
-
-          //this.jwtTokenService.saveTokenUser(this.token);
-
-        }else if (this.token.roles == "ROLE_ADMIN"){
-          console.log("ROLE_ADMIN");
-
-          document.cookie = "user_token" + "=" + response.body.token + ";" + this.token.exp + ";path=/";
-
-          this.UserAdmin = true;
-
-          //this.jwtTokenService.saveTokenAdmin(this.token);
-        }
+        this.jwtTokenService.saveToken(response.body.token)
+        this.isAdmin = this.jwtTokenService.isAdmin(response.body.token);
+        this.isUser = this.jwtTokenService.isUser(response.body.token)
         this.connected = true;
         this.logoutVisible = this.connected;
       });
@@ -200,41 +163,35 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
   onClickLogout(): void {
     this.connected = false;
     this.logoutVisible = this.connected;
-    this.UserAdmin = false;
-    this.deleteCookieByName();
-
+    this.isAdmin = false;
+    this.isUser = false
+    this.jwtTokenService.deleteToken()
     this.loginVisible = false;
     this.SignupVisible = false;
-
+    this.formLogin.reset()
+    this.router.navigate(['accueil'])
   }
 
   onSubmitSignup(): void {
     this.formSubmittedSignup = true
     this.formSubmittedLogin = false
-    console.log(this.formsignup)
     this.passwordConfirmValid()
-
     if (this.formsignup.valid){
-
       this.formDtoSignup.nom = this.formsignup.value.name;
       this.formDtoSignup.prenom = this.formsignup.value.firstname;
       this.formDtoSignup.ville = this.formsignup.value.ville;
-
       this.formDtoSignup.mail = this.formsignup.value.mail;
       this.formDtoSignup.password = this.formsignup.value.password;
       this.formDtoSignup.codePostal = this.formsignup.value.cp;
-
-      console.log(this.formDtoSignup);
-
       const authHeaders = {
         headers: new HttpHeaders({'Access-Control-Allow-Origin': '*',
           'content-type': 'application/json'})
       }
-      this.http.post<AccountDto>(this.url_auth_api+"signup" , this.formDtoSignup , authHeaders ).subscribe();
-
+      this.http.post<AccountDto>(this.url_auth_api+"signup" , this.formDtoSignup , authHeaders ).subscribe(() => {
+        this.loginVisible = true;
+        this.SignupVisible = false;
+      });
     }
-
-
   }
 
   // function pour reset les valeurs et errors des forms
