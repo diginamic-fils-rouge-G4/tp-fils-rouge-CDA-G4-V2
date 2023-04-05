@@ -1,7 +1,7 @@
 <div class="forum">
   <div class="forumHeader">
     <h2 class="forumHeaderText">Forum</h2>
-    <i class="fa-solid fa-plus forumHeaderIcon modal-btn" (click)="onClickChangeAddModalVisibility()"></i>
+    <i class="fa-solid fa-plus forumHeaderIcon modal-btn" (click)="onClickChangeAddModalVisibility()" *ngIf="isAdmin"></i>
   </div>
   <div class="forumFilAriane">
     <p class="forumFilArianeText">Accueil > Forum</p>
@@ -15,8 +15,8 @@
     <div *ngFor="let rubrique of rubriques">
       <div class="forumBodyItem">
         <h3 class="forumItemText" [routerLink]="rubrique.id.toString()">{{rubrique.libelle}}</h3>
-        <span>15 topics</span>
-        <div>
+        <span>{{rubrique.nbreTopics}} topics</span>
+        <div *ngIf="isAdmin">
           <i
             (click)="openVerticale($event, rubrique.id)"
             [id]="'icon'+rubrique.id"

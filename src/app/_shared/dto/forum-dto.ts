@@ -3,6 +3,7 @@ import {Utilisateur} from "../entities/Utilisateur";
 
 export interface RubriqueDTO {
   libelle?: string
+  nbrTopics?: number
 }
 
 export interface RubriqueUpdateDTO {
@@ -10,7 +11,14 @@ export interface RubriqueUpdateDTO {
   libelle?: string
 }
 
+export interface TopicExportDTO {
+  libelle?: string
+  rubrique?: number
+  utilisateur?: string
+}
+
 export interface TopicDTO {
+  id?: number
   libelle?: string
   rubrique?: Rubrique
   Utilisateur?: Utilisateur
@@ -18,8 +26,8 @@ export interface TopicDTO {
 
 export interface PostDTO {
   content?: string
-  topicId?: number
-  utilisateurId?: number
+  topic?: number
+  utilisateur?: string
   createdDate?: Date
   updatedDate?: Date
 }
