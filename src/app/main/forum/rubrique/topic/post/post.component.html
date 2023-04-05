@@ -1,69 +1,28 @@
-<div class="forum" >
-    <div class="forumFilAriane">
-        <p class="forumFilArianeText">Accueil > Forum > rubrique 1 > topic 1</p>
+<div class="forum">
+  <div class="forumFilAriane">
+    <p class="forumFilArianeText">Accueil > Forum > {{rubrique.libelle}} > {{topic.libelle}}</p>
+  </div>
+  <div class="forumBody">
+    <div class="forumBodyItem" *ngFor="let post of posts">
+      <div class="headPost">
+        <div class="userPost">
+          <i class="fa-solid fa-user"></i>
+          <span>{{post.utilisateur.prenom}}: Posté le {{post.createdDate | date:"dd:MM:YYYY"}}</span>
+        </div>
+        <div class="iconsSelfPost" *ngIf="!isVisitor && canUpdateTopic(post.utilisateur)">
+          <i class="fa-solid fa-pen"></i>
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="iconsPost" *ngIf="!isVisitor && !canUpdateTopic(post.utilisateur)">
+          <i class="fa-solid fa-reply"></i>
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+      </div>
+      <div class="post">
+        <p>{{post.content}}</p>
+      </div>
     </div>
-    <div class="forumBody">
-        <div class="forumBodyItem">
-            <div class="headPost">
-                <div class="userPost">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Dark Sasuke: Posté le 12/10/2022 à 14h58</span>
-                </div>
-                <div class="iconsSelfPost">
-                    <i class="fa-solid fa-pen"></i>
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-            </div>
-            <div class="post">
-                <p>Le commentaire super cool</p>
-            </div>
-        </div>
-        <div  class="forumBodyItem">
-            <div class="headPost">
-                <div class="userPost">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Plups: Posté le 12/10/2022 à 15h00</span>
-                </div>
-                <div class="iconsPost">
-                  <i class="fa-solid fa-reply"></i>
-                  <i class="fa-solid fa-circle-exclamation"></i>
-                </div>
-            </div>
-            <div class="post">
-                <p>Le commentaire super cool</p>
-            </div>
-        </div>
-        <div  class="forumBodyItem">
-            <div class="headPost">
-                <div class="userPost">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Plups: Posté le 12/10/2022 à 15h10</span>
-                </div>
-                <div class="iconsPost">
-                    <i class="fa-solid fa-reply"></i>
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                </div>
-            </div>
-            <div class="post">
-                <p>Le commentaire super cool</p>
-            </div>
-        </div>
-        <div  class="forumBodyItem">
-            <div class="headPost">
-                <div class="userPost">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Plups: Posté le 12/10/2022 à 15h10</span>
-                </div>
-                <div class="iconsPost">
-                    <i class="fa-solid fa-reply"></i>
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                </div>
-            </div>
-            <div class="post">
-                <p>Le commentaire super cool</p>
-            </div>
-        </div>
-        <form class="forumBodyItem" [formGroup]="form">
+    <form class="forumBodyItem" [formGroup]="form" *ngIf="!isVisitor">
             <textarea
               formControlName="content"
               cols="30"
@@ -72,15 +31,15 @@
               required
               minlength="3"
             ></textarea>
-          <div *ngIf="form.status === 'INVALID'">
-            <div *ngIf="form.controls['content'].errors?.['required']" class="err">
-              Le message ne peut pas être vide
-            </div>
-            <div *ngIf="form.controls['content'].errors?.['minlength']" class="err">
-              Le message doit faire 3 caractères au minimum
-            </div>
-          </div>
-            <button class="replyPost" id="btn-answer" (click)="createPost()">Répondre</button>
-        </form>
-    </div>
+      <div *ngIf="form.status === 'INVALID'">
+        <div *ngIf="form.controls['content'].errors?.['required']" class="err">
+          Le message ne peut pas être vide
+        </div>
+        <div *ngIf="form.controls['content'].errors?.['minlength']" class="err">
+          Le message doit faire 3 caractères au minimum
+        </div>
+      </div>
+      <button class="replyPost" id="btn-answer" (click)="createPost()">Répondre</button>
+    </form>
+  </div>
 </div>

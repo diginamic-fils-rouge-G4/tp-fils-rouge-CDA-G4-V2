@@ -110,7 +110,10 @@ export class HeaderComponent implements OnInit ,AfterViewInit{
 
     this.connected = this.jwtTokenService.getToken() !== null
     this.logoutVisible = this.connected;
-
+    const token = this.jwtTokenService.getToken()
+    if(token != null) {
+      this.isAdmin = this.jwtTokenService.isAdmin(token)
+    }
   }
 
   ngAfterViewInit(){
