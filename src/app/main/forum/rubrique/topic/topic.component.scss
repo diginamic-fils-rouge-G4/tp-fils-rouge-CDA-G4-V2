@@ -158,6 +158,10 @@ a {
 .forumItemText{
     padding: 2%;
     width: 10em;
+  h3 {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 .forumHeaderIcon{

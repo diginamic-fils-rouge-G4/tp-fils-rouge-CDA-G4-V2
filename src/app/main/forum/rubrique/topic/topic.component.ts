@@ -2,10 +2,12 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TopicService} from "../../../../_shared/services/topic.service";
 import {ActivatedRoute} from "@angular/router";
-import {TopicDTO} from "../../../../_shared/dto/forum-dto";
+import {TopicExportDTO} from "../../../../_shared/dto/forum-dto";
 import {Topic} from "../../../../_shared/entities/Topic";
 import {RubriqueService} from "../../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../../_shared/entities/Rubrique";
+import {JwtTokenService} from "../../../../_shared/services/jwt-token.service";
+import {Utilisateur} from "../../../../_shared/entities/Utilisateur";
 
 @Component({
   selector: 'app-topic',
@@ -16,8 +18,10 @@ export class TopicComponent implements OnInit {
   addClass: boolean = false
   selectedId: any;
   rubriqueId: any
-  topic: TopicDTO = {}
-  rubrique: Rubrique = new Rubrique(0, "")
+  topic: TopicExportDTO = {}
+  rubrique: Rubrique = new Rubrique(0, "", 0)
+  user: string = ""
+  isVisitor: boolean = true
 
   topics: Topic[] = []
 
@@ -29,13 +33,15 @@ export class TopicComponent implements OnInit {
     private elementRef: ElementRef,
     private topicService: TopicService,
     private route: ActivatedRoute,
-    private rubriqueService: RubriqueService
+    private rubriqueService: RubriqueService,
+    private tokenService: JwtTokenService
   ) {
   }
 
   ngOnInit(): void {
     this.getAllTopics()
     this.getCurrentRubrique(this.rubriqueId)
+    this.isVisitor = this.tokenService.isVisitor()
     const icon: any = document.querySelector('.ellipse')
     const navRubrique: any = document.querySelector('.nav-rubrique')
     icon.addEventListener('click', () => {
@@ -45,65 +51,49 @@ export class TopicComponent implements OnInit {
     })
   }
 
-  ngAfterViewInit() {
-
-    this.elementRef.nativeElement.addEventListener('click', (e: Event) => this.closeVerticale(e))
-    this.elementRef.nativeElement.querySelector('.forumHeaderIcon').addEventListener('click', this.onClick.bind(this));
-    this.elementRef.nativeElement.querySelector('.valider-btn').addEventListener('click', this.onClick.bind(this));
-    this.elementRef.nativeElement.querySelector('.annuler-btn').addEventListener('click', this.onClick.bind(this));
-    this.elementRef.nativeElement.querySelector('.modal-overlay').addEventListener('click', this.onClick.bind(this));
-    this.elementRef.nativeElement.querySelector('.modal-container').addEventListener('click', this.onClick.bind(this));
-
-  }
-
-
   openVerticale(e: Event, id: number) {
-
-    console.log(id);
-
-
-    this.closeVerticale(e)
-
-    e.stopPropagation()
+    this.closeAllVerticaleButGivenId(id);
     this.selectedId = id
-    const navTopics: any = document.querySelectorAll("#top");
-    const icon: any = document.querySelectorAll("#icon");
-    const xicon: any = document.querySelectorAll("#Xicon");
+    const navTopics: any = document.getElementById("topic"+this.selectedId);
+    const icon: any = document.getElementById("icon"+this.selectedId);
+    const xicon: any = document.getElementById("Xicon"+this.selectedId);
 
-    xicon[id].classList.remove('d-none')
-    navTopics[id].classList.toggle('d-none')
-    icon[id].classList.toggle('fa-ellipsis-vertical')
-    icon[id].classList.toggle('d-none')
-
+    xicon.classList.remove('d-none')
+    navTopics.classList.toggle('d-none')
+    icon.classList.toggle('fa-ellipsis-vertical')
+    icon.classList.toggle('invisible')
   }
 
-  /**
-   *
-   * @param e event
-   * @param id
-   */
-  closeVerticale(e: Event) {
-    e.stopPropagation()
+  closeAllVerticaleButGivenId(id:number){
+    for (let index = 0; index < this.topics.length; index++) {
+      if (this.topics[index].id != id){
+        const navRubrique: any = document.getElementById("topic"+this.topics[index].id);
+        const icon: any = document.getElementById("icon"+this.topics[index].id);
+        const xicon: any = document.getElementById("Xicon"+this.topics[index].id);
 
-    const navTopics: any = document.querySelectorAll("#top");
-    const icons: any = document.querySelectorAll("#icon");
-    const xicons: any = document.querySelectorAll("#Xicon");
-
-
-    for (let index = 0; index < navTopics.length; index++) {
-      const navTopic = navTopics[index];
-      const icon = icons[index];
-      const xicon = xicons[index];
-
-      navTopic.classList.add('d-none')
-      icon.classList.add('fa-ellipsis-vertical')
-      icon.classList.remove('d-none')
-      xicon.classList.add('d-none')
+        xicon.classList.add('d-none')
+        navRubrique.classList.add('d-none')
+        navRubrique.classList.remove('nav-rubrique-visible')
+        icon.classList.add('fa-ellipsis-vertical')
+        icon.classList.remove('invisible')
+      }
     }
   }
+  closeVerticale(id:number) {
+    this.selectedId = id
+    const navTopics: any = document.getElementById("topic"+this.selectedId);
+    const icons: any = document.getElementById("icon"+this.selectedId);
+    const xicons: any = document.getElementById("Xicon"+this.selectedId);
 
-  onClick() {
-    this.addClass = !this.addClass;
+    navTopics.classList.add('d-none')
+    navTopics.classList.toggle('nav-rubrique-visible')
+    icons.classList.add('fa-ellipsis-vertical')
+    icons.classList.remove('d-none')
+    xicons.classList.add('d-none')
+  }
+
+  canUpdateTopic(user: Utilisateur): boolean {
+    return user.mail === this.tokenService.getUserMail();
   }
 
   getAllTopics() {
@@ -122,8 +112,8 @@ export class TopicComponent implements OnInit {
   createTopic() {
     if (this.form.valid) {
       this.topic.libelle = this.form.value.libelle
-      this.topic.rubrique = this.rubrique
-      // user
+      this.topic.rubrique = this.rubrique.id
+      this.topic.utilisateur = this.tokenService.getUserMail()
       this.topicService.create(this.topic).subscribe(() => {
         this.ngOnInit()
       })
@@ -136,7 +126,7 @@ export class TopicComponent implements OnInit {
     })
   }
 
-  updateTopic(topic: Topic) {
+  updateTopic(topic: TopicExportDTO) {
     this.topicService.updateOne(topic).subscribe(() => {
       this.ngOnInit()
     })

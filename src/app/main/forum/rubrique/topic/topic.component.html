@@ -1,83 +1,19 @@
-
-
 <div class="forum">
   <div class="forumHeader">
     <h2 class="forumHeaderText">Topics</h2>
-    <i class="fa-solid fa-plus forumHeaderIcon modal-btn"></i>
+    <i class="fa-solid fa-plus forumHeaderIcon modal-btn" *ngIf="!isVisitor"></i>
   </div>
   <div class="forumFilAriane">
     <p class="forumFilArianeText">Accueil > Forum > {{rubrique.libelle}}</p>
   </div>
   <div class="formUtility" *ngIf="topics != null">
-      <form class="rechercheTopic">
-          <input type="text" id="name" placeholder="topic ..">
-          <button type="submit">Rechercher</button>
-      </form>
+    <form class="rechercheTopic">
+      <input type="text" id="name" placeholder="topic ..">
+      <button type="submit">Rechercher</button>
+    </form>
 
-      <div class="container">
-        <ul class="page">
-            <li class="page__btn"><i class="fa-solid fa-angle-left"></i></li>
-            <li class="page__numbers active"> 1</li>
-            <li class="page__numbers">2</li>
-            <li class="page__numbers">3</li>
-            <li class="page__numbers">4</li>
-            <li class="page__numbers">5</li>
-            <li class="page__numbers">6</li>
-            <li class="page__dots">...</li>
-            <li class="page__numbers"> 10</li>
-            <li class="page__btn"><i class="fa-solid fa-angle-right"></i></li>
-          </ul>
-      </div>
-
-  </div>
-
-
-
-  <div class="forumBody">
-    <div *ngIf="topics == null">
-      <div class="forumBodyItem">
-        <h3>Il n'y a aucun topic pour le moment :(</h3>
-      </div>
-    </div>
-    <div *ngFor="let topic of topics">
-      <div class="forumBodyItem">
-        <div class="forumItemText">
-          <h3>{{ topic.libelle }}</h3>
-          <p>Started by: {{ topic.utilisateur.prenom }}</p>
-        </div>
-        <div class="replays" >
-          <span>Replies : </span>
-        </div>
-        <div class="forumItemInfoText">
-          <div class="replayinfo">
-<!--            <p>Last Replay by : {{ topic.lastReplayUser }}</p>-->
-<!--            <p>Last Reply : {{ topic.lastReplayDate }}</p>-->
-          </div>
-          <div class="forumItemIcon">
-            <i
-              (click)="openVerticale($event, topic.id)"
-              id="icon"
-              class="fa-solid fa-ellipsis-vertical ellipse"
-            ></i>
-            <i
-              (click)="closeVerticale($event)"
-              id="Xicon"
-              class="fa-solid fa-xmark d-none"
-            ></i>
-            <nav id="nav">
-              <ul id="top" class="nav-rubrique d-none">
-                  <li><a>Modifier Topic</a></li>
-                  <li><a (click)="deleteTopic(topic.id)">Supprimer Topic</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container" *ngIf="topics != null">
-    <ul class="page">
+    <div class="container">
+      <ul class="page">
         <li class="page__btn"><i class="fa-solid fa-angle-left"></i></li>
         <li class="page__numbers active"> 1</li>
         <li class="page__numbers">2</li>
@@ -89,6 +25,72 @@
         <li class="page__numbers"> 10</li>
         <li class="page__btn"><i class="fa-solid fa-angle-right"></i></li>
       </ul>
+    </div>
+
+  </div>
+
+
+  <div class="forumBody">
+    <div *ngIf="topics == null">
+      <div class="forumBodyItem">
+        <h3>Il n'y a aucun topic pour le moment :(</h3>
+      </div>
+    </div>
+    <div *ngFor="let topic of topics">
+      <div class="forumBodyItem">
+        <div class="forumItemText">
+          <h3 [routerLink]="topic.id.toString()">{{ topic.libelle }}</h3>
+          <p>Started by: {{ topic.utilisateur.prenom }}</p>
+        </div>
+        <div class="replays" *ngIf="topic.post == null">
+          <span>Réponse : 0</span>
+        </div>
+        <div class="replays" *ngIf="topic.post > 0">
+          <span>Réponses : {{topic.post}}</span>
+        </div>
+        <div class="forumItemInfoText" *ngIf="!isVisitor">
+          <div class="forumItemIcon">
+            <i
+              (click)="openVerticale($event, topic.id)"
+              [id]="'icon'+topic.id"
+              class="fa-solid fa-ellipsis-vertical ellipse"
+            ></i>
+            <nav id="nav">
+              <div class="d-none nav-rubrique " [id]="'topic'+topic.id">
+                <div>
+                  <ul id="top" class="nav-rubrique d-none" [id]="'topic'+topic.id">
+                    <li *ngIf="canUpdateTopic(topic.utilisateur)"><a>Modifier Topic</a></li>
+                    <li><a (click)="deleteTopic(topic.id)">Supprimer Topic</a></li>
+                  </ul>
+                </div>
+                <div class="xContainer">
+                  <i
+                    (click)="closeVerticale(topic.id)"
+                    [id]="'Xicon'+topic.id"
+                    class="fa-solid fa-xmark d-none "
+                  ></i>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="topics != null">
+    <ul class="page">
+      <li class="page__btn"><i class="fa-solid fa-angle-left"></i></li>
+      <li class="page__numbers active"> 1</li>
+      <li class="page__numbers">2</li>
+      <li class="page__numbers">3</li>
+      <li class="page__numbers">4</li>
+      <li class="page__numbers">5</li>
+      <li class="page__numbers">6</li>
+      <li class="page__dots">...</li>
+      <li class="page__numbers"> 10</li>
+      <li class="page__btn"><i class="fa-solid fa-angle-right"></i></li>
+    </ul>
   </div>
 
 </div>
@@ -100,11 +102,11 @@
       </div>
       <div [formGroup]="form">
         <input
-        type="text"
-        formControlName="libelle"
-        placeholder="Nom de Topic"
-        required
-        minlength="3"
+          type="text"
+          formControlName="libelle"
+          placeholder="Nom de Topic"
+          required
+          minlength="3"
         />
         <div *ngIf="form.status === 'INVALID'">
           <div *ngIf="form.controls['libelle'].errors?.['required']" class="err">

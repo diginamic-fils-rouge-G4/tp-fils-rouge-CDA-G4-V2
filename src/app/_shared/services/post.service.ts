@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {PostDTO, TopicDTO} from "../dto/forum-dto";
+import {PostDTO, TopicExportDTO} from "../dto/forum-dto";
 import {Observable, Subscription} from "rxjs";
 import {Post} from "../entities/Post";
 

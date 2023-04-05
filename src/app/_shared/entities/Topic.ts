@@ -5,16 +5,17 @@ export class Topic {
   private _id: number
   private _libelle: string
   private _rubrique: Rubrique
-  private _Utilisateur: Utilisateur
+  private _utilisateur: Utilisateur
+  private _post: number
 
 
-  constructor(id: number, libelle: string, rubrique: Rubrique, Utilisateur: Utilisateur) {
+  constructor(id: number, libelle: string, rubrique: Rubrique, Utilisateur: Utilisateur, post: number) {
     this._id = id;
     this._libelle = libelle;
     this._rubrique = rubrique;
-    this._Utilisateur = Utilisateur;
+    this._utilisateur = Utilisateur;
+    this._post = post;
   }
-
 
   get id(): number {
     return this._id;
@@ -41,10 +42,19 @@ export class Topic {
   }
 
   get utilisateur(): Utilisateur {
-    return this._Utilisateur;
+    return this._utilisateur;
   }
 
   set utilisateur(value: Utilisateur) {
-    this._Utilisateur = value;
+    this._utilisateur = value;
+  }
+
+
+  get post(): number {
+    return this._post;
+  }
+
+  set post(value: number) {
+    this._post = value;
   }
 }

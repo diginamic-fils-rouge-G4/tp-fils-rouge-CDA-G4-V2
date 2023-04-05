@@ -26,7 +26,7 @@ export class JwtTokenService {
 
   isAdmin(token: string): boolean {
     if(this.getToken() != null) {
-      const userToken: any = this.decodeToken(token)
+      const userToken: any = this.decodeToken(this.getToken() as string)
       if(userToken.roles === "ROLE_ADMIN") {
         return true
       }
