@@ -55,10 +55,11 @@
               [id]="'icon'+topic.id"
               class="fa-solid fa-ellipsis-vertical ellipse"
             ></i>
+
             <nav id="nav">
               <div class="d-none nav-rubrique " [id]="'topic'+topic.id">
                 <div>
-                  <ul id="top" class="nav-rubrique d-none" [id]="'topic'+topic.id">
+                  <ul>
                     <li *ngIf="canUpdateTopic(topic.utilisateur)"><a>Modifier Topic</a></li>
                     <li><a (click)="deleteTopic(topic.id)">Supprimer Topic</a></li>
                   </ul>
@@ -105,6 +106,38 @@
           type="text"
           formControlName="libelle"
           placeholder="Nom de Topic"
+          required
+          minlength="3"
+        />
+        <div *ngIf="form.status === 'INVALID'">
+          <div *ngIf="form.controls['libelle'].errors?.['required']" class="err">
+            Le libellé est requis
+          </div>
+          <div *ngIf="form.controls['libelle'].errors?.['minlength']" class="err">
+            Le libellé doit faire 3 caractères au minimum
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="annuler-btn" (click)="closeAddModalVisibility()">Annuler</button>
+        <button class="valider-btn" type="submit" (click)="createTopic()">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" [class.open-modal]="editModalVisibility">
+  <div class="modal-container">
+    <div>
+      <div>
+        <h2>Edit Topic</h2>
+      </div>
+      <div [formGroup]="form">
+        <input
+          type="text"
+          formControlName="libelle"
+          [placeholder]="modifiedTopicName"
           required
           minlength="3"
         />

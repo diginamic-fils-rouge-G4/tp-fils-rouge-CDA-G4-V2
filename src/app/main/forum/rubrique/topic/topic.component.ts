@@ -17,8 +17,11 @@ import {Utilisateur} from "../../../../_shared/entities/Utilisateur";
 export class TopicComponent implements OnInit {
 
   addModalVisibility: boolean = false
+  editModalVisibility: boolean = false
 
-  selectedId: any;
+  modifiedTopicId!:number;
+  modifiedTopicName!:string;
+
   rubriqueId: any
   topic: TopicExportDTO = {}
   rubrique: Rubrique = new Rubrique(0, "", 0)
@@ -42,6 +45,8 @@ export class TopicComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTopics()
+
+
     this.getCurrentRubrique(this.rubriqueId)
     this.isVisitor = this.tokenService.isVisitor()
     const icon: any = document.querySelector('.ellipse')
@@ -58,19 +63,34 @@ export class TopicComponent implements OnInit {
     this.addModalVisibility = true;
   }
 
-  closeEditModalVisibility() {
+  closeAddModalVisibility() {
     this.addModalVisibility = false;
+  }
+
+  openEditModalVisibility(id:number) {
+    this.editModalVisibility = true;
+
+    for (let index = 0; index < this.topics.length; index++) {
+      if (this.topics[index].id == id){
+        this.modifiedTopicId = this.topics[index].id ;
+        this.modifiedTopicName = this.topics[index].libelle;
+      }
+    }
+  }
+
+  closeEditModalVisibility() {
+    this.editModalVisibility = false;
   }
 
   openVerticale(e: Event, id: number) {
     this.closeAllVerticaleButGivenId(id);
-    this.selectedId = id
-    const navTopics: any = document.getElementById("topic"+this.selectedId);
-    const icon: any = document.getElementById("icon"+this.selectedId);
-    const xicon: any = document.getElementById("Xicon"+this.selectedId);
+    const navTopics: any = document.getElementById("topic"+id);
+    const icon: any = document.getElementById("icon"+id);
+    const xicon: any = document.getElementById("Xicon"+id);
 
     xicon.classList.remove('d-none')
     navTopics.classList.toggle('d-none')
+    navTopics.classList.toggle('nav-rubrique-visible')
     icon.classList.toggle('fa-ellipsis-vertical')
     icon.classList.toggle('invisible')
   }
@@ -91,10 +111,9 @@ export class TopicComponent implements OnInit {
     }
   }
   closeVerticale(id:number) {
-    this.selectedId = id
-    const navTopics: any = document.getElementById("topic"+this.selectedId);
-    const icons: any = document.getElementById("icon"+this.selectedId);
-    const xicons: any = document.getElementById("Xicon"+this.selectedId);
+    const navTopics: any = document.getElementById("topic"+id);
+    const icons: any = document.getElementById("icon"+id);
+    const xicons: any = document.getElementById("Xicon"+id);
 
     navTopics.classList.add('d-none')
     navTopics.classList.toggle('nav-rubrique-visible')
@@ -104,6 +123,7 @@ export class TopicComponent implements OnInit {
   }
 
   canUpdateTopic(user: Utilisateur): boolean {
+    console.log(user)
     return user.mail === this.tokenService.getUserMail();
   }
 
