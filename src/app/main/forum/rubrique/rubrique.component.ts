@@ -13,14 +13,15 @@ import {JwtTokenService} from "../../../_shared/services/jwt-token.service";
 })
 export class RubriqueComponent implements OnInit {
 
+  selectedId: any;
 
   rubriques: Rubrique[] =[]
 
   addClass: boolean = false;
   editModal: boolean = false;
 
-  modifiedRebruqieId!:number;
-  modifiedRebruqieName!:string;
+  modifiedrebriqueId!:number;
+  modifiedrebriqueName!:string;
   isAdmin: boolean = false
 
   form = new FormGroup({
@@ -45,6 +46,7 @@ export class RubriqueComponent implements OnInit {
 
   openVerticale(e:Event,id:number){
     this.closeAllVerticaleButGivenId(id);
+    this.selectedId = id
     const navRubrique: any = document.getElementById("rub"+id);
     const icon: any = document.getElementById("icon"+id);
     const xicon: any = document.getElementById("Xicon"+id);
@@ -74,6 +76,10 @@ export class RubriqueComponent implements OnInit {
   }
 
   closeVerticale(id:number){
+
+    console.log(id);
+
+    this.selectedId = id
     const navRubrique: any = document.getElementById("rub"+id);
     const icon: any = document.getElementById("icon"+id);
     const xicon: any = document.getElementById("Xicon"+id);
@@ -95,13 +101,13 @@ export class RubriqueComponent implements OnInit {
 
 
 
-  openEditModalVisibility(id:number) {
+  openChangeEditModalVisibility(id:number) {
     this.editModal = true;
 
     for (let index = 0; index < this.rubriques.length; index++) {
       if (this.rubriques[index].id == id){
-        this.modifiedRebruqieId = this.rubriques[index].id ;
-        this.modifiedRebruqieName = this.rubriques[index].libelle;
+        this.modifiedrebriqueId = this.rubriques[index].id ;
+        this.modifiedrebriqueName = this.rubriques[index].libelle;
       }
     }
   }
@@ -135,7 +141,7 @@ export class RubriqueComponent implements OnInit {
 
       let rubriqueToEdit: RubriqueUpdateDTO = {}
 
-      rubriqueToEdit.id = this.modifiedRebruqieId
+      rubriqueToEdit.id = this.modifiedrebriqueId
       rubriqueToEdit.libelle = this.form.value.libelle
 
       this.rubriqueService.update(rubriqueToEdit).subscribe(() => {

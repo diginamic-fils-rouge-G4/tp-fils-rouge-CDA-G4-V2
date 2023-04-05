@@ -121,7 +121,7 @@ a {
     position: absolute;
     justify-content: flex-end;
     right: 5px;
-    bottom: -60px;
+    bottom: -100px;
     // margin: 0 2%;
     z-index: 2;
 
@@ -130,7 +130,7 @@ a {
     }
     .nav-rubrique {
         border-radius: 5px;
-        width: auto;
+        width: 140px;
         height: auto;
         padding: 1.5em 1em 1.5em 1em;
         background-color: $bcg-txt-color;
@@ -373,19 +373,4 @@ Modal
   font-size: 12px;
   font-weight: bold;
   color: lightcoral;
-}
-
-
-.nav-rubrique{
-  justify-content: space-between;
-  padding: 0.2em!important;
-}
-
-.nav-rubrique-visible {
-  display: flex;
-
-}
-.nav-rubrique .xContainer{
-  display: flex;
-  justify-content: end;
 }

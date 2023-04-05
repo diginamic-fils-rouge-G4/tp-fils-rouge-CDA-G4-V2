@@ -11,12 +11,6 @@ export interface RubriqueUpdateDTO {
   libelle?: string
 }
 
-export interface TopicUpdateDTO {
-  id?:number,
-  libelle?: string
-  rubrique?: number
-}
-
 export interface TopicExportDTO {
   libelle?: string
   rubrique?: number
