@@ -45,7 +45,6 @@ export class PostComponent implements OnInit {
     this.topicId = this.route.snapshot.params['id']
     this.postService.getAll(this.topicId).subscribe(res => {
       this.posts = res
-      console.log(this.posts)
     })
   }
 
@@ -53,6 +52,7 @@ export class PostComponent implements OnInit {
     this.topicService.getOne(id).subscribe(res => {
       this.topic = res
       this.rubrique = res.rubrique
+      console.log(this.topic)
     })
   }
 
@@ -66,6 +66,7 @@ export class PostComponent implements OnInit {
       this.post.topic = this.topicId
       this.post.utilisateur = this.tokenService.getUserMail()
       this.postService.create(this.post).subscribe(() => {
+        this.form.reset()
         this.ngOnInit()
       })
     }
