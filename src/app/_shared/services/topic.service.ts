@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
-import {TopicExportDTO} from "../dto/forum-dto";
+import {TopicExportDTO, TopicUpdateDTO} from "../dto/forum-dto";
 import {Topic} from "../entities/Topic";
 
 @Injectable({
@@ -22,7 +22,7 @@ export class TopicService {
     return this.http.get<Topic>(this.BASE_URL + "topics/one/" + id)
   }
 
-  updateOne(topic: TopicExportDTO): Observable<Topic> {
+  updateOne(topic: TopicUpdateDTO): Observable<Topic> {
     return this.http.patch<Topic>(this.BASE_URL + "topics", topic)
   }
 

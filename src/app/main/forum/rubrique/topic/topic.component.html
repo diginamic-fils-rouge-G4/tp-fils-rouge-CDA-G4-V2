@@ -60,7 +60,7 @@
               <div class="d-none nav-rubrique " [id]="'topic'+topic.id">
                 <div>
                   <ul>
-                    <li *ngIf="canUpdateTopic(topic.utilisateur)"><a>Modifier Topic</a></li>
+                    <li *ngIf="canUpdateTopic(topic.utilisateur)"><a (click)="openEditModalVisibility(topic.id)">Modifier Topic</a></li>
                     <li><a (click)="deleteTopic(topic.id)">Supprimer Topic</a></li>
                   </ul>
                 </div>
@@ -152,7 +152,7 @@
       </div>
       <div>
         <button class="annuler-btn" (click)="closeEditModalVisibility()">Annuler</button>
-        <button class="valider-btn" type="submit" (click)="createTopic()">Valider</button>
+        <button class="valider-btn" type="submit" (click)="updateTopic()">Valider</button>
       </div>
     </div>
   </div>

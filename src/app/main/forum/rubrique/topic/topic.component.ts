@@ -2,12 +2,12 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TopicService} from "../../../../_shared/services/topic.service";
 import {ActivatedRoute} from "@angular/router";
-import {TopicExportDTO} from "../../../../_shared/dto/forum-dto";
 import {Topic} from "../../../../_shared/entities/Topic";
 import {RubriqueService} from "../../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../../_shared/entities/Rubrique";
 import {JwtTokenService} from "../../../../_shared/services/jwt-token.service";
 import {Utilisateur} from "../../../../_shared/entities/Utilisateur";
+import {TopicExportDTO, TopicUpdateDTO} from "../../../../_shared/dto/forum-dto";
 
 @Component({
   selector: 'app-topic',
@@ -123,7 +123,6 @@ export class TopicComponent implements OnInit {
   }
 
   canUpdateTopic(user: Utilisateur): boolean {
-    console.log(user)
     return user.mail === this.tokenService.getUserMail();
   }
 
@@ -157,10 +156,23 @@ export class TopicComponent implements OnInit {
     })
   }
 
-  updateTopic(topic: TopicExportDTO) {
-    this.topicService.updateOne(topic).subscribe(() => {
-      this.ngOnInit()
-    })
+  updateTopic() {
+
+    if(this.form.valid) {
+      let topicToEdit: TopicUpdateDTO = {}
+
+      topicToEdit.id = this.modifiedTopicId
+      topicToEdit.libelle = this.form.value.libelle
+      topicToEdit.rubrique = this.rubrique.id
+
+      console.log(topicToEdit)
+
+      this.topicService.updateOne(topicToEdit).subscribe(() => {
+        this.ngOnInit()
+      })
+    }
+    this.closeEditModalVisibility()
+
   }
 
 }
