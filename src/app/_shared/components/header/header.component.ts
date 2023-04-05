@@ -8,6 +8,8 @@ import { JwtTokenService } from '../../services/jwt-token.service';
 import { AuthService } from '../../services/auth.service';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { AppError } from '../../interfaces/error';
+import { AppErrorImpl } from '../../class/AppErrorImpl';
 
 @Component({
   selector: 'app-header',
@@ -68,7 +70,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       Validators.minLength(12),
     ]),
   });
-
+  errorList: AppErrorImpl[] = [];
   url_auth_api: string = 'http://localhost:8080/';
 
   constructor(
@@ -134,18 +136,41 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         }),
         observe: 'response' as 'response',
       };
+
       this.http
         .post(this.url_auth_api + 'login', this.formDtoLogin, authHeaders)
-        .subscribe((response: any) => {
-          this.jwtTokenService.saveToken(response.body.token);
-          this.isAdmin = this.jwtTokenService.isAdmin(response.body.token);
-          this.isUser = this.jwtTokenService.isUser(response.body.token);
-          this.connected = true;
-          this.logoutVisible = this.connected;
-        });
+        .subscribe(
+          (response: any) => {
+            this.jwtTokenService.saveToken(response.body.token);
+            this.isAdmin = this.jwtTokenService.isAdmin(response.body.token);
+            this.isUser = this.jwtTokenService.isUser(response.body.token);
+            this.connected = true;
+            this.logoutVisible = this.connected;
+          },
+          (error: any) => {
+            this.errorManager(error);
+          }
+        );
     }
   }
+  errorManager(error: any): void {
+    
+    console.log(error.status);
+    
+    switch (error.status) {
+      case 401:
+        this.errorList.push(AppErrorImpl[401]);
+        break;
+      case 403:
+        this.errorList.push(AppErrorImpl[403]);
+        console.log(this.errorList);
+        
+        break;
 
+      default:
+        break;
+    }
+  }
   onClickLogout(): void {
     this.connected = false;
     this.logoutVisible = this.connected;
@@ -181,10 +206,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           this.formDtoSignup,
           authHeaders
         )
-        .subscribe(() => {
-          this.loginVisible = true;
-          this.SignupVisible = false;
-        });
+        .subscribe(
+          () => {
+            this.loginVisible = true;
+            this.SignupVisible = false;
+          },
+          (error: any) => {
+            console.log(error.status);
+            
+            this.errorManager(error);
+          }
+        );
     }
   }
 
@@ -213,5 +245,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   switchLoginSignup() {
     this.onClickLogin();
     this.onClickSignup();
+  }
+
+  findError(statusCode: number){
+    return this.errorList.find((appErrorImpl) => {
+      return appErrorImpl.statusCode == statusCode;
+    });
   }
 }

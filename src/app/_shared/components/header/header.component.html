@@ -59,6 +59,9 @@
                 </div>
               </div>
               <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
+                <div  class="err" *ngIf="findError(401)">
+                  L'<strong>Email</strong>  ou le <strong>mot de passe</strong> ne sont pas correctement renseignés,<br>ou le compte n'existe pas 
+                </div>
                 <div>
                   <input type="mail" formControlName="mail" placeholder="Adresse mail" />
                   <div *ngIf="formLogin.status === 'INVALID' && this.formSubmittedLogin === true">
@@ -175,7 +178,9 @@
                   </div>
                 </div>
                 <div class="formcouple">
+                  
                   <div class="forminput">
+                    
                     <input type="mail" formControlName="mail" name="mail"
                       placeholder="Votre Adresse mail" />
                     <div *ngIf="formsignup.status === 'INVALID' && this.formSubmittedSignup === true">
@@ -185,8 +190,13 @@
                       <div *ngIf="formsignup.controls['mail'].invalid" class="err">
                         L'adresse mail doit être valide
                       </div>
+                      
+                    </div>
+                    <div  *ngIf="findError(403)" class="err">
+                      L'adresse mail est déjà utilisée
                     </div>
                   </div>
+                  
                 </div>
 
                 <div class="formcouple">
