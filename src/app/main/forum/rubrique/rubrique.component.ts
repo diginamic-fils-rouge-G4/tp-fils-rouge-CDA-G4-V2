@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {RubriqueService} from "../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../_shared/entities/Rubrique";
 import {RubriqueDTO, RubriqueUpdateDTO} from "../../../_shared/dto/forum-dto";
+import {JwtTokenService} from "../../../_shared/services/jwt-token.service";
 
 @Component({
   selector: 'app-rubrique',
@@ -21,6 +22,7 @@ export class RubriqueComponent implements OnInit {
 
   modifiedrebriqueId!:number;
   modifiedrebriqueName!:string;
+  isAdmin: boolean = false
 
   form = new FormGroup({
     libelle: new FormControl('',Validators.minLength(2))
@@ -30,18 +32,17 @@ export class RubriqueComponent implements OnInit {
 
   constructor(
     private elementRef: ElementRef,
-    private rubriqueService: RubriqueService
+    private rubriqueService: RubriqueService,
+    private tokenService: JwtTokenService
     )
   { }
 
   ngOnInit(): void {
     this.getAllRubriques()
-
+    this.isAdmin = this.tokenService.isAdmin(this.tokenService.getToken() as string)
     this.addClass = false;
     this.editModal = false;
   };
-
-
 
   openVerticale(e:Event,id:number){
     this.closeAllVerticaleButGivenId(id);
@@ -88,20 +89,6 @@ export class RubriqueComponent implements OnInit {
     icon.classList.add('fa-ellipsis-vertical')
     icon.classList.remove('d-none')
     xicon.classList.add('d-none')
-
-
-
-
-    // for (let index = 0; index < navRubriques.length; index++) {
-    //   const navRubrique = navRubriques[index];
-    //   const icon = icons[index];
-    //   const xicon = xicons[index];
-    //
-    //   navRubrique.classList.add('d-none')
-    //   icon.classList.add('fa-ellipsis-vertical')
-    //   icon.classList.remove('d-none')
-    //   xicon.classList.add('d-none')
-    // }
   }
 
   onClickChangeAddModalVisibility() {
@@ -123,11 +110,6 @@ export class RubriqueComponent implements OnInit {
         this.modifiedrebriqueName = this.rubriques[index].libelle;
       }
     }
-
-    console.log(this.modifiedrebriqueId);
-    console.log(this.modifiedrebriqueName);
-
-
   }
 
 
@@ -135,6 +117,7 @@ export class RubriqueComponent implements OnInit {
   getAllRubriques() {
     this.rubriqueService.getAll().subscribe(res => {
       this.rubriques = res
+      console.log(this.rubriques)
     })
   }
   createRubrique() {
