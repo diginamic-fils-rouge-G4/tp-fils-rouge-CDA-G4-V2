@@ -148,7 +148,7 @@ export class ApiMapService {
     this.searchByCity(data.data.city.geo[0], data.data.city.geo[1])
     this.showFavoris = false
     this.currentData=data.data
-    console.log(this.currentData);
+    //console.log(this.currentData);
     this.graphics(this.currentData.forecast.daily)
 
   }
@@ -194,7 +194,7 @@ export class ApiMapService {
         this.map.addLayer(this.allMarkerMap)
       })
   }
-  // vvv A REMPLACER vvv
+  // TODO A REMPLACER vvv
   // showAllStations(lat1: number, lng1: number, lat2: number, lng2: number) {
   //   this.http.get(`https://api.waqi.info/map/bounds?latlng=${lat1},${lng1},${lat2},${lng2}&networks=all&token=${this.token_api}`)
   //     .subscribe((data: any): any => {
@@ -228,7 +228,7 @@ export class ApiMapService {
         this.afficheDonneVille(data)
       })
   }
-  // vvv A REMPLACER vvv
+  // TODO A REMPLACER
   // markerClick(marker: any) {
   //   return this.http.get(`https://api.waqi.info/feed/geo:${marker.latlng.lat};${marker.latlng.lng}/?token=${this.token_api}`)
   //     .subscribe((data: any) => {
@@ -266,6 +266,10 @@ export class ApiMapService {
         }
 
         if (push) {
+          // TODO ajouter la station dans la base de donnée si pas déjà présente
+          // TODO ajouter la ville dans la base de donnée si pas déjà présente
+          // TODO ajouter le lien entre la ville et la station si pas déjà présente
+          // TODO ajouter le lien entre l'utilisation et la station (pas de vérification nécessaire)
           this.favoritData.push(obj)
         }
       })
@@ -316,12 +320,15 @@ export class ApiMapService {
         }
 
         let nonDeleteFavorit: any = [];
-        // Vérification que la donnée n'est pas déjà en favori
+        // Boucle pour supprimer la donnée voulu
         for (let i = 0; i < this.favoritData.length; i++) {
+          // L'on vérifie si la donnée est différente de celle qui veut être supprimé
           if (this.favoritData[i].station != obj.station) {
+            // TODO Supprimer le lien entre l'utilisateur et la station, les autres lien et donnée non pas besoin d'être supprimé
             nonDeleteFavorit.push(this.favoritData[i])
           }
         }
+        // L'on réécrit les favoris de l'individu pour ne pas inclure celui supprimé
         this.favoritData = nonDeleteFavorit;
       })
   }
