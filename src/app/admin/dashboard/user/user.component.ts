@@ -3,6 +3,7 @@ import {DataTable} from "simple-datatables"
 import {Utilisateur} from "../../../_shared/entities/Utilisateur";
 import {UtilisteurService} from "../../../_shared/services/utilisteur.service";
 
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -36,8 +37,6 @@ export class UserComponent implements OnInit, AfterViewInit {
       window.location.reload()
     })
   }
-
-
 
   ngAfterViewInit() {
     this.getAllUtilisateurs();
