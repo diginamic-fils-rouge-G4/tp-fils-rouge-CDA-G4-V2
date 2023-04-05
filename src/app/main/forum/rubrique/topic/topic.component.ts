@@ -15,7 +15,9 @@ import {Utilisateur} from "../../../../_shared/entities/Utilisateur";
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements OnInit {
-  addClass: boolean = false
+
+  addModalVisibility: boolean = false
+
   selectedId: any;
   rubriqueId: any
   topic: TopicExportDTO = {}
@@ -49,6 +51,15 @@ export class TopicComponent implements OnInit {
       icon.classList.toggle('fa-ellipsis-vertical')
       icon.classList.toggle('fa-xmark')
     })
+    this.closeEditModalVisibility()
+  }
+
+  openAddModalVisibility() {
+    this.addModalVisibility = true;
+  }
+
+  closeEditModalVisibility() {
+    this.addModalVisibility = false;
   }
 
   openVerticale(e: Event, id: number) {
