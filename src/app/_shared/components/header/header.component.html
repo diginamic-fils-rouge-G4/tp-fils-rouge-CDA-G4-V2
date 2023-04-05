@@ -90,7 +90,7 @@
               </form>
               <div>
                 <p>
-                  <a [routerLink]="['/signup']">Vous n'avez pas de compte ?<br />
+                  <a [routerLink]="['/signup']" (click)="switchLoginSignup()">Vous n'avez pas de compte ?<br />
                     Créer en un ici</a>
                 </p>
               </div>
@@ -230,14 +230,12 @@
                 </div>
               </form>
               <p>
-                <a [routerLink]="['/login']">Vous avez déjà un compte ?<br />Se connecter</a>
+                <a [routerLink]="['/login']" (click)="switchLoginSignup()">Vous avez déjà un compte ?<br />Se connecter</a>
               </p>
             </div>
           </div>
         </div>
       </li>
-
-      <img class="img avatar" src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="" />
     </ul>
   </div>
 </header>

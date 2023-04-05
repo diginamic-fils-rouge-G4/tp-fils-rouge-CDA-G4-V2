@@ -1,5 +1,7 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import {DataTable} from "simple-datatables"
+import {Utilisateur} from "../../../_shared/entities/Utilisateur";
+import {UtilisteurService} from "../../../_shared/services/utilisteur.service";
 
 @Component({
   selector: 'app-user',
@@ -8,44 +10,39 @@ import {DataTable} from "simple-datatables"
 })
 export class UserComponent implements OnInit, AfterViewInit {
 
-  dummy ={
-    users :[
-      {nom:"lancelot",role:0},
-      {nom:"arthur",role:1},
-      {nom:"merlin",role:0},
-      {nom:"perseval",role:0},
-      {nom:"genievre",role:1},
-      {nom:"galadrielle",role:0},
-      {nom:"kev",role:0},
-      {nom:"tom",role:1},
-      {nom:"momo",role:0},
-      {nom:"gigi",role:0},
-      {nom:"titi",role:1},
-      {nom:"toto",role:0}
-    ],
-    rubrique :[
-      {nom:"general"},
-      {nom:"la santé publique"},
-      {nom:"biodiversité"},
-      {nom:"ecologie"},
-      {nom:"rechauffement"},
-      {nom:"protaction"},
-      {nom:"gaming"},
-      {nom:"avent"}
-    ]
-  }
+  utilisateurs: Utilisateur[] =[]
+
+
+
+
 
   constructor(
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private utilisateurService: UtilisteurService
   ) { }
-  
-  ngOnInit(): void {
-    
 
+  ngOnInit(): void {
   }
-  
+
+  getAllUtilisateurs() {
+    this.utilisateurService.getAll().subscribe(res => {
+      this.utilisateurs = res;
+      console.log(res)
+    })
+  }
+
+  deleteUtilisateur(id: number) {
+    this.utilisateurService.delete(id).subscribe(() => {
+      window.location.reload()
+    })
+  }
+
+
+
   ngAfterViewInit() {
-    const datatable = new DataTable("#table", {
+    this.getAllUtilisateurs();
+
+      const datatable = new DataTable("#table", {
       searchable: true,
       fixedHeight: false,
       labels: {
@@ -54,8 +51,11 @@ export class UserComponent implements OnInit, AfterViewInit {
         noRows: "Aucune donnée",
         info: "De {start} à {end} sur {rows} données",
       },
-       sortable: false
+      sortable: false,
+        data:this.utilisateurs,
     })
+
+
     const style = new Style(this.elRef)
     style.dataTableTopAndBottom('.dataTable-top')
     style.dataTableTopAndBottom('.dataTable-bottom')
@@ -68,7 +68,6 @@ export class UserComponent implements OnInit, AfterViewInit {
       style.pagination()
     })
   }
-
 }
 
 class Style {
@@ -93,15 +92,15 @@ class Style {
     test.style.listStyle = 'none'
     for (const key in list) {
       if (Object.prototype.hasOwnProperty.call(list, key)) {
-        list[key].style.margin = '0 5px'  
+        list[key].style.margin = '0 5px'
       }
     }
     for (const key in link) {
       if (Object.prototype.hasOwnProperty.call(link, key)) {
         link[key].style.textDecoration = 'none'
-        link[key].style.color = '#2D1E2F'      
+        link[key].style.color = '#2D1E2F'
       }
-    }    
+    }
   }
 
   input() {

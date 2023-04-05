@@ -53,9 +53,11 @@
     <!-- info ville -->
     <div class="printData" *ngIf="api_map.showFavoris == false">
       <div class="buttonAddFav">
-        <i class="fa-solid fa-arrow-left" (click)="api_map.showFavori(this.formMapSearch)"></i>
+        <i class="fa-solid fa-arrow-left"
+           (click)="api_map.showFavori(this.formMapSearch)"></i>
         <i class="fa-solid fa-heart"
-           (click)="api_map.showStationsByName(api_map.currentData.idx)">
+           (mousedown)="api_map.showStationsByName(api_map.currentData.idx)"
+           (mouseup)="api_map.showFavori(this.formMapSearch)">
           <span class="tooltiptext">Ajouter aux favoris</span>
         </i>
       </div>
