@@ -1,5 +1,5 @@
 // utilisé la logique du ngoninit pour rappel une fonction qui vue off
-import { Component, OnInit ,ElementRef ,AfterViewInit} from '@angular/core';
+import { Component, OnInit ,ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {RubriqueService} from "../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../_shared/entities/Rubrique";
@@ -43,7 +43,6 @@ export class RubriqueComponent implements OnInit {
     this.addClass = false;
     this.editModal = false;
   };
-
 
   openVerticale(e:Event,id:number){
     this.closeAllVerticaleButGivenId(id);
