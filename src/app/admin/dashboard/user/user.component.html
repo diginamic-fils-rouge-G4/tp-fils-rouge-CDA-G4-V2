@@ -1,43 +1,41 @@
 <div class="wrap">
   <table id="table">
     <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Rôle</th>
-        <th>Edition</th>
-      </tr>
+    <tr>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Rôle</th>
+      <th>Supprimer</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of dummy.users">
-        <td>{{ user.nom }}</td>
-        <td>
-          <div *ngIf="user.role === 0">
-            <select name="role" >
-                <option value="0" selected>utilisateur</option>
-                <option value="1">moderateur</option>
-                <option value="2">administrateur</option>
-            </select>
-          </div>
-          <div *ngIf="user.role === 1">
-            <select name="role" >
-                <option value="0">utilisateur</option>
-                <option value="1" selected>moderateur</option>
-                <option value="2">administrateur</option>
-            </select>
-          </div>
-          <div *ngIf="user.role === 2">
-            <select name="role" >
-                <option value="0">utilisateur</option>
-                <option value="1">moderateur</option>
-                <option value="2" selected>administrateur</option>
-            </select>
-          </div>
-        </td>
-        <td>
-          <button class="suppr">X</button>
-        </td>
-      </tr>
-  </tbody>
-  </table> 
+    <tr *ngFor="let user of utilisateurs">
+      <td>{{ user.nom }}</td>
+      <td>{{ user.prenom }}</td>
+      <td>
+        <div *ngIf="user.role === 'ROLE_USER'">User</div>
+        <div *ngIf="user.role === 'ROLE_ADMIN'">Admin</div>
+<!--        <div *ngIf="user.role === 'ROLE_USER'">-->
+<!--          <select name="role" >-->
+<!--            <option value="0" selected>utilisateur</option>-->
+<!--            <option value="1">moderateur</option>-->
+<!--            <option value="2">administrateur</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div *ngIf="user.role === 'ROLE_ADMIN' ">-->
+<!--          <select name="role" >-->
+<!--            <option value="0">utilisateur</option>-->
+<!--            <option value="1">moderateur</option>-->
+<!--            <option value="2" selected>administrateur</option>-->
+<!--          </select>-->
+<!--        </div>-->
+      </td>
+      <td>
+        <i class="fa-solid fa-xmark supp" (click)="deleteUtilisateur(user.id)"></i>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
 </div>
 

@@ -1,5 +1,5 @@
 // utilisé la logique du ngoninit pour rappel une fonction qui vue off
-import { Component, OnInit ,ElementRef ,AfterViewInit} from '@angular/core';
+import { Component, OnInit ,ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {RubriqueService} from "../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../_shared/entities/Rubrique";
@@ -39,22 +39,9 @@ export class RubriqueComponent implements OnInit {
 
     this.addClass = false;
     this.editModal = false;
-
   };
 
 
-
-  ngAfterViewInit() {
-
-    // this.elementRef.nativeElement.querySelector('.forumHeaderIcon').addEventListener('click', this.onClick.bind(this));
-    // if(this.form.valid) {
-    //   this.elementRef.nativeElement.querySelector('.valider-btn').addEventListener('click', this.onClick.bind(this));
-    // }
-    // this.elementRef.nativeElement.querySelector('.annuler-btn').addEventListener('click', this.onClick.bind(this));
-    // this.elementRef.nativeElement.querySelector('.modal-overlay').addEventListener('click', this.onClick.bind(this));
-    // this.elementRef.nativeElement.querySelector('.modal-container').addEventListener('click', this.onClick.bind(this));
-
-  }
 
   openVerticale(e:Event,id:number){
     this.closeAllVerticaleButGivenId(id);
