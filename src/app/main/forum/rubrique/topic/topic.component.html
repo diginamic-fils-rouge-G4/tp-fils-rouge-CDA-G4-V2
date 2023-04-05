@@ -45,8 +45,8 @@
         <div class="replays" *ngIf="topic.post == null">
           <span>Réponse : 0</span>
         </div>
-        <div class="replays" *ngIf="topic.post > 0">
-          <span>Réponses : {{topic.post}}</span>
+        <div class="replays" *ngIf="topic.post != null">
+          <span>Réponses : {{topic.post.length}}</span>
         </div>
         <div class="forumItemInfoText" *ngIf="!isVisitor">
           <div class="forumItemIcon">

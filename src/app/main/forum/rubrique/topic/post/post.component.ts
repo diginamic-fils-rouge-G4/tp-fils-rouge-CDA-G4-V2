@@ -8,6 +8,7 @@ import {PostService} from "../../../../../_shared/services/post.service";
 import {Post} from "../../../../../_shared/entities/Post";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {JwtTokenService} from "../../../../../_shared/services/jwt-token.service";
+import {Utilisateur} from "../../../../../_shared/entities/Utilisateur";
 
 @Component({
   selector: 'app-post',
@@ -21,6 +22,7 @@ export class PostComponent implements OnInit {
   posts: Post[] = []
   post: PostDTO = {}
   rubrique: RubriqueDTO = {}
+  isVisitor: boolean = true
   form = new FormGroup({
     content: new FormControl('', Validators.minLength(3))
   });
@@ -36,21 +38,26 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.getAllPosts()
     this.getCurrentTopic(this.topicId)
+    this.isVisitor = this.tokenService.isVisitor()
   }
 
   getAllPosts() {
     this.topicId = this.route.snapshot.params['id']
     this.postService.getAll(this.topicId).subscribe(res => {
       this.posts = res
+      console.log(this.posts)
     })
   }
 
   getCurrentTopic(id: number) {
     this.topicService.getOne(id).subscribe(res => {
-      console.log(res)
       this.topic = res
       this.rubrique = res.rubrique
     })
+  }
+
+  canUpdateTopic(user: Utilisateur): boolean {
+    return user.mail === this.tokenService.getUserMail();
   }
 
   createPost() {

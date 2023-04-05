@@ -7,11 +7,11 @@
     min-height: 500px;
     height: auto;
     margin: 3% 0;
-    
+
     #table{
         text-align: center;
         border-collapse: collapse;
-        
+
         th{
             padding: 10px;
             vertical-align: middle;
@@ -33,7 +33,7 @@
         }
 
         td{
-            // border: 1px solid $black-color;           
+            // border: 1px solid $black-color;
             vertical-align: middle;
             padding: 15px 50px;
 
@@ -44,10 +44,16 @@
     }
 }
 
+.supp{
+  font-size: 20px;
+  color: $red-color;
+}
+
+
 @media screen and (max-width: 540px){
-    #table {       
+    #table {
         td {
             padding: 15px 20px !important;
-        }    
+        }
     }
 }
