@@ -229,7 +229,11 @@
 .err {
     color: $red-color;
 }
-
-.graphics canvas{
+.graphics{
+    width: 80%;
+    margin: auto;
+}
+.graphics .graphic{
     margin: 5% 0;
+    display: none;
 }
