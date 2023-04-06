@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TopicService} from "../../../../_shared/services/topic.service";
 import {ActivatedRoute} from "@angular/router";
-import {TopicExportDTO} from "../../../../_shared/dto/forum-dto";
+import {TopicExportDTO, TopicUpdateDTO} from "../../../../_shared/dto/forum-dto";
 import {Topic} from "../../../../_shared/entities/Topic";
 import {RubriqueService} from "../../../../_shared/services/rubrique.service";
 import {Rubrique} from "../../../../_shared/entities/Rubrique";
@@ -15,8 +15,13 @@ import {Utilisateur} from "../../../../_shared/entities/Utilisateur";
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements OnInit {
-  addClass: boolean = false
-  selectedId: any;
+
+  addModalVisibility: boolean = false
+  editModalVisibility: boolean = false
+
+  modifiedTopicId!:number;
+  modifiedTopicName!:string;
+
   rubriqueId: any
   topic: TopicExportDTO = {}
   rubrique: Rubrique = new Rubrique(0, "", 0)
@@ -49,17 +54,42 @@ export class TopicComponent implements OnInit {
       icon.classList.toggle('fa-ellipsis-vertical')
       icon.classList.toggle('fa-xmark')
     })
+    this.closeEditModalVisibility()
+    this.closeAddModalVisibility()
+  }
+
+  openAddModalVisibility() {
+    this.addModalVisibility = true;
+  }
+
+  closeAddModalVisibility() {
+    this.addModalVisibility = false;
+  }
+
+  openEditModalVisibility(id:number) {
+    this.editModalVisibility = true;
+
+    for (let index = 0; index < this.topics.length; index++) {
+      if (this.topics[index].id == id){
+        this.modifiedTopicId = this.topics[index].id ;
+        this.modifiedTopicName = this.topics[index].libelle;
+      }
+    }
+  }
+
+  closeEditModalVisibility() {
+    this.editModalVisibility = false;
   }
 
   openVerticale(e: Event, id: number) {
     this.closeAllVerticaleButGivenId(id);
-    this.selectedId = id
-    const navTopics: any = document.getElementById("topic"+this.selectedId);
-    const icon: any = document.getElementById("icon"+this.selectedId);
-    const xicon: any = document.getElementById("Xicon"+this.selectedId);
+    const navTopics: any = document.getElementById("topic"+id);
+    const icon: any = document.getElementById("icon"+id);
+    const xicon: any = document.getElementById("Xicon"+id);
 
     xicon.classList.remove('d-none')
     navTopics.classList.toggle('d-none')
+    navTopics.classList.toggle('nav-rubrique-visible')
     icon.classList.toggle('fa-ellipsis-vertical')
     icon.classList.toggle('invisible')
   }
@@ -80,10 +110,9 @@ export class TopicComponent implements OnInit {
     }
   }
   closeVerticale(id:number) {
-    this.selectedId = id
-    const navTopics: any = document.getElementById("topic"+this.selectedId);
-    const icons: any = document.getElementById("icon"+this.selectedId);
-    const xicons: any = document.getElementById("Xicon"+this.selectedId);
+    const navTopics: any = document.getElementById("topic"+id);
+    const icons: any = document.getElementById("icon"+id);
+    const xicons: any = document.getElementById("Xicon"+id);
 
     navTopics.classList.add('d-none')
     navTopics.classList.toggle('nav-rubrique-visible')
@@ -126,10 +155,23 @@ export class TopicComponent implements OnInit {
     })
   }
 
-  updateTopic(topic: TopicExportDTO) {
-    this.topicService.updateOne(topic).subscribe(() => {
-      this.ngOnInit()
-    })
+  updateTopic() {
+
+    if(this.form.valid) {
+      let topicToEdit: TopicUpdateDTO = {}
+
+      topicToEdit.id = this.modifiedTopicId
+      topicToEdit.libelle = this.form.value.libelle
+      topicToEdit.rubrique = this.rubrique.id
+
+      console.log(topicToEdit)
+
+      this.topicService.updateOne(topicToEdit).subscribe(() => {
+        this.ngOnInit()
+      })
+    }
+    this.closeEditModalVisibility()
+
   }
 
 }
