@@ -9,6 +9,33 @@ a {
     color: $black-color;
 }
 
+.formUtility {
+  display: block;
+
+  input {
+    border: 1px solid rgb(133, 133, 133);
+    border-radius: 5px;
+    height: 20px;
+    width: 200px;
+    padding-left: 10px;
+    margin-right: 15px;
+  }
+
+  button {
+    width: 150px;
+    background-color: rgb(16, 54, 179);
+    border: none;
+    border-radius: 5px;
+    height: 24px;
+    cursor: pointer;
+    color: white;
+    transition: .2s;
+
+    &:hover {
+      background-color: rgb(23, 71, 227);
+    }
+  }
+}
 .forum{
     display: flex;
     flex-direction: column;
