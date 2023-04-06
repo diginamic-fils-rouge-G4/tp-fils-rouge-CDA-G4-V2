@@ -1,130 +1,136 @@
 @import '../../_shared/assets/variable.scss';
 
 .formMap {
-    margin: 2% 0 0 2.3%;
+  margin: 2% 0 0 2.3%;
 
-    input {
-        margin-right: 1%;
-        border: 1px solid rgb(133, 133, 133);
-        border-radius: 5px;
-        height: 20px;
-        width: 200px;
-        padding-left: 10px;
+  input {
+    margin-right: 1%;
+    border: 1px solid rgb(133, 133, 133);
+    border-radius: 5px;
+    height: 20px;
+    width: 200px;
+    padding-left: 10px;
+  }
+
+  .radio {
+    display: flex;
+    margin-bottom: 10px;
+
+    input[type="radio"] {
+      width: 15px;
+      height: 15px;
     }
+  }
 
-    .radio {
-        display: flex;
-        margin-bottom: 10px;
-        input[type="radio"] {
-            width: 15px;
-            height: 15px;
-        }
+
+  button {
+    width: 100px;
+    background-color: rgb(16, 54, 179);
+    border: none;
+    border-radius: 5px;
+    height: 24px;
+    cursor: pointer;
+    color: white;
+    transition: .2s;
+
+    &:hover {
+      transform: translateY(-2px);
+      transition: .2s;
+      box-shadow: 0px 5px 5px 0px rgba(58, 58, 58, 0.25);
     }
-
-
-
-    button {
-        width: 100px;
-        background-color: rgb(16, 54, 179);
-        border: none;
-        border-radius: 5px;
-        height: 24px;
-        cursor: pointer;
-        color: white;
-        transition: .2s;
-
-        &:hover {
-            transform: translateY(-2px);
-            transition: .2s;
-            box-shadow: 0px 5px 5px 0px rgba(58, 58, 58, 0.25);
-        }
-    }
+  }
 
 }
 
 .map-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
 
-    .favoris-frame {
-        border: solid;
-        width: 25%;
+  .favoris-frame {
+    border: solid;
+    width: 25%;
 
-        .favorisBlock{
-            height: 70vh;
-            overflow:auto;
-            *{
-                list-style: none;
-            }
-        }
+    .favorisBlock {
+      height: 70vh;
+      overflow: auto;
 
-        .favorisList{
-            padding: 0;
-            .FavEntete{
-                display: flex;
-                position: sticky;
-                top: 0;
-                justify-content: space-between;
-                padding: 0 5%;
-                user-select: none;
-                background: white;
-                margin: 0;
-                width: 90%;
-                .favListTitle{
-                    margin: 0;
-                    padding: 15px;
-                }
-                .deroule{
-                    transition: .2s;
-
-                    transform: rotate(-90deg);
-                    &.off{
-                        transform: rotate(0deg);
-
-                    }
-                    .arrowSvg{
-                        width: 1rem;
-                    }
-                }
-            }
-        }
-
+      * {
+        list-style: none;
+      }
     }
 
-    @media (max-width:750px) {
-        flex-direction: column;
-        width: 100%;
+    .favorisList {
+      padding: 0;
+
+      .FavEntete {
+        display: flex;
+        position: sticky;
+        top: 0;
+        justify-content: space-between;
+        padding: 0 5%;
+        user-select: none;
+        background: white;
+        margin: 0;
+        width: 90%;
+
+        .favListTitle {
+          margin: 0;
+          padding: 15px;
+        }
+
+        .deroule {
+          transition: .2s;
+
+          transform: rotate(-90deg);
+
+          &.off {
+            transform: rotate(0deg);
+
+          }
+
+          .arrowSvg {
+            width: 1rem;
+          }
+        }
+      }
     }
+
+  }
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 .printData {
-    height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .printTitle {
+    text-align: center;
+    justify-self: center;
+    align-items: center;
+    font-size: 18px;
+    height: 20%;
+    padding-bottom: 0;
     display: flex;
-    flex-direction: column;
+  }
 
-    .printTitle {
-        text-align: center;
-        justify-self: center;
-        align-items: center;
-        font-size: 18px;
-        height: 20%;
-        padding-bottom: 0;
-        display: flex;
+  .printValue {
+    height: 80%;
+
+    p {
+      margin-top: 1em;
+      padding: 0 0 0 1em;
     }
 
-    .printValue {
-        height: 80%;
-
-        p {
-            margin-top: 1em;
-            padding: 0 0 0 1em;
-        }
-
-        span {
-            text-decoration: underline;
-        }
+    span {
+      text-decoration: underline;
     }
+  }
 }
 
 .spanContenuFav {
@@ -171,63 +177,64 @@
 }
 
 .buttonAddFav {
-    display: flex;
-    justify-content: space-around;
-    height: 10%;
+  display: flex;
+  justify-content: space-around;
+  height: 10%;
 
-    .fa-arrow-left {
-      cursor: pointer;
-      align-self: center;
+  .fa-arrow-left {
+    cursor: pointer;
+    align-self: center;
+  }
+
+  .fa-heart {
+    cursor: pointer;
+    transition: .2s;
+    position: relative;
+    align-self: center;
+
+    .tooltiptext {
+      visibility: hidden;
+      width: 150px;
+      background-color: $black-color;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 2;
+      top: 61%;
+      left: 50%;
+      margin-top: -60px;
+      margin-left: -75px;
     }
+  }
 
-    .fa-heart {
-        cursor: pointer;
-        transition: .2s;
-        position: relative;
-        align-self: center;
+  .fa-heart:hover .tooltiptext {
+    visibility: visible;
+    transition: .3s;
+  }
 
-        .tooltiptext {
-          visibility: hidden;
-          width: 150px;
-          background-color: $black-color;
-          color: #fff;
-          text-align: center;
-          border-radius: 6px;
-          padding: 5px 0;
-          position: absolute;
-          z-index: 2;
-          top: 61%;
-          left: 50%;
-          margin-top: -60px;
-          margin-left: -75px;
-        }
-    }
-
-      .fa-heart:hover .tooltiptext {
-        visibility: visible;
-        transition: .3s;
-      }
-      .fa-heart:hover {
-          color: lightcoral;
-      }
+  .fa-heart:hover {
+    color: lightcoral;
+  }
 }
 
 .map-frame {
-    border: 1px solid black;
-    width: 65%;
+  border: 1px solid black;
+  width: 65%;
 }
 
 #map {
-    min-height: 600px;
-    height: 100%;
+  min-height: 600px;
+  height: 100%;
 }
 
 #favoris {
-    width: 40%;
+  width: 40%;
 }
 
 .err {
-    color: $red-color;
+  color: $red-color;
 }
 .graphics{
     width: 80%;

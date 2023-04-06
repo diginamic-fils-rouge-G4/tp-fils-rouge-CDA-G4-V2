@@ -1,50 +1,44 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { DataTable } from 'simple-datatables';
-import { Style } from 'src/app/_shared/class/Style';
+import { Component, OnInit } from '@angular/core';
+import {Rubrique} from "../../../_shared/entities/Rubrique";
+import {RubriqueService} from "../../../_shared/services/rubrique.service";
+import {JwtTokenService} from "../../../_shared/services/jwt-token.service";
 
 @Component({
   selector: 'app-rubrique',
   templateUrl: './rubrique.component.html',
   styleUrls: ['./rubrique.component.scss'],
 })
-export class RubriqueComponent implements OnInit, AfterViewInit {
-  rubrique = [
-    { nom: 'general' },
-    { nom: 'la santé publique' },
-    { nom: 'biodiversité' },
-    { nom: 'ecologie' },
-    { nom: 'rechauffement' },
-    { nom: 'protaction' },
-    { nom: 'gaming' },
-    { nom: 'avent' },
-  ];
+export class RubriqueComponent implements OnInit {
+  rubriques: Rubrique[] = []
+  nameIsSortedAsc: boolean = false
+  constructor(
+    private rubriqueService: RubriqueService,
+    private tokenService: JwtTokenService
+  ) {}
 
-  constructor(private elRef: ElementRef) {}
+  ngOnInit(): void {
+    this.getAllRubriques()
+  }
 
-  ngOnInit(): void {}
+  getAllRubriques() {
+    this.rubriqueService.getAll().subscribe(res => {
+      this.rubriques = res
+    })
+  }
 
-  ngAfterViewInit(): void {
-    const datatable = new DataTable('#table', {
-      searchable: true,
-      fixedHeight: false,
-      labels: {
-        placeholder: 'Recherchez',
-        perPage: '{select} données par page',
-        noRows: 'Aucune donnée',
-        info: 'De {start} à {end} sur {rows} données',
-      },
-      sortable: false,
-    });
-    const style = new Style(this.elRef);
-    style.dataTableTopAndBottom('.dataTable-top');
-    style.dataTableTopAndBottom('.dataTable-bottom');
-    style.pagination();
-    style.input();
-    datatable.on('datatable.search', () => {
-      style.pagination();
-    });
-    datatable.on('datatable.page', () => {
-      style.pagination();
-    });
+  deleteRubrique(id: number) {
+    this.rubriqueService.delete(id).subscribe(() => {
+      this.ngOnInit()
+    })
+  }
+
+  sortNameByAscOrder() {
+    this.nameIsSortedAsc = !this.nameIsSortedAsc
+    if(this.nameIsSortedAsc) {
+      this.rubriques.sort((a,b) => a.libelle.localeCompare(b.libelle))
+    } else {
+      this.rubriques.sort((a,b) => b.libelle.localeCompare(a.libelle))
+    }
+
   }
 }

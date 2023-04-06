@@ -7,11 +7,42 @@
     min-height: 500px;
     height: auto;
     margin: 3% 0;
+    flex-direction: column;
+  .form {
+    display: block;
+    input {
+      border: 1px solid rgb(133, 133, 133);
+      border-radius: 5px;
+      height: 20px;
+      width: 200px;
+      padding-left: 10px;
+    }
+    button {
+      width: 150px;
+      background-color: rgb(16, 54, 179);
+      border: none;
+      border-radius: 5px;
+      height: 24px;
+      cursor: pointer;
+      color: white;
+      transition: .2s;
 
+      &:hover {
+        background-color: rgb(23, 71, 227);
+      }
+    }
+    .err {
+      color: $red-color;
+    }
+  }
     #table{
         text-align: center;
         border-collapse: collapse;
-
+        .thead {
+          display: flex;
+          align-content: center;
+          justify-content: space-evenly;
+        }
         th{
             padding: 10px;
             vertical-align: middle;
@@ -47,6 +78,13 @@
 .supp{
   font-size: 20px;
   color: $red-color;
+  cursor: pointer;
+  transition: .5s;
+  &:hover {
+    color: rgb(236, 42, 42);
+    transition: .5s;
+    transform: rotate(1turn);
+  }
 }
 
 

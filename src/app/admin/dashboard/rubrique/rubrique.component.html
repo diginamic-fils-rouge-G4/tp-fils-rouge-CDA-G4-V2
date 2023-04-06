@@ -1,19 +1,23 @@
 <div class="wrap">
-    <table id="table">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of rubrique">
-            <td>{{ user.nom }}</td>
-            <td>
-              <i class="fa-solid fa-pen"></i>
-              <i class="fa-solid fa-xmark"></i>
-            </td>
-        </tr>
+  <table id="table">
+    <thead>
+    <tr>
+      <th>
+        <div class="thead">
+          Nom
+          <i class="fa-solid fa-sort-down" (click)="sortNameByAscOrder()"></i>
+        </div>
+      </th>
+      <th>Supprimer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rubrique of rubriques">
+      <td>{{ rubrique.libelle }}</td>
+      <td>
+        <i class="fa-solid fa-xmark" (click)="deleteRubrique(rubrique.id)"></i>
+      </td>
+    </tr>
     </tbody>
-    </table> 
-  </div>
+  </table>
+</div>
