@@ -59,9 +59,10 @@
       </div>
       <div [formGroup]="formEdit">
          <textarea
+           class="postEditModaltextarea"
            formControlName="content"
            cols="30"
-           rows="10"
+           rows="5"
            [value]="modifiedPostContent"
            required
            minlength="3"
