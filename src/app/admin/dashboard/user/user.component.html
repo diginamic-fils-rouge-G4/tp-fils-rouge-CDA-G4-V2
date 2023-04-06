@@ -2,9 +2,24 @@
   <table id="table">
     <thead>
     <tr>
-      <th>Nom</th>
-      <th>Prenom</th>
-      <th>Rôle</th>
+      <th>
+        <div class="thead">
+          Nom
+          <i class="fa-solid fa-sort-down" (click)="sortNameByAscOrder()"></i>
+        </div>
+      </th>
+      <th>
+        <div class="thead">
+          Prénom
+          <i class="fa-solid fa-sort-down" (click)="sortFirstNameByAscOrder()"></i>
+        </div>
+      </th>
+      <th>
+        <div class="thead">
+          Rôle
+          <i class="fa-solid fa-sort-down" (click)="sortRoleByAscOrder()"></i>
+        </div>
+      </th>
       <th>Supprimer</th>
     </tr>
     </thead>
@@ -15,20 +30,6 @@
       <td>
         <div *ngIf="user.role === 'ROLE_USER'">User</div>
         <div *ngIf="user.role === 'ROLE_ADMIN'">Admin</div>
-<!--        <div *ngIf="user.role === 'ROLE_USER'">-->
-<!--          <select name="role" >-->
-<!--            <option value="0" selected>utilisateur</option>-->
-<!--            <option value="1">moderateur</option>-->
-<!--            <option value="2">administrateur</option>-->
-<!--          </select>-->
-<!--        </div>-->
-<!--        <div *ngIf="user.role === 'ROLE_ADMIN' ">-->
-<!--          <select name="role" >-->
-<!--            <option value="0">utilisateur</option>-->
-<!--            <option value="1">moderateur</option>-->
-<!--            <option value="2" selected>administrateur</option>-->
-<!--          </select>-->
-<!--        </div>-->
       </td>
       <td>
         <i class="fa-solid fa-xmark supp" (click)="deleteUtilisateur(user.id)"></i>
