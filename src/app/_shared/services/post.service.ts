@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {PostDTO, TopicExportDTO} from "../dto/forum-dto";
+import {PostDTO, PostUpdateDTO, TopicExportDTO} from "../dto/forum-dto";
 import {Observable, Subscription} from "rxjs";
 import {Post} from "../entities/Post";
 
@@ -20,7 +20,7 @@ export class PostService {
     return this.http.delete<Post>(this.BASE_URL + "posts/" + id)
   }
 
-  updateOne(post: PostDTO): Observable<Post> {
+  updateOne(post: PostUpdateDTO): Observable<Post> {
     return this.http.patch<Post>(this.BASE_URL + "posts", post)
   }
 }
