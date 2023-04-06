@@ -131,3 +131,78 @@ a {
   font-weight: bold;
   color: lightcoral;
 }
+
+/*
+===============
+Modal
+===============
+*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  z-index: -10;
+}
+/* OPEN/CLOSE MODAL */
+.open-modal {
+  visibility: visible;
+  z-index: 10;
+}
+.modal-container {
+
+  background: $rubrique-bcg-color;
+  width: 90vw;
+  height: 30vh;
+  max-width: 1000px;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+
+  input {
+    margin-bottom: 3%;
+    padding-left: 1%;
+    border: 1px solid rgb(133, 133, 133);
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+  }
+}
+.valider-btn{
+  width: 100px;
+  height: 25px;
+  background: $green-color;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: .5s;
+}
+.valider-btn:hover {
+  background: rgb(26, 197, 20);
+}
+.annuler-btn {
+  width: 100px;
+  height: 25px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: .5s;
+}
+.annuler-btn:hover {
+  background: rgb(37, 37, 37);
+}
+

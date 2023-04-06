@@ -38,3 +38,8 @@ export interface PostDTO {
   updatedDate?: Date
 }
 
+export interface PostUpdateDTO {
+  id?: number,
+  content?: string
+}
+

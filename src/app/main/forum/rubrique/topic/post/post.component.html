@@ -13,7 +13,7 @@
           <span>{{post.utilisateur.prenom}}: Posté le {{post.createdDate | date:"dd/MM/YYYY"}} à {{post.createdDate | date: "HH:mm"}}</span>
         </div>
         <div class="iconsSelfPost" *ngIf="!isVisitor && canUpdateTopic(post.utilisateur)">
-          <i class="fa-solid fa-pen"></i>
+          <i class="fa-solid fa-pen" (click)="openEditModal(post.id)"></i>
           <i class="fa-solid fa-xmark" (click)="deletePost(post.id)"></i>
         </div>
         <div class="iconsPost" *ngIf="!isVisitor && !canUpdateTopic(post.utilisateur)">
@@ -44,5 +44,41 @@
       </div>
       <button class="replyPost" id="btn-answer" (click)="createPost()">Répondre</button>
     </form>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal-overlay" [class.open-modal]="editModalVisibility">
+  <div class="modal-container">
+    <div>
+      <div>
+        <h2>Edit post</h2>
+      </div>
+      <div [formGroup]="formEdit">
+         <textarea
+           formControlName="content"
+           cols="30"
+           rows="10"
+           [value]="modifiedPostContent"
+           required
+           minlength="3"
+         ></textarea>
+        <div *ngIf="formEdit.status === 'INVALID'">
+          <div *ngIf="formEdit.controls['content'].errors?.['required']" class="err">
+            Le libellé est requis
+          </div>
+          <div *ngIf="formEdit.controls['content'].errors?.['minlength']" class="err">
+            Le libellé doit faire 3 caractères au minimum
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="annuler-btn" (click)="closeEditModal()">Annuler</button>
+        <button class="valider-btn" type="submit" (click)="updatePost()">Valider</button>
+      </div>
+    </div>
   </div>
 </div>
