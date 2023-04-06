@@ -77,9 +77,6 @@ export class RubriqueComponent implements OnInit {
   }
 
   closeVerticale(id:number){
-
-    console.log(id);
-
     this.selectedId = id
     const navRubrique: any = document.getElementById("rub"+id);
     const icon: any = document.getElementById("icon"+id);
@@ -116,7 +113,6 @@ export class RubriqueComponent implements OnInit {
   getAllRubriques() {
     this.rubriqueService.getAll().subscribe(res => {
       this.rubriques = res
-      console.log(this.rubriques)
     })
   }
   createRubrique() {

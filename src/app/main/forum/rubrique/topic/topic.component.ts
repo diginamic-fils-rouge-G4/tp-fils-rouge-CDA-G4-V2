@@ -54,7 +54,7 @@ export class TopicComponent implements OnInit {
   ngAfterViewChecked(){
     const navRubrique: any = document.querySelector('.nav-rubrique')
     const icon: any = document.querySelector('.ellipse')
-    
+
     if (icon&&this.rubrique) {
       icon.addEventListener('click', () => {
         navRubrique.classList.toggle('d-none')
@@ -168,8 +168,6 @@ export class TopicComponent implements OnInit {
       topicToEdit.id = this.modifiedTopicId
       topicToEdit.libelle = this.form.value.libelle
       topicToEdit.rubrique = this.rubrique.id
-
-      console.log(topicToEdit)
 
       this.topicService.updateOne(topicToEdit).subscribe(() => {
         this.ngOnInit()

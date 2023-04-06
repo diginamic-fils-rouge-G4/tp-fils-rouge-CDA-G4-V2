@@ -83,9 +83,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.connected = this.jwtTokenService.getToken() !== null;
     this.logoutVisible = this.connected;
-    const token = this.jwtTokenService.getToken()
-    if(token != null) {
-      this.isAdmin = this.jwtTokenService.isAdmin(token)
+    const token = this.jwtTokenService.getToken();
+    if (token != null) {
+      this.isAdmin = this.jwtTokenService.isAdmin(token);
     }
   }
 
@@ -158,17 +158,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
   errorManager(error: any): void {
-    
-    console.log(error.status);
-    
     switch (error.status) {
       case 401:
         this.errorList.push(AppErrorImpl[401]);
         break;
       case 403:
         this.errorList.push(AppErrorImpl[403]);
-        console.log(this.errorList);
-        
         break;
 
       default:
@@ -216,8 +211,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
             this.SignupVisible = false;
           },
           (error: any) => {
-            console.log(error.status);
-            
             this.errorManager(error);
           }
         );
@@ -251,7 +244,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.onClickSignup();
   }
 
-  findError(statusCode: number){
+  findError(statusCode: number) {
     return this.errorList.find((appErrorImpl) => {
       return appErrorImpl.statusCode == statusCode;
     });

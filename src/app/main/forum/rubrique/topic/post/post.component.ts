@@ -79,7 +79,6 @@ export class PostComponent implements OnInit {
     this.topicId = this.route.snapshot.params['id']
     this.postService.getAll(this.topicId).subscribe(res => {
       this.posts = res
-      console.log(this.posts)
     })
   }
 
@@ -119,8 +118,6 @@ export class PostComponent implements OnInit {
 
       postToEdit.id = this.modifiedPostId
       postToEdit.content = this.formEdit.value.content
-
-      console.log(postToEdit)
 
       this.postService.updateOne(postToEdit).subscribe(() => {
         this.ngOnInit()

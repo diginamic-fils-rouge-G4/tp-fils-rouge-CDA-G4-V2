@@ -27,7 +27,7 @@ import {
   Legend,
   Title,
   Tooltip,
-  SubTitle
+  SubTitle,
 } from 'chart.js';
 
 Chart.register(
@@ -60,33 +60,20 @@ Chart.register(
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements AfterViewInit {
-  currentData:any
+  currentData: any;
   constructor(public api_map: ApiMapService, private elRef: ElementRef) {}
 
-  testCurentData:any
-
-  formSubmitted: boolean = false
-  sousList: boolean = true
-  listID: number = 0
-  ngOnInit():void{
-
-
-  }
+  formSubmitted: boolean = false;
+  sousList: boolean = true;
+  listID: number = 0;
+  ngOnInit(): void {}
 
   formMapSearch = new FormGroup({
-    name: new FormControl('',
-      [
-        Validators.required,
-        Validators.minLength(2)
-      ]
-    ),
-    radio: new FormControl('',
-    [
-      Validators.required
-    ])
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    radio: new FormControl('', [Validators.required]),
   });
 
   httpOptions = {
@@ -97,12 +84,11 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.api_map.initMap();
-    this.api_map.showStationsVisible()
-    this.api_map.mapMoveEnd()
-    this.api_map.testApi("47.2831", "-1.78308")
+    this.api_map.showStationsVisible();
+    this.api_map.mapMoveEnd();
   }
 
   onSubmit() {
-    this.api_map.onSubmit(this.formMapSearch)
+    this.api_map.onSubmit(this.formMapSearch);
   }
 }
