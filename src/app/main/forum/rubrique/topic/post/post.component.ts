@@ -45,6 +45,7 @@ export class PostComponent implements OnInit {
     this.topicId = this.route.snapshot.params['id']
     this.postService.getAll(this.topicId).subscribe(res => {
       this.posts = res
+      console.log(this.posts)
     })
   }
 
@@ -52,7 +53,6 @@ export class PostComponent implements OnInit {
     this.topicService.getOne(id).subscribe(res => {
       this.topic = res
       this.rubrique = res.rubrique
-      console.log(this.topic)
     })
   }
 
