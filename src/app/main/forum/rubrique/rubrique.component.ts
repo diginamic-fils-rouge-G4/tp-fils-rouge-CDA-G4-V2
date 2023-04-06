@@ -20,8 +20,9 @@ export class RubriqueComponent implements OnInit {
   addClass: boolean = false;
   editModal: boolean = false;
 
-  modifiedrebriqueId!:number;
-  modifiedrebriqueName!:string;
+  modifiedRebruqieId!:number;
+  modifiedRebruqieName!:string;
+
   isAdmin: boolean = false
 
   form = new FormGroup({
@@ -99,15 +100,13 @@ export class RubriqueComponent implements OnInit {
     this.editModal = false;
   }
 
-
-
-  openChangeEditModalVisibility(id:number) {
+  openEditModalVisibility(id:number) {
     this.editModal = true;
 
     for (let index = 0; index < this.rubriques.length; index++) {
       if (this.rubriques[index].id == id){
-        this.modifiedrebriqueId = this.rubriques[index].id ;
-        this.modifiedrebriqueName = this.rubriques[index].libelle;
+        this.modifiedRebruqieId = this.rubriques[index].id ;
+        this.modifiedRebruqieName = this.rubriques[index].libelle;
       }
     }
   }
@@ -141,7 +140,7 @@ export class RubriqueComponent implements OnInit {
 
       let rubriqueToEdit: RubriqueUpdateDTO = {}
 
-      rubriqueToEdit.id = this.modifiedrebriqueId
+      rubriqueToEdit.id = this.modifiedRebruqieId
       rubriqueToEdit.libelle = this.form.value.libelle
 
       this.rubriqueService.update(rubriqueToEdit).subscribe(() => {

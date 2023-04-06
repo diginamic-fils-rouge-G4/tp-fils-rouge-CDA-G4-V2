@@ -27,7 +27,7 @@
             <div class="d-none nav-rubrique " [id]="'rub'+rubrique.id">
               <div>
                 <ul >
-                  <li ><a class="editRubriqueButton" (click)="openChangeEditModalVisibility(rubrique.id)" >Modifier la rubrique</a></li>
+                  <li ><a class="editRubriqueButton" (click)="openEditModalVisibility(rubrique.id)" >Modifier la rubrique</a></li>
                   <li><a (click)="deleteRubrique(rubrique.id)">Supprimer la rubrique</a></li>
                 </ul>
               </div>
@@ -90,7 +90,7 @@
         [formGroup]="form"
       >
         <input
-          [placeholder]="modifiedrebriqueName"
+          [placeholder]="modifiedRebruqieName"
           type="text"
           formControlName="libelle"
           required
@@ -107,7 +107,7 @@
       </form>
       <div>
         <button class="annuler-btn"  (click)="closeChangeEditModalVisibility()">Annuler</button>
-        <button class="valider-btn" [id]="modifiedrebriqueId" type="submit" (click)="updateRubrique()" >Valider</button>
+        <button class="valider-btn" type="submit" (click)="updateRubrique()" >Valider</button>
       </div>
     </div>
   </div>
