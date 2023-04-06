@@ -47,17 +47,22 @@ export class TopicComponent implements OnInit {
     this.getAllTopics()
     this.getCurrentRubrique(this.rubriqueId)
     this.isVisitor = this.tokenService.isVisitor()
-    const icon: any = document.querySelector('.ellipse')
-    const navRubrique: any = document.querySelector('.nav-rubrique')
-    icon.addEventListener('click', () => {
-      navRubrique.classList.toggle('d-none')
-      icon.classList.toggle('fa-ellipsis-vertical')
-      icon.classList.toggle('fa-xmark')
-    })
     this.closeEditModalVisibility()
     this.closeAddModalVisibility()
   }
 
+  ngAfterViewChecked(){
+    const navRubrique: any = document.querySelector('.nav-rubrique')
+    const icon: any = document.querySelector('.ellipse')
+    
+    if (icon&&this.rubrique) {
+      icon.addEventListener('click', () => {
+        navRubrique.classList.toggle('d-none')
+        icon.classList.toggle('fa-ellipsis-vertical')
+        icon.classList.toggle('fa-xmark')
+      })
+    }
+  }
   openAddModalVisibility() {
     this.addModalVisibility = true;
   }
