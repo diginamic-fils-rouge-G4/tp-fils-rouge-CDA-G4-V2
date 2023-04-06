@@ -406,6 +406,7 @@ export class ApiMapService {
       maxUV.push(arrUv[0][i].max)
     }
     for (let i = 0; i < arro3[0].length; i++) {
+      arrDate.push(arro3[0][i].day);
       avgO3.push(arro3[0][i].avg)
       minO3.push(arro3[0][i].min)
       maxO3.push(arro3[0][i].max)
@@ -420,7 +421,7 @@ export class ApiMapService {
       minPM10.push(arrPM10[0][i].min)
       maxPM10.push(arrPM10[0][i].max)
     }
-
+    console.log(arrDate)
     const dataAvg = {
       labels: arrDate,
       datasets: [{
@@ -494,6 +495,7 @@ export class ApiMapService {
     if(chartLineStatus != undefined) {
       chartLineStatus.destroy()
     }
+    console.log(dataAvg)
     new Chart(line, {
       type: 'line',
       data: dataAvg,
@@ -502,7 +504,7 @@ export class ApiMapService {
         scales: {
           y: {
             min: 0,
-            max: 50,
+            max: 70,
             ticks: {
               // forces step size to be 50 units
               stepSize: 5
@@ -526,7 +528,7 @@ export class ApiMapService {
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50,
+            max: 70,
             ticks: {
               // forces step size to be 50 units
               stepSize: 5
